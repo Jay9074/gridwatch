@@ -239,11 +239,14 @@ def risk_calculator():
             (age/70)*0.15 + ((10-maint)/10)*0.12 +
             ((10-veg)/10)*0.08 + (prior/10)*0.05
         ))
-        level, col, icon = (
-            ("HIGH",        "#e63946","🔴") if risk >= 0.70 else
-            ("MEDIUM-HIGH", "#f4a261","🟠") if risk >= 0.50 else
-            ("MEDIUM",      "#e9c46a","🟡") else
-            ("LOW",         "#2a9d8f","🟢")
+        if risk >= 0.70:
+            level, col, icon = "HIGH", "#e63946", "🔴"
+        elif risk >= 0.50:
+            level, col, icon = "MEDIUM-HIGH", "#f4a261", "🟠"
+        elif risk >= 0.30:
+            level, col, icon = "MEDIUM", "#e9c46a", "🟡"
+        else:
+            level, col, icon = "LOW", "#2a9d8f", "🟢"
         )
         st.markdown(f"""
         <div style='background:#0d1b2a;border:2px solid {col};border-radius:12px;
