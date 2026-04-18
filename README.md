@@ -86,7 +86,8 @@ gridwatch/
 ├── .gitignore
 └── README.md
 ```
-
+## 🌐 Live Dashboard
+**[https://gridwatch-dashboard.streamlit.app/](https://gridwatch-dashboard.streamlit.app/)**
 ---
 
 ## 🚀 Quick Start
