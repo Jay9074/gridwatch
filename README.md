@@ -4,7 +4,7 @@
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![arXiv](https://img.shields.io/badge/arXiv-Paper-red.svg)]()
-[![Streamlit](https://img.shields.io/badge/Dashboard-Live-brightgreen.svg)]()
+[![Streamlit](https://img.shields.io/badge/Dashboard-Live-brightgreen.svg)](https://gridwatch-dashboard.streamlit.app/)
 [![Status](https://img.shields.io/badge/Status-Active_Research-orange.svg)]()
 
 > **Public interest research project** — Using machine learning, deep learning, and generative AI to predict power grid outages across the Northeast United States. Power outages cost the US economy **$121–150 billion annually** (DOE, ORNL 2024). This project builds open-source tools to help predict, quantify, and reduce that impact.
