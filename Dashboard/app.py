@@ -247,7 +247,6 @@ def risk_calculator():
             level, col, icon = "MEDIUM", "#e9c46a", "🟡"
         else:
             level, col, icon = "LOW", "#2a9d8f", "🟢"
-        )
         st.markdown(f"""
         <div style='background:#0d1b2a;border:2px solid {col};border-radius:12px;
                     padding:24px;text-align:center;margin-top:12px;'>
