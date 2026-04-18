@@ -151,7 +151,7 @@ def risk_table(df):
         return m.get(val, "")
 
     st.dataframe(
-        disp.style.applymap(hl, subset=["Risk Level"]),
+        disp.style.map(hl, subset=["Risk Level"]),
         use_container_width=True, hide_index=True
     )
 
