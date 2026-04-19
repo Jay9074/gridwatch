@@ -114,6 +114,10 @@ streamlit run dashboard/app.py
 
 ## 📈 Key Findings (Updated as research progresses)
 
+**Dataset:** 787,794 EAGLE-I outage observations across 9 Northeast US 
+states (2020–2023) at 15-minute intervals. 25,296 county-days analyzed.
+Peak event: 85,305 customers without power simultaneously.
+
 - 🔴 **Maine, Vermont, and upstate New York** show highest per-capita outage risk
 - ❄️ **Winter storms** account for 58% of major outage events in Northeast US
 - 🏗️ **Infrastructure age > 40 years** increases average outage duration by 34%
