@@ -392,7 +392,7 @@ def trend_chart(trend_df):
         xaxis=dict(gridcolor=GRID_COLOR, showline=False,
                    tickfont=dict(color=AXIS_COLOR, size=10)),
         yaxis=dict(gridcolor=GRID_COLOR, showline=False,
-                   title="Events", titlefont=dict(size=11, color=AXIS_COLOR),
+                   title=dict(text="Events", font=dict(size=11, color=AXIS_COLOR)),
                    tickfont=dict(color=AXIS_COLOR, size=10))
     )
     st.plotly_chart(fig, use_container_width=True)
@@ -428,7 +428,8 @@ def seasonal_chart(seasonal_df):
         font=CHART_FONT,
         margin=dict(l=0,r=0,t=8,b=0),
         yaxis=dict(tickformat=".0%", gridcolor=GRID_COLOR,
-                   showline=False, tickfont=dict(color=AXIS_COLOR, size=10)),
+                   showline=False, tickfont=dict(color=AXIS_COLOR, size=10),
+                   title=dict(text="", font=dict(size=11, color=AXIS_COLOR))),
         xaxis=dict(gridcolor=GRID_COLOR, showline=False,
                    tickfont=dict(color="#374151", size=12))
     )
