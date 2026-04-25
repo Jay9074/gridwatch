@@ -330,7 +330,7 @@ def risk_map(state_df):
             "lat":False,"lon":False
         },
         color_discrete_map=RISK_COLORS,
-        mapbox_style="light",
+        mapbox_style="carto-positron",
         zoom=4.3, center={"lat":42.8,"lon":-73.5}
     )
     fig.update_layout(
