@@ -13,7 +13,6 @@ Data sources:
   - DQI:     DQI.csv (data quality index)
   - coverage_history.csv (state coverage rates)
 
-Author: Jaykumar Patel
 """
 
 import logging
@@ -35,7 +34,7 @@ RAW_DIR   = BASE_DIR / "data" / "raw"
 PROC_DIR  = BASE_DIR / "data" / "processed"
 PROC_DIR.mkdir(parents=True, exist_ok=True)
 
-# Northeast states to focus on
+# Northeast states 
 NORTHEAST_STATES = [
     "Maine", "New Hampshire", "Vermont", "Massachusetts",
     "Rhode Island", "Connecticut", "New York", "New Jersey", "Pennsylvania"
