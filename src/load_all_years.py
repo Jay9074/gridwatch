@@ -5,7 +5,6 @@ Loads EAGLE-I data for all available years.
 Memory safe - processes one year at a time.
 
 Run: python src/load_all_years.py
-Author: Jaykumar Patel
 """
 
 import pandas as pd
