@@ -433,6 +433,105 @@ def seasonal_chart(seasonal_df):
     st.plotly_chart(fig, use_container_width=True)
 
 
+# ── NOAA Weather Correlation ─────────────────────────────────────
+def noaa_correlation_chart():
+    st.markdown("#### NOAA weather events — storm distribution across Northeast US")
+
+    # Storm type distribution — real NOAA data
+    storm_types = [
+        "Thunderstorm Wind", "Flash Flood", "Winter Storm",
+        "High Wind", "Flood", "Heavy Snow",
+        "Tornado", "Extreme Cold", "Lightning", "Heavy Rain"
+    ]
+    counts = [14199, 3217, 2062, 1245, 1115, 858, 289, 266, 192, 162]
+    severity = [3.0, 4.0, 4.0, 3.0, 3.0, 3.0, 5.0, 4.0, 2.0, 2.0]
+
+    # Color by severity
+    sev_colors = {5:"#dc2626", 4:"#ea580c", 3:"#2563eb", 2:"#64748b"}
+    colors = [sev_colors.get(int(s), "#64748b") for s in severity]
+
+    col_l, col_r = st.columns([1.6, 1])
+
+    with col_l:
+        fig = go.Figure(go.Bar(
+            x=counts[::-1], y=storm_types[::-1],
+            orientation="h",
+            marker_color=colors[::-1],
+            marker_line_width=0,
+            text=[f"{c:,}" for c in counts[::-1]],
+            textposition="outside",
+            textfont=dict(size=10, color="#374151"),
+            hovertemplate="<b>%{y}</b><br>Events: %{x:,}<extra></extra>"
+        ))
+        fig.update_layout(
+            height=340,
+            paper_bgcolor=CHART_BG, plot_bgcolor=CHART_BG,
+            font=CHART_FONT, showlegend=False,
+            margin=dict(l=0, r=60, t=8, b=0),
+            xaxis=dict(gridcolor=GRID_COLOR, showline=False,
+                       tickfont=dict(color=AXIS_COLOR, size=10)),
+            yaxis=dict(showline=False,
+                       tickfont=dict(color="#374151", size=11))
+        )
+        st.plotly_chart(fig, use_container_width=True)
+
+    with col_r:
+        # Storm count by state
+        states_storms = [
+            "New York", "Maine", "Pennsylvania",
+            "Massachusetts", "New Jersey", "Vermont",
+            "New Hampshire", "Connecticut", "Rhode Island"
+        ]
+        avg_storms = [21.88, 14.04, 12.72, 6.92, 6.52, 6.32, 4.92, 2.44, 1.64]
+        state_colors_bar = ["#dc2626","#ea580c","#d97706",
+                            "#65a30d","#0891b2","#2563eb",
+                            "#7c3aed","#db2777","#64748b"]
+
+        fig2 = go.Figure(go.Bar(
+            x=avg_storms[::-1], y=states_storms[::-1],
+            orientation="h",
+            marker_color=state_colors_bar[::-1],
+            marker_line_width=0,
+            text=[f"{v:.1f}" for v in avg_storms[::-1]],
+            textposition="outside",
+            textfont=dict(size=10, color="#374151"),
+            hovertemplate="<b>%{y}</b><br>Avg storms/month: %{x:.1f}<extra></extra>"
+        ))
+        fig2.update_layout(
+            height=340,
+            paper_bgcolor=CHART_BG, plot_bgcolor=CHART_BG,
+            font=CHART_FONT, showlegend=False,
+            margin=dict(l=0, r=50, t=8, b=0),
+            xaxis=dict(gridcolor=GRID_COLOR, showline=False,
+                       tickfont=dict(color=AXIS_COLOR, size=10)),
+            yaxis=dict(showline=False,
+                       tickfont=dict(color="#374151", size=11)),
+            title=dict(text="Avg storm events per month by state",
+                       font=dict(size=11, color="#64748b"))
+        )
+        st.plotly_chart(fig2, use_container_width=True)
+
+    # Key stats row
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Total NOAA Events",   "23,605",  "Across 9 states 2019-2025")
+    c2.metric("Most Common",         "T-Storm Wind", "14,199 events")
+    c3.metric("Highest Severity",    "Tornado / Hurricane", "Severity score: 5/5")
+    c4.metric("Most Exposed State",  "New York",  "21.9 avg storms/month")
+
+    st.markdown("""
+    <div style='background:#fffbeb;border:1px solid #fde68a;border-radius:8px;
+                padding:12px 16px;margin-top:8px;font-size:0.8rem;color:#92400e;'>
+        <b>Research note:</b> NOAA storm features are used as predictive inputs
+        to the ML model. Storm count, severity scores, ice events, and wind events
+        collectively contribute 12.1% of model predictive power — confirming that
+        weather data meaningfully improves outage prediction beyond geographic and
+        temporal features alone. Thunderstorm Wind is the most frequent event type
+        (14,199 events), while Tornadoes and Hurricanes carry the highest severity
+        scores (5/5).
+    </div>
+    """, unsafe_allow_html=True)
+
+
 # ── Year over Year Trend ─────────────────────────────────────────
 def yearly_trend_chart():
     st.markdown("#### Year-over-year outage rate by state — 2014–2025")
@@ -794,6 +893,9 @@ def main():
     col_a,col_b = st.columns(2)
     with col_a: trend_chart(trend_df)
     with col_b: seasonal_chart(seasonal_df)
+
+    st.divider()
+    noaa_correlation_chart()
 
     st.divider()
     yearly_trend_chart()
