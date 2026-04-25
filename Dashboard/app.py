@@ -476,39 +476,21 @@ def model_chart(metrics):
 # ── Feature Importance Chart ─────────────────────────────────────
 def shap_chart():
     st.markdown("#### Model explainability — what drives outage predictions?")
+    st.markdown("""
+    <div style='font-size:0.82rem;color:#374151;line-height:1.8;margin-bottom:16px;'>
+        <b style='color:#0f172a;'>How to read this chart:</b>
+        Each bar shows how much that feature influences the outage prediction.
+        <span style='color:#dc2626;font-weight:500;'>Red</span> = most important,
+        <span style='color:#ea580c;font-weight:500;'>orange</span> = moderate,
+        <span style='color:#2563eb;font-weight:500;'>blue</span> = lower impact.
+        <b style='color:#0f172a;'>Key finding:</b> Prior outage history
+        dominates — counties with recent outages are far more likely to
+        experience future ones, suggesting infrastructure vulnerability
+        compounds over time.
+    </div>
+    """, unsafe_allow_html=True)
 
-    col_txt, col_chart = st.columns([1, 1.8])
-
-    with col_txt:
-        st.markdown("""
-        <div style='font-size:0.82rem;color:#374151;line-height:1.8;'>
-            <b style='color:#0f172a;'>How to read this chart:</b><br>
-            Each bar shows how much that feature
-            influences whether the model predicts
-            a major outage.<br><br>
-            <span style='color:#dc2626;font-weight:500;'>Red bars</span>
-            are the most important predictors.<br>
-            <span style='color:#2563eb;font-weight:500;'>Blue bars</span>
-            have lower but meaningful impact.<br><br>
-            <b style='color:#0f172a;'>Key finding:</b><br>
-            Prior outage history
-            (<code>county_rolling_3m</code>,
-            <code>county_prior_month_outages</code>)
-            are the strongest predictors — counties
-            that experienced outages recently are
-            significantly more likely to experience
-            them again. This suggests infrastructure
-            vulnerability compounds over time.<br><br>
-            <b style='color:#0f172a;'>Model:</b>
-            Random Forest<br>
-            <b style='color:#0f172a;'>Data:</b>
-            EAGLE-I + NOAA 2014–2025<br>
-            <b style='color:#0f172a;'>Samples:</b>
-            89,945 county-days
-        </div>
-        """, unsafe_allow_html=True)
-
-    with col_chart:
+    if True:
         # Real feature importances from trained Random Forest model
         features = [
             "county_rolling_3m",
@@ -706,6 +688,9 @@ def main():
 
     st.divider()
     risk_calculator()
+
+    st.divider()
+    shap_chart()
 
     st.markdown(f"""
     <div style='margin-top:32px;padding-top:16px;border-top:1px solid #e2e8f0;
