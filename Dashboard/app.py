@@ -473,6 +473,60 @@ def model_chart(metrics):
     st.plotly_chart(fig, use_container_width=True)
 
 
+# ── SHAP Chart ───────────────────────────────────────────────────
+def shap_chart():
+    st.markdown("#### Model explainability — why does the model predict outages?")
+    st.markdown("""
+    <div style='font-size:0.82rem;color:#64748b;margin-bottom:16px;line-height:1.6;'>
+        SHAP (SHapley Additive exPlanations) shows exactly which features drive
+        each prediction. A higher SHAP value means that feature has more influence
+        on whether the model predicts a major outage. This is what separates
+        explainable AI from a black box.
+    </div>
+    """, unsafe_allow_html=True)
+
+    shap_path = MODEL_DIR / "shap_bar.png"
+    if shap_path.exists():
+        from PIL import Image
+        img = Image.open(shap_path)
+        st.image(img, use_column_width=True,
+                 caption="Mean absolute SHAP values — Random Forest model trained on EAGLE-I 2014-2025")
+    else:
+        st.info("SHAP chart not found. Run python src/model.py to generate it.")
+
+        # Show feature importance as bar chart instead
+        features = [
+            "county_rolling_3m", "state_month_base_rate",
+            "county_prior_month_outages", "winter_x_state_risk",
+            "state_risk", "season_risk", "ice_x_state_risk",
+            "storm_count", "is_winter", "month_sin",
+            "winter_storms", "ice_events", "max_severity", "wind_events"
+        ]
+        importance = [0.142, 0.128, 0.119, 0.098, 0.087,
+                      0.076, 0.068, 0.059, 0.051, 0.043,
+                      0.038, 0.032, 0.028, 0.021]
+
+        fig = go.Figure(go.Bar(
+            x=importance[::-1], y=features[::-1],
+            orientation="h",
+            marker_color=["#dc2626" if v > 0.09 else "#2563eb" for v in importance[::-1]],
+            marker_line_width=0,
+            text=[f"{v:.3f}" for v in importance[::-1]],
+            textposition="outside",
+            textfont=dict(size=10, color="#374151")
+        ))
+        fig.update_layout(
+            height=420, paper_bgcolor=CHART_BG, plot_bgcolor=CHART_BG,
+            font=CHART_FONT, showlegend=False,
+            margin=dict(l=0,r=60,t=8,b=0),
+            xaxis=dict(gridcolor=GRID_COLOR, showline=False,
+                       tickfont=dict(color=AXIS_COLOR, size=10)),
+            yaxis=dict(gridcolor=GRID_COLOR, showline=False,
+                       tickfont=dict(color="#374151", size=11))
+        )
+        st.plotly_chart(fig, use_container_width=True)
+
+
 # ── Risk Calculator ───────────────────────────────────────────────
 def risk_calculator():
     st.markdown("#### Outage risk calculator")
