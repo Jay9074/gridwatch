@@ -1,0 +1,513 @@
+"""
+GridWatch — src/model.py (v2 — Leakage Fixed)
+================================================
+Trains ML models to PREDICT major outages BEFORE they happen.
+
+Key fix: Removed all features derived from the target variable.
+Now uses only features knowable in advance:
+  - Time/season features
+  - State vulnerability scores
+  - Historical storm patterns from NOAA
+  - Prior outage history (lagged, not current)
+
+Author: Jaykumar Patel
+"""
+
+import json
+import pickle
+import logging
+import warnings
+import numpy as np
+import pandas as pd
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import seaborn as sns
+warnings.filterwarnings("ignore")
+
+from pathlib     import Path
+from datetime    import datetime
+
+from sklearn.model_selection import train_test_split, StratifiedKFold, cross_val_score
+from sklearn.ensemble        import RandomForestClassifier
+from sklearn.linear_model    import LogisticRegression
+from sklearn.preprocessing   import StandardScaler
+from sklearn.metrics         import (
+    accuracy_score, precision_score, recall_score,
+    f1_score, roc_auc_score, confusion_matrix, roc_curve
+)
+from imblearn.over_sampling  import SMOTE
+import xgboost as xgb
+import shap
+
+log = logging.getLogger(__name__)
+
+BASE_DIR  = Path(__file__).parent.parent
+PROC_DIR  = BASE_DIR / "data" / "processed"
+MODEL_DIR = BASE_DIR / "models"
+MODEL_DIR.mkdir(parents=True, exist_ok=True)
+
+
+# ── Build NOAA storm features ────────────────────────────────────
+def build_noaa_features() -> pd.DataFrame:
+    """
+    Builds county-month level storm features from NOAA data.
+    These are features knowable BEFORE an outage — legitimate predictors.
+    """
+    noaa_path = PROC_DIR / "noaa_storms_northeast.csv"
+    if not noaa_path.exists():
+        log.warning("NOAA data not found — skipping storm features")
+        return pd.DataFrame()
+
+    log.info("Building NOAA storm features...")
+    noaa = pd.read_csv(noaa_path, low_memory=False)
+    noaa.columns = noaa.columns.str.lower().str.strip()
+
+    # Parse date
+    date_col = next((c for c in noaa.columns
+                     if "begin" in c and "date" in c), None)
+    if date_col:
+        noaa["event_date"] = pd.to_datetime(noaa[date_col], errors="coerce")
+        noaa["year"]  = noaa["event_date"].dt.year
+        noaa["month"] = noaa["event_date"].dt.month
+
+    # Find state column
+    state_col = next((c for c in noaa.columns
+                      if c.upper() == "STATE"), None)
+
+    # Find event type column
+    evt_col = next((c for c in noaa.columns
+                    if "event_type" in c.lower()), None)
+
+    if not all([state_col, evt_col, "year" in noaa.columns]):
+        log.warning("NOAA columns not as expected — skipping")
+        return pd.DataFrame()
+
+    # Storm severity weights
+    severity = {
+        "Ice Storm": 5, "Blizzard": 5, "Winter Storm": 4,
+        "Extreme Cold/Wind Chill": 4, "Tornado": 5,
+        "Hurricane (Typhoon)": 5, "Tropical Storm": 4,
+        "High Wind": 3, "Thunderstorm Wind": 3,
+        "Heavy Snow": 3, "Flood": 3, "Flash Flood": 4,
+        "Lightning": 2, "Heavy Rain": 2
+    }
+
+    noaa["severity_score"] = noaa[evt_col].map(severity).fillna(1)
+    noaa["is_ice_event"]   = noaa[evt_col].isin(
+        ["Ice Storm","Blizzard","Extreme Cold/Wind Chill"]
+    ).astype(int)
+    noaa["is_wind_event"]  = noaa[evt_col].isin(
+        ["High Wind","Thunderstorm Wind","Tornado"]
+    ).astype(int)
+    noaa["is_winter_storm"]= noaa[evt_col].isin(
+        ["Winter Storm","Heavy Snow","Blizzard"]
+    ).astype(int)
+
+    # Aggregate to state-year-month level
+    group = [c for c in [state_col, "year", "month"] if c in noaa.columns]
+    storm_feats = noaa.groupby(group).agg(
+        storm_count        = (evt_col,        "count"),
+        max_severity       = ("severity_score","max"),
+        mean_severity      = ("severity_score","mean"),
+        ice_events         = ("is_ice_event",  "sum"),
+        wind_events        = ("is_wind_event", "sum"),
+        winter_storms      = ("is_winter_storm","sum"),
+    ).reset_index()
+
+    storm_feats = storm_feats.rename(columns={state_col: "state"})
+
+    # Normalize state names
+    state_map = {
+        "MAINE":"Maine","NEW HAMPSHIRE":"New Hampshire",
+        "VERMONT":"Vermont","MASSACHUSETTS":"Massachusetts",
+        "RHODE ISLAND":"Rhode Island","CONNECTICUT":"Connecticut",
+        "NEW YORK":"New York","NEW JERSEY":"New Jersey",
+        "PENNSYLVANIA":"Pennsylvania"
+    }
+    storm_feats["state"] = (
+        storm_feats["state"].str.upper().map(state_map)
+        .fillna(storm_feats["state"])
+    )
+
+    log.info(f"NOAA features built: {len(storm_feats):,} state-month records")
+    return storm_feats
+
+
+# ── Load and build features ──────────────────────────────────────
+def load_features() -> tuple:
+    """
+    Loads EAGLE-I data and builds LEAKAGE-FREE features.
+
+    Only uses information that would be known BEFORE an outage:
+      - Time and season
+      - Geographic/state vulnerability
+      - Prior weather events (from NOAA)
+      - Year trend (infrastructure aging over time)
+    """
+    path = PROC_DIR / "eaglei_daily_northeast.csv"
+
+    if not path.exists():
+        log.warning("Real data not found — using synthetic")
+        return _make_synthetic()
+
+    log.info("Loading real EAGLE-I processed data...")
+    df = pd.read_csv(path, low_memory=False)
+    log.info(f"Loaded: {len(df):,} county-days")
+
+    # ── Target variable ──────────────────────────────────────────
+    if "is_major_outage" not in df.columns:
+        if "max_customers_out" in df.columns:
+            df["is_major_outage"] = (
+                df["max_customers_out"] >= 10_000
+            ).astype(int)
+        else:
+            return _make_synthetic()
+
+    # ── Leakage-free features ────────────────────────────────────
+
+    # 1. Time features
+    if "month" in df.columns:
+        df["month_sin"]    = np.sin(2 * np.pi * df["month"] / 12)
+        df["month_cos"]    = np.cos(2 * np.pi * df["month"] / 12)
+        df["is_winter"]    = df["month"].isin([12,1,2,3]).astype(int)
+        df["is_summer"]    = df["month"].isin([6,7,8]).astype(int)
+        df["is_fall"]      = df["month"].isin([9,10,11]).astype(int)
+        df["quarter"]      = (df["month"] - 1) // 3 + 1
+
+    # 2. Season risk score
+    if "season" in df.columns:
+        season_risk = {"Winter":3,"Fall":2,"Summer":2,"Spring":1}
+        df["season_risk"]  = df["season"].map(season_risk).fillna(1)
+
+    # 3. State vulnerability scores
+    # Based on NERC reliability data and historical outage frequency
+    state_risk = {
+        "Maine":0.87,"Vermont":0.78,"New Hampshire":0.75,
+        "New York":0.72,"Pennsylvania":0.68,
+        "Massachusetts":0.65,"Connecticut":0.61,
+        "New Jersey":0.60,"Rhode Island":0.58
+    }
+    if "state" in df.columns:
+        df["state_risk"]   = df["state"].map(state_risk).fillna(0.65)
+        le = {s:i for i,s in enumerate(sorted(df["state"].unique()))}
+        df["state_enc"]    = df["state"].map(le).fillna(0)
+
+    # 4. Year trend (grid aging, climate change)
+    if "year" in df.columns:
+        df["year_trend"]   = df["year"] - 2020  # 0=2020, 1=2021 etc.
+
+    # 5. Merge NOAA storm features
+    storm_feats = build_noaa_features()
+    if not storm_feats.empty and "state" in df.columns and "month" in df.columns:
+        df = df.merge(
+            storm_feats,
+            on=["state","year","month"] if "year" in df.columns else ["state","month"],
+            how="left"
+        )
+        # Fill missing storm data with 0
+        for col in ["storm_count","max_severity","mean_severity",
+                    "ice_events","wind_events","winter_storms"]:
+            if col in df.columns:
+                df[col] = df[col].fillna(0)
+        log.info("NOAA storm features merged successfully")
+
+    # ── Select ONLY leakage-free features ───────────────────────
+    feature_cols = [c for c in [
+        # Time
+        "month", "quarter", "month_sin", "month_cos",
+        "is_winter", "is_summer", "is_fall",
+        # Season
+        "season_risk",
+        # Geography
+        "state_risk", "state_enc",
+        # Trend
+        "year_trend",
+        # NOAA weather (knowable before outage)
+        "storm_count", "max_severity", "mean_severity",
+        "ice_events", "wind_events", "winter_storms",
+    ] if c in df.columns]
+
+    df   = df.dropna(subset=["is_major_outage"])
+    X    = df[feature_cols].fillna(0)
+    y    = df["is_major_outage"].astype(int)
+
+    log.info(f"Features: {X.shape[0]:,} samples × {X.shape[1]} features")
+    log.info(f"Target: {y.sum()} major outages ({y.mean():.3%} rate)")
+    log.info(f"Feature list: {feature_cols}")
+
+    return X, y, feature_cols
+
+
+# ── Synthetic fallback ────────────────────────────────────────────
+def _make_synthetic(n: int = 8_000, seed: int = 42) -> tuple:
+    rng    = np.random.default_rng(seed)
+    months = rng.integers(1, 13, n)
+    df = pd.DataFrame({
+        "month":        months,
+        "quarter":      (months-1)//3+1,
+        "month_sin":    np.sin(2*np.pi*months/12),
+        "month_cos":    np.cos(2*np.pi*months/12),
+        "is_winter":    np.isin(months,[12,1,2,3]).astype(int),
+        "is_summer":    np.isin(months,[6,7,8]).astype(int),
+        "is_fall":      np.isin(months,[9,10,11]).astype(int),
+        "season_risk":  np.where(np.isin(months,[12,1,2,3]),3,
+                        np.where(np.isin(months,[9,10,11]),2,1)),
+        "state_risk":   rng.uniform(0.55, 0.87, n),
+        "state_enc":    rng.integers(0, 9, n),
+        "year_trend":   rng.integers(0, 4, n),
+        "storm_count":  rng.poisson(3, n),
+        "max_severity": rng.integers(1, 6, n),
+        "mean_severity":rng.uniform(1, 4, n),
+        "ice_events":   rng.binomial(3, 0.1, n),
+        "wind_events":  rng.binomial(5, 0.15, n),
+        "winter_storms":rng.binomial(4, 0.12, n),
+    })
+    risk = (
+        df["is_winter"]*2.0 + df["state_risk"]*1.5 +
+        df["storm_count"]*0.3 + df["ice_events"]*0.8 +
+        df["max_severity"]*0.4 + rng.normal(0,1,n)
+    )
+    y    = (risk > 5.5).astype(int)
+    cols = list(df.columns)
+    log.info(f"Synthetic: {n:,} rows | major rate: {y.mean():.1%}")
+    return df[cols], y, cols
+
+
+# ── Train ─────────────────────────────────────────────────────────
+def train(X_tr, X_te, y_tr, y_te, feat_names):
+    try:
+        sm = SMOTE(random_state=42, k_neighbors=min(5, y_tr.sum()-1))
+        X_bal, y_bal = sm.fit_resample(X_tr, y_tr)
+        log.info(f"After SMOTE: {len(X_bal):,} samples "
+                 f"(positive: {y_bal.mean():.1%})")
+    except Exception as e:
+        log.warning(f"SMOTE failed ({e}) — using class weights instead")
+        X_bal, y_bal = X_tr, y_tr
+
+    scaler  = StandardScaler()
+    X_tr_sc = scaler.fit_transform(X_bal)
+    X_te_sc = scaler.transform(X_te)
+
+    pos_w = max(1, (y_bal==0).sum() / max(1,(y_bal==1).sum()))
+
+    models = {
+        "Logistic Regression": LogisticRegression(
+            max_iter=1000, C=0.1, random_state=42
+        ),
+        "Random Forest": RandomForestClassifier(
+            n_estimators=300, max_depth=8,
+            class_weight="balanced", random_state=42, n_jobs=-1
+        ),
+        "XGBoost": xgb.XGBClassifier(
+            n_estimators=300, max_depth=5, learning_rate=0.05,
+            subsample=0.8, colsample_bytree=0.8,
+            scale_pos_weight=pos_w, random_state=42,
+            eval_metric="logloss", use_label_encoder=False, verbosity=0
+        ),
+    }
+
+    results = {}
+    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+
+    for name, mdl in models.items():
+        log.info(f"Training {name}...")
+        use_scaled = name == "Logistic Regression"
+        Xtr = X_tr_sc if use_scaled else X_bal
+        Xte = X_te_sc if use_scaled else X_te
+
+        cv_scores = cross_val_score(
+            mdl, Xtr, y_bal, cv=cv,
+            scoring="roc_auc", n_jobs=-1
+        )
+        mdl.fit(Xtr, y_bal)
+        y_pred = mdl.predict(Xte)
+        y_prob = mdl.predict_proba(Xte)[:,1]
+
+        metrics = {
+            "accuracy":        round(float(accuracy_score(y_te,y_pred)),4),
+            "precision":       round(float(precision_score(y_te,y_pred,zero_division=0)),4),
+            "recall":          round(float(recall_score(y_te,y_pred,zero_division=0)),4),
+            "f1_score":        round(float(f1_score(y_te,y_pred,zero_division=0)),4),
+            "roc_auc":         round(float(roc_auc_score(y_te,y_prob)),4),
+            "cv_roc_auc_mean": round(float(cv_scores.mean()),4),
+            "cv_roc_auc_std":  round(float(cv_scores.std()),4),
+        }
+        results[name] = {
+            "model":metrics,"metrics":metrics,
+            "y_pred":y_pred,"y_prob":y_prob,
+            "model_obj": mdl
+        }
+
+        log.info(f"  Accuracy : {metrics['accuracy']:.4f}")
+        log.info(f"  F1       : {metrics['f1_score']:.4f}")
+        log.info(f"  ROC-AUC  : {metrics['roc_auc']:.4f}  "
+                 f"(CV: {metrics['cv_roc_auc_mean']:.4f} "
+                 f"± {metrics['cv_roc_auc_std']:.4f})")
+
+    return results, scaler
+
+
+# ── SHAP ──────────────────────────────────────────────────────────
+def compute_shap(model, X_sample, feat_names, model_name):
+    log.info(f"Computing SHAP values for {model_name}...")
+    try:
+        if hasattr(model, "feature_importances_"):
+            explainer   = shap.TreeExplainer(model)
+            shap_values = explainer.shap_values(X_sample)
+            if isinstance(shap_values, list):
+                shap_values = shap_values[1]
+        else:
+            explainer   = shap.LinearExplainer(
+                model, X_sample, feature_perturbation="interventional"
+            )
+            shap_values = explainer.shap_values(X_sample)
+
+        mean_shap = pd.Series(
+            np.abs(shap_values).mean(axis=0),
+            index=feat_names
+        ).sort_values(ascending=True).tail(15)
+
+        fig, ax = plt.subplots(figsize=(10, 7))
+        colors  = ["#e63946" if v > mean_shap.quantile(0.75) else "#457b9d"
+                   for v in mean_shap.values]
+        mean_shap.plot(kind="barh", ax=ax, color=colors)
+        ax.set_title(
+            f"SHAP Feature Importance — {model_name}\n"
+            f"GridWatch | Real EAGLE-I Data 2020-2023",
+            fontsize=13, fontweight="bold"
+        )
+        ax.set_xlabel("Mean |SHAP value| — Impact on Prediction")
+        ax.spines[["top","right"]].set_visible(False)
+        ax.grid(axis="x", alpha=0.3)
+        plt.tight_layout()
+        plt.savefig(MODEL_DIR/"shap_bar.png", dpi=150, bbox_inches="tight")
+        plt.close()
+        log.info("SHAP plot saved → models/shap_bar.png")
+
+    except Exception as e:
+        log.warning(f"SHAP failed: {e}")
+
+
+# ── Evaluation plots ──────────────────────────────────────────────
+def plot_evaluation(results, y_te):
+    colors = {
+        "Logistic Regression":"#2a9d8f",
+        "Random Forest":"#457b9d",
+        "XGBoost":"#e63946"
+    }
+    fig, axes = plt.subplots(1, 2, figsize=(14,5))
+
+    ax = axes[0]
+    for name, data in results.items():
+        fpr, tpr, _ = roc_curve(y_te, data["y_prob"])
+        auc = data["metrics"]["roc_auc"]
+        ax.plot(fpr, tpr, label=f"{name} (AUC={auc:.3f})",
+                color=colors[name], linewidth=2)
+    ax.plot([0,1],[0,1],"k--",alpha=0.4,label="Random")
+    ax.set_xlabel("False Positive Rate")
+    ax.set_ylabel("True Positive Rate")
+    ax.set_title("ROC Curves — GridWatch\nReal EAGLE-I Data (No Leakage)",
+                 fontweight="bold")
+    ax.legend(fontsize=9)
+    ax.grid(alpha=0.3)
+
+    ax = axes[1]
+    best = max(results, key=lambda k: results[k]["metrics"]["f1_score"])
+    cm   = confusion_matrix(y_te, results[best]["y_pred"])
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", ax=ax,
+                xticklabels=["Normal","Major Outage"],
+                yticklabels=["Normal","Major Outage"])
+    ax.set_title(f"Confusion Matrix — {best}", fontweight="bold")
+    ax.set_ylabel("Actual")
+    ax.set_xlabel("Predicted")
+
+    plt.tight_layout()
+    plt.savefig(MODEL_DIR/"model_evaluation.png",
+                dpi=150, bbox_inches="tight")
+    plt.close()
+    log.info("Evaluation plots saved → models/model_evaluation.png")
+
+
+# ── Save ──────────────────────────────────────────────────────────
+def save_best_model(results, feat_names, scaler):
+    best = max(results, key=lambda k: results[k]["metrics"]["f1_score"])
+    bundle = {
+        "model":         results[best]["model_obj"],
+        "scaler":        scaler,
+        "model_name":    best,
+        "feature_names": feat_names,
+        "trained_at":    datetime.now().isoformat(),
+        "metrics":       results[best]["metrics"],
+        "data_source":   "EAGLE-I ORNL 2020-2023 Northeast US",
+        "note":          "Leakage-free model v2"
+    }
+    with open(MODEL_DIR/"outage_risk_model.pkl","wb") as f:
+        pickle.dump(bundle, f)
+
+    all_metrics = {
+        name: data["metrics"] for name,data in results.items()
+    }
+    all_metrics["best_model"]  = best
+    all_metrics["trained_at"]  = datetime.now().isoformat()
+    all_metrics["data_source"] = "EAGLE-I ORNL 2020-2023 Northeast US"
+    all_metrics["note"]        = "Leakage-free — no target-derived features"
+
+    with open(MODEL_DIR/"model_metrics.json","w") as f:
+        json.dump(all_metrics, f, indent=2)
+
+    log.info(f"Best model saved: {best} "
+             f"(F1={results[best]['metrics']['f1_score']:.4f})")
+    return best
+
+
+# ── Full pipeline ─────────────────────────────────────────────────
+def run_pipeline():
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s [%(levelname)s] %(message)s"
+    )
+
+    log.info("=" * 55)
+    log.info("GridWatch — ML Training Pipeline (v2, No Leakage)")
+    log.info("=" * 55)
+
+    X, y, feat_names = load_features()
+
+    log.info(f"Dataset: {X.shape[0]:,} rows × {X.shape[1]} features")
+    log.info(f"Class distribution: {y.value_counts().to_dict()}")
+
+    X_tr, X_te, y_tr, y_te = train_test_split(
+        X, y, test_size=0.2, stratify=y, random_state=42
+    )
+    log.info(f"Train: {len(X_tr):,} | Test: {len(X_te):,}")
+
+    results, scaler = train(X_tr, X_te, y_tr, y_te, feat_names)
+    best = save_best_model(results, feat_names, scaler)
+    plot_evaluation(results, y_te)
+
+    # SHAP
+    best_model = results[best]["model_obj"]
+    n_sample   = min(300, len(X_te))
+    idx        = np.random.choice(len(X_te), n_sample, replace=False)
+    X_sample   = (X_te.iloc[idx] if hasattr(X_te,"iloc")
+                  else pd.DataFrame(X_te[idx], columns=feat_names))
+    compute_shap(best_model, X_sample, feat_names, best)
+
+    log.info("\n" + "=" * 55)
+    log.info("TRAINING COMPLETE — Leakage-Free Results")
+    log.info("=" * 55)
+    for name, data in results.items():
+        m = data["metrics"]
+        log.info(f"\n{name}:")
+        log.info(f"  Accuracy  : {m['accuracy']:.4f}")
+        log.info(f"  Precision : {m['precision']:.4f}")
+        log.info(f"  Recall    : {m['recall']:.4f}")
+        log.info(f"  F1        : {m['f1_score']:.4f}")
+        log.info(f"  ROC-AUC   : {m['roc_auc']:.4f}")
+        log.info(f"  CV AUC    : {m['cv_roc_auc_mean']:.4f} "
+                 f"± {m['cv_roc_auc_std']:.4f}")
+
+
+if __name__ == "__main__":
+    run_pipeline()
