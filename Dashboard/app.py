@@ -1237,6 +1237,194 @@ def economic_impact():
     """, unsafe_allow_html=True)
 
 
+# ── Live Weather & Risk ───────────────────────────────────────────
+def live_weather():
+    st.markdown("#### Live weather conditions — Northeast US")
+    st.markdown("""
+    <div style='font-size:0.82rem;color:#374151;line-height:1.7;margin-bottom:16px;'>
+        Real-time weather data from NOAA Weather API and Open-Meteo.
+        Current conditions are used to estimate live outage risk for each state.
+    </div>
+    """, unsafe_allow_html=True)
+
+    # State capitals coordinates for weather lookup
+    STATE_COORDS_WEATHER = {
+        "Maine":         {"lat":44.31,"lon":-69.78,"city":"Augusta"},
+        "New Hampshire": {"lat":43.21,"lon":-71.54,"city":"Concord"},
+        "Vermont":       {"lat":44.26,"lon":-72.58,"city":"Montpelier"},
+        "Massachusetts": {"lat":42.36,"lon":-71.06,"city":"Boston"},
+        "Rhode Island":  {"lat":41.82,"lon":-71.42,"city":"Providence"},
+        "Connecticut":   {"lat":41.76,"lon":-72.68,"city":"Hartford"},
+        "New York":      {"lat":42.65,"lon":-73.75,"city":"Albany"},
+        "New Jersey":    {"lat":40.22,"lon":-74.77,"city":"Trenton"},
+        "Pennsylvania":  {"lat":40.27,"lon":-76.88,"city":"Harrisburg"},
+    }
+
+    STATE_RISK = {
+        "Maine":0.87,"Vermont":0.78,"New Hampshire":0.75,
+        "New York":0.72,"Pennsylvania":0.68,"Massachusetts":0.65,
+        "Connecticut":0.61,"New Jersey":0.60,"Rhode Island":0.58
+    }
+
+    # WMO weather code interpreter
+    def get_condition(code):
+        if code is None: return "Unknown", "gray"
+        code = int(code)
+        if code == 0:                   return "Clear",         "#16a34a"
+        elif code in [1,2,3]:           return "Partly cloudy", "#65a30d"
+        elif code in [45,48]:           return "Foggy",         "#94a3b8"
+        elif code in [51,53,55]:        return "Drizzle",       "#0891b2"
+        elif code in [61,63,65]:        return "Rain",          "#2563eb"
+        elif code in [71,73,75,77]:     return "Snow",          "#7c3aed"
+        elif code in [80,81,82]:        return "Rain showers",  "#1d4ed8"
+        elif code in [85,86]:           return "Snow showers",  "#6d28d9"
+        elif code in [95,96,99]:        return "Thunderstorm",  "#dc2626"
+        else:                           return "Overcast",      "#64748b"
+
+    def calc_live_risk(wind, snow, precip, code, state_risk):
+        """Calculate real-time outage risk from current weather."""
+        risk = state_risk * 0.30
+        if wind: risk += min(wind/100, 1) * 0.25
+        if snow: risk += min(snow/10,  1) * 0.25
+        if code and int(code) in [95,96,99]: risk += 0.15
+        if code and int(code) in [71,73,75]: risk += 0.10
+        if precip: risk += min(precip/20, 1) * 0.05
+        return min(round(risk, 3), 1.0)
+
+    # Fetch live weather for all states
+    import requests as req_lib
+    results = []
+    progress = st.progress(0, text="Fetching live weather data...")
+
+    for i, (state, info) in enumerate(STATE_COORDS_WEATHER.items()):
+        progress.progress((i+1)/len(STATE_COORDS_WEATHER),
+                          text=f"Loading {info['city']}...")
+        try:
+            url = (
+                f"https://api.open-meteo.com/v1/forecast"
+                f"?latitude={info['lat']}&longitude={info['lon']}"
+                f"&current=wind_speed_10m,precipitation,snowfall,weather_code"
+                f"&wind_speed_unit=mph&timezone=America/New_York"
+            )
+            r = req_lib.get(url, timeout=8)
+            if r.status_code == 200:
+                curr = r.json().get("current", {})
+                wind   = curr.get("wind_speed_10m")
+                precip = curr.get("precipitation")
+                snow   = curr.get("snowfall")
+                code   = curr.get("weather_code")
+                cond, cond_color = get_condition(code)
+                live_risk = calc_live_risk(
+                    wind, snow, precip, code,
+                    STATE_RISK.get(state, 0.65)
+                )
+                results.append({
+                    "state":      state,
+                    "city":       info["city"],
+                    "condition":  cond,
+                    "cond_color": cond_color,
+                    "wind":       wind,
+                    "precip":     precip,
+                    "snow":       snow,
+                    "live_risk":  live_risk,
+                    "status":     "live"
+                })
+            else:
+                raise Exception(f"HTTP {r.status_code}")
+        except Exception:
+            # Fallback if API unavailable
+            results.append({
+                "state":      state,
+                "city":       info["city"],
+                "condition":  "Data unavailable",
+                "cond_color": "#94a3b8",
+                "wind":       None,
+                "precip":     None,
+                "snow":       None,
+                "live_risk":  STATE_RISK.get(state, 0.65) * 0.35,
+                "status":     "offline"
+            })
+
+    progress.empty()
+
+    # Display weather cards
+    cols = st.columns(3)
+    for i, r in enumerate(results):
+        with cols[i % 3]:
+            risk_col = (
+                "#dc2626" if r["live_risk"] >= 0.55 else
+                "#ea580c" if r["live_risk"] >= 0.40 else
+                "#ca8a04" if r["live_risk"] >= 0.25 else
+                "#16a34a"
+            )
+            wind_str   = f"{r['wind']:.0f} mph"   if r["wind"]   is not None else "N/A"
+            snow_str   = f"{r['snow']:.1f} cm"    if r["snow"]   is not None else "N/A"
+            precip_str = f"{r['precip']:.1f} mm"  if r["precip"] is not None else "N/A"
+            live_badge = (
+                "<span style='font-size:0.65rem;background:#dcfce7;color:#166534;"
+                "padding:2px 6px;border-radius:4px;margin-left:6px;'>LIVE</span>"
+                if r["status"] == "live" else
+                "<span style='font-size:0.65rem;background:#f1f5f9;color:#64748b;"
+                "padding:2px 6px;border-radius:4px;margin-left:6px;'>OFFLINE</span>"
+            )
+            st.markdown(f"""
+            <div style='background:white;border:1px solid #e2e8f0;border-radius:12px;
+                        padding:14px;margin-bottom:12px;'>
+                <div style='display:flex;justify-content:space-between;
+                            align-items:center;margin-bottom:8px;'>
+                    <div>
+                        <span style='font-weight:600;color:#0f172a;font-size:0.9rem;'>
+                            {r["state"]}
+                        </span>
+                        {live_badge}
+                    </div>
+                    <span style='font-size:0.75rem;color:{r["cond_color"]};
+                                 font-weight:500;'>
+                        {r["condition"]}
+                    </span>
+                </div>
+                <div style='display:grid;grid-template-columns:1fr 1fr 1fr;
+                            gap:6px;margin-bottom:10px;'>
+                    <div style='text-align:center;background:#f8fafc;
+                                border-radius:6px;padding:6px;'>
+                        <div style='font-size:0.65rem;color:#94a3b8;
+                                    text-transform:uppercase;'>Wind</div>
+                        <div style='font-size:0.85rem;font-weight:600;
+                                    color:#374151;'>{wind_str}</div>
+                    </div>
+                    <div style='text-align:center;background:#f8fafc;
+                                border-radius:6px;padding:6px;'>
+                        <div style='font-size:0.65rem;color:#94a3b8;
+                                    text-transform:uppercase;'>Snow</div>
+                        <div style='font-size:0.85rem;font-weight:600;
+                                    color:#374151;'>{snow_str}</div>
+                    </div>
+                    <div style='text-align:center;background:#f8fafc;
+                                border-radius:6px;padding:6px;'>
+                        <div style='font-size:0.65rem;color:#94a3b8;
+                                    text-transform:uppercase;'>Rain</div>
+                        <div style='font-size:0.85rem;font-weight:600;
+                                    color:#374151;'>{precip_str}</div>
+                    </div>
+                </div>
+                <div style='display:flex;justify-content:space-between;
+                            align-items:center;'>
+                    <span style='font-size:0.75rem;color:#64748b;'>Live risk score</span>
+                    <span style='font-family:JetBrains Mono,monospace;
+                                 font-size:1rem;font-weight:600;color:{risk_col};'>
+                        {r["live_risk"]:.0%}
+                    </span>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+    st.caption(
+        f"Weather data from Open-Meteo (open-meteo.com) · "
+        f"Updated: {datetime.now().strftime('%B %d, %Y %H:%M')} EST · "
+        "Refresh page to update"
+    )
+
+
 # ── Risk Calculator ───────────────────────────────────────────────
 def risk_calculator():
     st.markdown("#### Outage risk calculator")
@@ -1354,6 +1542,9 @@ def main():
 
     st.divider()
     model_chart(metrics)
+
+    st.divider()
+    live_weather()
 
     st.divider()
     economic_impact()
