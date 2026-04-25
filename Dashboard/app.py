@@ -1,6 +1,7 @@
 """
 GridWatch — dashboard/app.py
 Professional redesign with clean, modern UI.
+Author: Jaykumar Patel
 """
 
 import json
@@ -250,16 +251,6 @@ def sidebar(state_df):
 
         st.markdown("<hr style='border-color:#1e293b;margin:20px 0;'>", unsafe_allow_html=True)
 
-        st.markdown("""
-        <div style='font-size:0.8rem;color:#64748b;line-height:1.9;'>
-            <span style='color:#94a3b8;font-weight:500;'>Jaykumar Patel</span><br>
-            MS Data Science<br>Stevens Institute of Technology<br>
-            MS IT Project Mgmt (in progress)<br>New England College<br>
-            Analytics Analyst<br>Central Maine Power
-        </div>
-        """, unsafe_allow_html=True)
-
-        st.markdown("<hr style='border-color:#1e293b;margin:20px 0;'>", unsafe_allow_html=True)
         st.markdown("""
         <a href='https://github.com/Jay9074/gridwatch'
            style='font-size:0.78rem;color:#3b82f6;text-decoration:none;'>
@@ -1668,6 +1659,13 @@ def live_weather():
             </div>
             """, unsafe_allow_html=True)
 
+    st.caption(
+        f"Weather data from Open-Meteo (open-meteo.com) · "
+        f"Updated: {datetime.now().strftime('%B %d, %Y %H:%M')} EST · "
+        "Refresh page to update"
+    )
+
+
 # ── Risk Calculator ───────────────────────────────────────────────
 def risk_calculator():
     st.markdown("#### Outage risk calculator")
@@ -1821,7 +1819,8 @@ def main():
         GridWatch · Jaykumar Patel ·
         Data: EAGLE-I (ORNL/DOE), NOAA Storm Events, EIA-861 ·
         89,945 county-days · 2014–2025 ·
-        Updated {datetime.now().strftime('%B %Y')}.
+        Updated {datetime.now().strftime('%B %Y')} ·
+
     </div>
     """, unsafe_allow_html=True)
 
