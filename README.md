@@ -9,7 +9,7 @@
 
 **🌐 Live Dashboard:** [gridwatch-dashboard.streamlit.app](https://gridwatch-dashboard.streamlit.app/)
 **📄 Research Paper:** In submission — April 2026
-**👤 Author:** Jaykumar Patel | pateljay9074@gmail.com
+**👤 Author:** Jaykumar Patel
 
 ---
 
@@ -240,7 +240,7 @@ If you use GridWatch in your research, please cite:
 
 ```
 Patel, J. (2026). GridWatch: AI-Powered Power Grid Outage Risk Intelligence
-for the Northeast United States. Independent Research.
+for the Northeast United States. 
 Dashboard: gridwatch-dashboard.streamlit.app
 GitHub: github.com/Jay9074/gridwatch
 ```
@@ -252,8 +252,6 @@ GitHub: github.com/Jay9074/gridwatch
 **Jaykumar Patel**
 MS Data Science — Stevens Institute of Technology
 MS IT Project Management (in progress) — New England College
-Analytics and Reporting Analyst — Central Maine Power
-📧 pateljay9074@gmail.com
 🌐 [gridwatch-dashboard.streamlit.app](https://gridwatch-dashboard.streamlit.app/)
 
 ---
