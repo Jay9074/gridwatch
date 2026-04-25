@@ -5,7 +5,6 @@ Transforms raw outage + weather data into ML-ready features.
 This is where Data Science expertise shows — thoughtful feature
 creation from domain knowledge is more valuable than raw model tuning.
 
-Author: Jaykumar Patel
 """
 
 import numpy as np
