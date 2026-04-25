@@ -6,8 +6,6 @@ Downloads real US power grid data from federal sources:
   - EIA Form 861 (utility reliability — SAIDI/SAIFI)
   - NOAA Storm Events (weather data)
 
-Run this first before any notebooks.
-Author: Jaykumar Patel
 """
 
 import os
@@ -32,7 +30,7 @@ PROC_DIR   = BASE_DIR / "data" / "processed"
 RAW_DIR.mkdir(parents=True, exist_ok=True)
 PROC_DIR.mkdir(parents=True, exist_ok=True)
 
-# Northeast states we care about
+# Northeast states 
 NORTHEAST = {
     "ME": "Maine", "NH": "New Hampshire", "VT": "Vermont",
     "MA": "Massachusetts", "RI": "Rhode Island", "CT": "Connecticut",
