@@ -5,10 +5,10 @@
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Data](https://img.shields.io/badge/Data-EAGLE--I%20ORNL-orange.svg)](https://figshare.com/articles/dataset/24237376)
 
-> The first open-source AI platform integrating EAGLE-I, NOAA Storm Events, and EIA-861 data into a unified power grid outage risk intelligence tool for the Northeast United States.
+> The open-source AI platform integrating EAGLE-I, NOAA Storm Events, and EIA-861 data into a unified power grid outage risk intelligence tool for the Northeast United States.
 
 **🌐 Live Dashboard:** [gridwatch-dashboard.streamlit.app](https://gridwatch-dashboard.streamlit.app/)
-**📄 Research Paper:** In submission — April 2025
+**📄 Research Paper:** In submission — April 2026
 **👤 Author:** Jaykumar Patel | pateljay9074@gmail.com
 
 ---
@@ -239,7 +239,7 @@ The live dashboard at [gridwatch-dashboard.streamlit.app](https://gridwatch-dash
 If you use GridWatch in your research, please cite:
 
 ```
-Patel, J. (2025). GridWatch: AI-Powered Power Grid Outage Risk Intelligence
+Patel, J. (2026). GridWatch: AI-Powered Power Grid Outage Risk Intelligence
 for the Northeast United States. Independent Research.
 Dashboard: gridwatch-dashboard.streamlit.app
 GitHub: github.com/Jay9074/gridwatch
