@@ -63,10 +63,10 @@ def load_metrics():
     if p.exists():
         return json.loads(p.read_text())
     return {
-        "Logistic Regression": {"accuracy":0.793,"precision":0.790,"recall":0.773,"f1_score":0.781,"roc_auc":0.857},
-        "Random Forest":       {"accuracy":0.871,"precision":0.862,"recall":0.845,"f1_score":0.853,"roc_auc":0.920},
-        "XGBoost":             {"accuracy":0.889,"precision":0.881,"recall":0.868,"f1_score":0.874,"roc_auc":0.939},
-        "best_model":"XGBoost"
+    "Logistic Regression": {"accuracy":0.598,"precision":0.088,"recall":0.770,"f1_score":0.158,"roc_auc":0.746},
+    "Random Forest":       {"accuracy":0.672,"precision":0.098,"recall":0.698,"f1_score":0.172,"roc_auc":0.753},
+    "XGBoost":             {"accuracy":0.643,"precision":0.089,"recall":0.682,"f1_score":0.158,"roc_auc":0.737},
+    "best_model":"Random Forest"
     }
 
 
