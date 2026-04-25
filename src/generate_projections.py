@@ -7,7 +7,6 @@ Uses three projection methods:
   3. Climate-adjusted projection (NOAA climate factors)
 
 Run: python src/generate_projections.py
-Author: Jaykumar Patel
 """
 
 import pandas as pd
