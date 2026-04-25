@@ -1,7 +1,6 @@
 """
 GridWatch — dashboard/app.py
 Professional redesign with clean, modern UI.
-Author: Jaykumar Patel
 """
 
 import json
@@ -1669,13 +1668,6 @@ def live_weather():
             </div>
             """, unsafe_allow_html=True)
 
-    st.caption(
-        f"Weather data from Open-Meteo (open-meteo.com) · "
-        f"Updated: {datetime.now().strftime('%B %d, %Y %H:%M')} EST · "
-        "Refresh page to update"
-    )
-
-
 # ── Risk Calculator ───────────────────────────────────────────────
 def risk_calculator():
     st.markdown("#### Outage risk calculator")
@@ -1829,8 +1821,7 @@ def main():
         GridWatch · Jaykumar Patel ·
         Data: EAGLE-I (ORNL/DOE), NOAA Storm Events, EIA-861 ·
         89,945 county-days · 2014–2025 ·
-        Updated {datetime.now().strftime('%B %Y')} ·
-        Independent research — not affiliated with any utility
+        Updated {datetime.now().strftime('%B %Y')}.
     </div>
     """, unsafe_allow_html=True)
 
