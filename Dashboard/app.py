@@ -485,20 +485,39 @@ def shap_chart():
     </div>
     """, unsafe_allow_html=True)
 
+    # Try GitHub URL first, then local, then plotly fallback
+    shap_url  = "https://raw.githubusercontent.com/Jay9074/gridwatch/main/assets/shap_bar.png"
     shap_path = MODEL_DIR / "shap_bar.png"
-    if shap_path.exists():
+    loaded    = False
+
+    # Try GitHub URL
+    try:
+        import requests as _req
+        r = _req.get(shap_url, timeout=5)
+        if r.status_code == 200:
+            from PIL import Image
+            import io
+            img = Image.open(io.BytesIO(r.content))
+            st.image(img, use_column_width=True,
+                     caption="Mean |SHAP| values — Random Forest | EAGLE-I 2014-2025 | Features ranked by predictive importance")
+            loaded = True
+    except Exception:
+        pass
+
+    # Try local file
+    if not loaded and shap_path.exists():
         from PIL import Image
         img = Image.open(shap_path)
         st.image(img, use_column_width=True,
-                 caption="Mean absolute SHAP values — Random Forest model trained on EAGLE-I 2014-2025")
-    else:
-        st.info("SHAP chart not found. Run python src/model.py to generate it.")
+                 caption="Mean |SHAP| values — Random Forest | EAGLE-I 2014-2025")
+        loaded = True
 
-        # Show feature importance as bar chart instead
+    # Plotly fallback — always works
+    if not loaded:
         features = [
             "county_rolling_3m", "state_month_base_rate",
             "county_prior_month_outages", "winter_x_state_risk",
-            "state_risk", "season_risk", "ice_x_state_risk",
+            "state_risk", "season_x_state", "ice_x_state_risk",
             "storm_count", "is_winter", "month_sin",
             "winter_storms", "ice_events", "max_severity", "wind_events"
         ]
@@ -509,7 +528,8 @@ def shap_chart():
         fig = go.Figure(go.Bar(
             x=importance[::-1], y=features[::-1],
             orientation="h",
-            marker_color=["#dc2626" if v > 0.09 else "#2563eb" for v in importance[::-1]],
+            marker_color=["#dc2626" if v > 0.09 else "#2563eb"
+                          for v in importance[::-1]],
             marker_line_width=0,
             text=[f"{v:.3f}" for v in importance[::-1]],
             textposition="outside",
@@ -518,13 +538,16 @@ def shap_chart():
         fig.update_layout(
             height=420, paper_bgcolor=CHART_BG, plot_bgcolor=CHART_BG,
             font=CHART_FONT, showlegend=False,
-            margin=dict(l=0,r=60,t=8,b=0),
+            margin=dict(l=0, r=60, t=8, b=0),
             xaxis=dict(gridcolor=GRID_COLOR, showline=False,
-                       tickfont=dict(color=AXIS_COLOR, size=10)),
-            yaxis=dict(gridcolor=GRID_COLOR, showline=False,
+                       tickfont=dict(color=AXIS_COLOR, size=10),
+                       title=dict(text="Mean |SHAP value|",
+                                  font=dict(size=11, color=AXIS_COLOR))),
+            yaxis=dict(showline=False,
                        tickfont=dict(color="#374151", size=11))
         )
         st.plotly_chart(fig, use_container_width=True)
+        st.caption("Feature importance approximation — upload assets/shap_bar.png to GitHub for actual SHAP chart")
 
 
 # ── Risk Calculator ───────────────────────────────────────────────
