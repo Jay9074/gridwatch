@@ -5,7 +5,6 @@ Loads 2020-2023 EAGLE-I + NOAA data for Northeast US.
 Memory-safe version.
 
 Run: python src/load_data_simple.py
-Author: Jaykumar Patel
 """
 
 import pandas as pd
