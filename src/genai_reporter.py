@@ -6,7 +6,6 @@ Turns model outputs into reports that policymakers and utilities can act on.
 
 Setup: export ANTHROPIC_API_KEY=your_key_here
 
-Author: Jaykumar Patel
 """
 
 import os
