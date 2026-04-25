@@ -9,13 +9,6 @@ What this does:
   3. Word frequency before major vs minor outages
   4. Word cloud generation
   5. Urgency/severity scoring of incident descriptions
-
-Why this matters for NIW:
-  NLP on government incident reports is genuinely novel.
-  No public tool does this on DOE outage data.
-  It demonstrates advanced DS skills beyond standard ML.
-
-Author: Jaykumar Patel
 """
 
 import logging
