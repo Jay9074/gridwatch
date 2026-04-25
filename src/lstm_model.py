@@ -10,8 +10,6 @@ Why LSTM?
   affects today's grid stress)
 - Traditional ML treats each event independently
 - LSTM remembers sequences — critical for forecasting
-
-Author: Jaykumar Patel
 """
 
 import logging
