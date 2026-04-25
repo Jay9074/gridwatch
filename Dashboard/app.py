@@ -433,6 +433,118 @@ def seasonal_chart(seasonal_df):
     st.plotly_chart(fig, use_container_width=True)
 
 
+# ── Year over Year Trend ─────────────────────────────────────────
+def yearly_trend_chart():
+    st.markdown("#### Year-over-year outage rate by state — 2014–2025")
+
+    # Real data from EAGLE-I analysis
+    # Note: 2023 excluded (incomplete data in dataset), 2024 not downloaded
+    yearly_data = {
+        "Connecticut":   {2014:0.085,2015:0.078,2016:0.163,2017:0.094,2018:0.073,2019:0.115,2020:0.050,2021:0.060,2022:0.081,2025:0.043},
+        "Maine":         {2014:0.146,2015:0.056,2016:0.133,2017:0.099,2018:0.120,2019:0.085,2020:0.055,2021:0.076,2022:0.109,2025:0.082},
+        "Massachusetts": {2014:0.140,2015:0.100,2016:0.171,2017:0.126,2018:0.129,2019:0.115,2020:0.071,2021:0.108,2022:0.142,2025:0.100},
+        "New Hampshire": {2014:0.168,2015:0.069,2016:0.089,2017:0.069,2018:0.015,2019:0.038,2020:0.023,2021:0.045,2022:0.023,2025:0.048},
+        "New Jersey":    {2014:0.145,2015:0.130,2016:0.230,2017:0.185,2018:0.184,2019:0.154,2020:0.105,2021:0.139,2022:0.142,2025:0.142},
+        "New York":      {2014:0.076,2015:0.052,2016:0.097,2017:0.101,2018:0.075,2019:0.093,2020:0.060,2021:0.048,2022:0.067,2025:0.068},
+        "Pennsylvania":  {2014:0.077,2015:0.072,2016:0.073,2017:0.079,2018:0.065,2019:0.069,2020:0.055,2021:0.041,2022:0.044,2025:0.065},
+        "Rhode Island":  {2014:0.056,2015:0.046,2016:0.136,2017:0.068,2018:0.060,2019:0.129,2020:0.050,2021:0.072,2022:0.068,2025:0.061},
+        "Vermont":       {2014:0.087,2015:0.020,2016:0.041,2017:0.037,2018:0.016,2019:0.014,2020:0.021,2021:0.033,2022:0.020,2025:0.016},
+    }
+
+    # State colors — distinct palette
+    state_colors = {
+        "Maine":         "#dc2626",
+        "New Jersey":    "#ea580c",
+        "Massachusetts": "#d97706",
+        "Connecticut":   "#65a30d",
+        "Rhode Island":  "#0891b2",
+        "New York":      "#2563eb",
+        "Pennsylvania":  "#7c3aed",
+        "New Hampshire": "#db2777",
+        "Vermont":       "#64748b",
+    }
+
+    years = [2014,2015,2016,2017,2018,2019,2020,2021,2022,2025]
+
+    fig = go.Figure()
+    for state, data in yearly_data.items():
+        y_vals = [data.get(yr, None) for yr in years]
+        fig.add_trace(go.Scatter(
+            x=years, y=y_vals,
+            name=state,
+            mode="lines+markers",
+            line=dict(color=state_colors.get(state,"#64748b"), width=2),
+            marker=dict(size=6),
+            hovertemplate=f"<b>{state}</b><br>Year: %{{x}}<br>Outage rate: %{{y:.1%}}<extra></extra>"
+        ))
+
+    fig.update_layout(
+        height=380,
+        paper_bgcolor=CHART_BG, plot_bgcolor=CHART_BG,
+        font=CHART_FONT,
+        margin=dict(l=0,r=0,t=8,b=0),
+        legend=dict(
+            bgcolor="white", bordercolor="#e2e8f0", borderwidth=1,
+            font=dict(size=10), orientation="v",
+            x=1.02, y=1
+        ),
+        xaxis=dict(
+            gridcolor=GRID_COLOR, showline=False,
+            tickvals=years,
+            tickfont=dict(color=AXIS_COLOR, size=10)
+        ),
+        yaxis=dict(
+            gridcolor=GRID_COLOR, showline=False,
+            tickformat=".0%",
+            tickfont=dict(color=AXIS_COLOR, size=10)
+        ),
+        hovermode="x unified"
+    )
+    st.plotly_chart(fig, use_container_width=True)
+
+    # Key findings boxes
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        st.markdown("""
+        <div style='background:#fef2f2;border:1px solid #fca5a5;border-radius:8px;
+                    padding:12px;font-size:0.8rem;'>
+            <div style='color:#991b1b;font-weight:600;margin-bottom:4px;'>
+                Highest peak risk
+            </div>
+            <div style='color:#7f1d1d;'>
+                New Jersey 2016: <b>23.0%</b> outage rate —
+                the worst single-year event in the dataset
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    with c2:
+        st.markdown("""
+        <div style='background:#f0fdf4;border:1px solid #86efac;border-radius:8px;
+                    padding:12px;font-size:0.8rem;'>
+            <div style='color:#166534;font-weight:600;margin-bottom:4px;'>
+                Most improved state
+            </div>
+            <div style='color:#14532d;'>
+                New Hampshire: <b>-64%</b> reduction in outage rate
+                from 2014 to 2025
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    with c3:
+        st.markdown("""
+        <div style='background:#eff6ff;border:1px solid #93c5fd;border-radius:8px;
+                    padding:12px;font-size:0.8rem;'>
+            <div style='color:#1e40af;font-weight:600;margin-bottom:4px;'>
+                Regional trend
+            </div>
+            <div style='color:#1e3a8a;'>
+                All 9 Northeast states show declining outage rates
+                over the 11-year study period
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+
 # ── Model Performance ─────────────────────────────────────────────
 def model_chart(metrics):
     st.markdown("#### ML model performance")
@@ -682,6 +794,9 @@ def main():
     col_a,col_b = st.columns(2)
     with col_a: trend_chart(trend_df)
     with col_b: seasonal_chart(seasonal_df)
+
+    st.divider()
+    yearly_trend_chart()
 
     st.divider()
     model_chart(metrics)
