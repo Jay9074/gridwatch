@@ -501,13 +501,13 @@ def noaa_correlation_chart():
             height=340,
             paper_bgcolor=CHART_BG, plot_bgcolor=CHART_BG,
             font=CHART_FONT, showlegend=False,
-            margin=dict(l=0, r=50, t=8, b=0),
+            margin=dict(l=130, r=50, t=30, b=0),
             xaxis=dict(gridcolor=GRID_COLOR, showline=False,
                        tickfont=dict(color=AXIS_COLOR, size=10)),
             yaxis=dict(showline=False,
                        tickfont=dict(color="#374151", size=11)),
             title=dict(text="Avg storm events per month by state",
-                       font=dict(size=11, color="#64748b"))
+                       font=dict(size=11, color="#64748b"), x=0)
         )
         st.plotly_chart(fig2, use_container_width=True)
 
