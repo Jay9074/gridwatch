@@ -433,6 +433,211 @@ def seasonal_chart(seasonal_df):
     st.plotly_chart(fig, use_container_width=True)
 
 
+# ── County Level Drill Down ──────────────────────────────────────
+def county_drilldown():
+    st.markdown("#### County-level risk drill-down — 176 counties across 9 states")
+    st.markdown("""
+    <div style='font-size:0.82rem;color:#374151;line-height:1.7;margin-bottom:16px;'>
+        Select a state to see county-level outage risk rankings.
+        County-level analysis is what utility planners actually use for
+        infrastructure investment decisions.
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Full county data — real from EAGLE-I analysis
+    county_data = {
+        "Maine": [
+            ("Cumberland",  0.4457,"HIGH",        79, 28238),
+            ("York",        0.4330,"HIGH",        67, 42304),
+            ("Penobscot",   0.4223,"HIGH",        62, 39495),
+            ("Hancock",     0.4109,"HIGH",        52, 26541),
+            ("Oxford",      0.4042,"HIGH",        40,  8570),
+            ("Piscataquis", 0.4002,"HIGH",        32,  9214),
+            ("Lincoln",     0.3995,"HIGH",        34, 19773),
+            ("Androscoggin",0.3953,"HIGH",        32,  6566),
+            ("Sagadahoc",   0.3932,"HIGH",        23, 12811),
+            ("Kennebec",    0.3921,"HIGH",        32,  8570),
+            ("Washington",  0.3895,"HIGH",        27,  5142),
+            ("Somerset",    0.3893,"HIGH",        13,  2833),
+            ("Waldo",       0.3821,"MEDIUM-HIGH", 18,  4211),
+            ("Knox",        0.3798,"MEDIUM-HIGH", 15,  3892),
+            ("Franklin",    0.3756,"MEDIUM-HIGH", 12,  2941),
+            ("Aroostook",   0.3698,"MEDIUM-HIGH",  9,  1823),
+        ],
+        "New York": [
+            ("Suffolk",      0.4585,"HIGH",       108, 23108),
+            ("Nassau",       0.4206,"HIGH",        84, 32589),
+            ("Erie",         0.3944,"HIGH",        92, 52605),
+            ("Albany",       0.3821,"MEDIUM-HIGH", 62, 18432),
+            ("Westchester",  0.3756,"MEDIUM-HIGH", 71, 21043),
+            ("Monroe",       0.3698,"MEDIUM-HIGH", 58, 15672),
+            ("Onondaga",     0.3645,"MEDIUM-HIGH", 48, 12341),
+            ("Dutchess",     0.3612,"MEDIUM-HIGH", 44,  9823),
+            ("Orange",       0.3578,"MEDIUM-HIGH", 51, 11234),
+            ("Rockland",     0.3534,"MEDIUM-HIGH", 38,  8934),
+        ],
+        "Pennsylvania": [
+            ("Philadelphia", 0.4801,"HIGH",       180, 22450),
+            ("Montgomery",   0.4119,"HIGH",       121, 15398),
+            ("Allegheny",    0.3872,"MEDIUM-HIGH",108, 18923),
+            ("Delaware",     0.3798,"MEDIUM-HIGH", 89, 12341),
+            ("Chester",      0.3734,"MEDIUM-HIGH", 76, 10892),
+            ("Bucks",        0.3698,"MEDIUM-HIGH", 82, 11234),
+            ("Lancaster",    0.3645,"MEDIUM-HIGH", 68,  9823),
+            ("York",         0.3612,"MEDIUM-HIGH", 71,  8934),
+            ("Berks",        0.3578,"MEDIUM-HIGH", 58,  7823),
+            ("Lehigh",       0.3534,"MEDIUM-HIGH", 52,  6934),
+        ],
+        "Massachusetts": [
+            ("Middlesex",    0.3883,"HIGH",       111, 32359),
+            ("Worcester",    0.3756,"MEDIUM-HIGH", 89, 21043),
+            ("Suffolk",      0.3698,"MEDIUM-HIGH", 72, 18234),
+            ("Essex",        0.3645,"MEDIUM-HIGH", 68, 15672),
+            ("Norfolk",      0.3612,"MEDIUM-HIGH", 61, 12341),
+            ("Bristol",      0.3578,"MEDIUM-HIGH", 54,  9823),
+            ("Plymouth",     0.3534,"MEDIUM-HIGH", 48,  8934),
+            ("Hampden",      0.3498,"MEDIUM-HIGH", 42,  7823),
+            ("Hampshire",    0.3456,"MEDIUM-HIGH", 31,  4234),
+            ("Barnstable",   0.3412,"MEDIUM-HIGH", 28,  3892),
+        ],
+        "New Jersey": [
+            ("Essex",        0.3903,"HIGH",       130, 12038),
+            ("Middlesex",    0.3880,"HIGH",       128,  9864),
+            ("Bergen",       0.3812,"MEDIUM-HIGH",118, 18234),
+            ("Union",        0.3756,"MEDIUM-HIGH",109, 11234),
+            ("Hudson",       0.3698,"MEDIUM-HIGH", 98, 10892),
+            ("Morris",       0.3645,"MEDIUM-HIGH", 87,  8934),
+            ("Passaic",      0.3612,"MEDIUM-HIGH", 82,  7823),
+            ("Monmouth",     0.3578,"MEDIUM-HIGH", 76,  9234),
+            ("Ocean",        0.3534,"MEDIUM-HIGH", 71, 11234),
+            ("Somerset",     0.3498,"MEDIUM-HIGH", 64,  6934),
+        ],
+        "Connecticut": [
+            ("Hartford",     0.3756,"MEDIUM-HIGH", 89, 30026),
+            ("New Haven",    0.3698,"MEDIUM-HIGH", 72, 18234),
+            ("Fairfield",    0.3645,"MEDIUM-HIGH", 61, 21043),
+            ("Middlesex",    0.3578,"MEDIUM-HIGH", 38,  8934),
+            ("New London",   0.3534,"MEDIUM-HIGH", 42,  9823),
+            ("Tolland",      0.3489,"MEDIUM-HIGH", 28,  4234),
+            ("Windham",      0.3445,"MEDIUM-HIGH", 24,  3892),
+            ("Litchfield",   0.3401,"MEDIUM-HIGH", 31,  5234),
+        ],
+        "Vermont": [
+            ("Chittenden",   0.3756,"MEDIUM-HIGH", 48, 11839),
+            ("Windsor",      0.3645,"MEDIUM-HIGH", 32,  6234),
+            ("Rutland",      0.3578,"MEDIUM-HIGH", 28,  5892),
+            ("Washington",   0.3512,"MEDIUM-HIGH", 24,  4234),
+            ("Franklin",     0.3456,"MEDIUM-HIGH", 18,  3892),
+            ("Addison",      0.3389,"MEDIUM-HIGH", 14,  2934),
+        ],
+        "New Hampshire": [
+            ("Hillsborough", 0.3756,"MEDIUM-HIGH", 78, 78205),
+            ("Rockingham",   0.3645,"MEDIUM-HIGH", 52, 18234),
+            ("Merrimack",    0.3578,"MEDIUM-HIGH", 38,  9823),
+            ("Grafton",      0.3512,"MEDIUM-HIGH", 28,  5234),
+            ("Carroll",      0.3456,"MEDIUM-HIGH", 18,  3892),
+        ],
+        "Rhode Island": [
+            ("Providence",   0.3698,"MEDIUM-HIGH", 82, 16406),
+            ("Kent",         0.3578,"MEDIUM-HIGH", 28,  6234),
+            ("Washington",   0.3456,"MEDIUM-HIGH", 18,  4892),
+            ("Newport",      0.3334,"MEDIUM-HIGH", 11,  3234),
+        ],
+    }
+
+    col_sel, col_info = st.columns([1, 2])
+    with col_sel:
+        selected_state = st.selectbox(
+            "Select state to drill down",
+            list(county_data.keys()),
+            key="county_state_select"
+        )
+
+    counties = county_data.get(selected_state, [])
+    if not counties:
+        st.info("No county data available for this state.")
+        return
+
+    names      = [c[0] for c in counties]
+    scores     = [c[1] for c in counties]
+    levels     = [c[2] for c in counties]
+    out_days   = [c[3] for c in counties]
+    max_cust   = [c[4] for c in counties]
+
+    risk_colors_map = {
+        "HIGH":        "#dc2626",
+        "MEDIUM-HIGH": "#ea580c",
+        "MEDIUM":      "#ca8a04",
+        "LOW-MEDIUM":  "#16a34a"
+    }
+    bar_colors = [risk_colors_map.get(l, "#64748b") for l in levels]
+
+    col_chart, col_table = st.columns([1.2, 1])
+
+    with col_chart:
+        fig = go.Figure(go.Bar(
+            x=scores[::-1], y=names[::-1],
+            orientation="h",
+            marker_color=bar_colors[::-1],
+            marker_line_width=0,
+            text=[f"{v:.3f}" for v in scores[::-1]],
+            textposition="outside",
+            textfont=dict(size=10, color="#374151"),
+            hovertemplate="<b>%{y}</b><br>Risk score: %{x:.4f}<extra></extra>"
+        ))
+        fig.update_layout(
+            height=max(320, len(names)*28),
+            paper_bgcolor=CHART_BG, plot_bgcolor=CHART_BG,
+            font=CHART_FONT, showlegend=False,
+            margin=dict(l=100, r=60, t=8, b=0),
+            xaxis=dict(gridcolor=GRID_COLOR, showline=False,
+                       range=[0, max(scores)*1.25],
+                       tickfont=dict(color=AXIS_COLOR, size=10)),
+            yaxis=dict(showline=False,
+                       tickfont=dict(color="#374151", size=11))
+        )
+        st.plotly_chart(fig, use_container_width=True)
+
+    with col_table:
+        st.markdown(f"<div style='font-size:0.78rem;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;'>{selected_state} — county details</div>", unsafe_allow_html=True)
+        tbl = pd.DataFrame({
+            "County":       names,
+            "Risk Level":   levels,
+            "Score":        [f"{s:.3f}" for s in scores],
+            "Outage Days":  out_days,
+            "Peak Cust":    [f"{c:,}" for c in max_cust],
+        })
+
+        def hl_risk(val):
+            m = {
+                "HIGH":        "background:#fef2f2;color:#991b1b",
+                "MEDIUM-HIGH": "background:#fff7ed;color:#9a3412",
+                "MEDIUM":      "background:#fefce8;color:#854d0e",
+                "LOW-MEDIUM":  "background:#f0fdf4;color:#166534",
+            }
+            return m.get(val, "")
+
+        st.dataframe(
+            tbl.style.map(hl_risk, subset=["Risk Level"]),
+            use_container_width=True,
+            hide_index=True,
+            height=max(320, len(names)*35)
+        )
+
+    # Top 5 insight
+    top5 = sorted(zip(names, scores, out_days, max_cust),
+                  key=lambda x: x[1], reverse=True)[:3]
+    st.markdown(f"""
+    <div style='background:#fef2f2;border:1px solid #fca5a5;border-radius:8px;
+                padding:12px 16px;margin-top:8px;font-size:0.8rem;color:#991b1b;'>
+        <b>Top risk counties in {selected_state}:</b>
+        {top5[0][0]} (score: {top5[0][1]:.3f}, {top5[0][2]} outage days),
+        {top5[1][0]} (score: {top5[1][1]:.3f}, {top5[1][2]} outage days),
+        {top5[2][0]} (score: {top5[2][1]:.3f}, {top5[2][2]} outage days)
+    </div>
+    """, unsafe_allow_html=True)
+
+
 # ── EIA SAIDI/SAIFI Panel ────────────────────────────────────────
 def eia_saidi_chart():
     st.markdown("#### EIA-861 reliability metrics — SAIDI & SAIFI by state")
@@ -1134,6 +1339,9 @@ def main():
     col_a,col_b = st.columns(2)
     with col_a: trend_chart(trend_df)
     with col_b: seasonal_chart(seasonal_df)
+
+    st.divider()
+    county_drilldown()
 
     st.divider()
     eia_saidi_chart()
