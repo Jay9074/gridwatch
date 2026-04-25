@@ -42,6 +42,9 @@ section[data-testid="stSidebar"] {
 section[data-testid="stSidebar"] * { color: #cbd5e1 !important; }
 section[data-testid="stSidebar"] h3 { color: #f1f5f9 !important; font-size: 1.1rem !important; }
 section[data-testid="stSidebar"] .stSelectbox label { color: #94a3b8 !important; font-size: 0.78rem !important; text-transform: uppercase; letter-spacing: 0.05em; }
+section[data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] { background: #1e293b !important; border-color: #334155 !important; }
+section[data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] * { color: #f1f5f9 !important; }
+section[data-testid="stSidebar"] .stSelectbox svg { fill: #94a3b8 !important; }
 
 /* Metric cards */
 div[data-testid="metric-container"] {
@@ -561,7 +564,10 @@ def main():
         filt = filt[filt["state"] == sel_state]
     if sel_risk != "All":
         filt = filt[filt["risk_level"] == sel_risk]
+    # Always show at least something
     display_df = filt if len(filt) > 0 else state_df
+    # For KPIs — use full data when filtering individual state
+    kpi_df = filt if len(filt) > 0 else state_df
 
     header()
     kpis(display_df)
