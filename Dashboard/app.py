@@ -34,17 +34,11 @@ html, body, [class*="css"] {
 }
 .stApp { background-color: #f8f9fc; }
 
-/* Sidebar */
+/* Sidebar — clean light theme for reliable readability */
 section[data-testid="stSidebar"] {
-    background: #0f172a !important;
-    border-right: 1px solid #1e293b;
+    background: #f8fafc !important;
+    border-right: 1px solid #e2e8f0 !important;
 }
-section[data-testid="stSidebar"] * { color: #cbd5e1 !important; }
-section[data-testid="stSidebar"] h3 { color: #f1f5f9 !important; font-size: 1.1rem !important; }
-section[data-testid="stSidebar"] .stSelectbox label { color: #94a3b8 !important; font-size: 0.78rem !important; text-transform: uppercase; letter-spacing: 0.05em; }
-section[data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] { background: #1e293b !important; border-color: #334155 !important; }
-section[data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] * { color: #f1f5f9 !important; }
-section[data-testid="stSidebar"] .stSelectbox svg { fill: #94a3b8 !important; }
 
 /* Metric cards */
 div[data-testid="metric-container"] {
@@ -221,21 +215,21 @@ def sidebar(state_df):
         st.markdown("""
         <div style='padding:8px 0 20px;'>
             <div style='font-family:JetBrains Mono,monospace;font-size:1.4rem;
-                        font-weight:500;color:#f1f5f9;letter-spacing:-0.5px;'>
+                        font-weight:600;color:#0f172a;letter-spacing:-0.5px;'>
                 ⚡ GridWatch
             </div>
-            <div style='font-size:0.7rem;color:#475569;text-transform:uppercase;
+            <div style='font-size:0.7rem;color:#64748b;text-transform:uppercase;
                         letter-spacing:0.1em;margin-top:4px;'>
                 Power Grid Risk Intelligence
             </div>
         </div>
         """, unsafe_allow_html=True)
 
-        st.markdown("<div style='font-size:0.7rem;color:#475569;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;'>Filter by state</div>", unsafe_allow_html=True)
+        st.markdown("<div style='font-size:0.7rem;color:#64748b;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-bottom:6px;'>Filter by state</div>", unsafe_allow_html=True)
         states    = ["All"] + sorted(state_df["state"].unique().tolist())
         sel_state = st.selectbox("", states, label_visibility="collapsed")
 
-        st.markdown("<div style='font-size:0.7rem;color:#475569;text-transform:uppercase;letter-spacing:0.08em;margin-top:12px;margin-bottom:6px;'>Filter by risk level</div>", unsafe_allow_html=True)
+        st.markdown("<div style='font-size:0.7rem;color:#64748b;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-top:12px;margin-bottom:6px;'>Filter by risk level</div>", unsafe_allow_html=True)
         sel_risk  = st.selectbox("", ["All","HIGH","MEDIUM-HIGH","MEDIUM","LOW-MEDIUM"],
                                   label_visibility="collapsed")
 
