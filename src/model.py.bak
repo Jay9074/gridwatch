@@ -9,8 +9,6 @@ Now uses only features knowable in advance:
   - State vulnerability scores
   - Historical storm patterns from NOAA
   - Prior outage history (lagged, not current)
-
-Author: Jaykumar Patel
 """
 
 import json
