@@ -8,7 +8,7 @@
 > The open-source AI platform integrating EAGLE-I, NOAA Storm Events, and EIA-861 data into a unified power grid outage risk intelligence tool for the Northeast United States.
 
 **🌐 Live Dashboard:** [gridwatch-dashboard.streamlit.app](https://gridwatch-dashboard.streamlit.app/)
-**📄 Research Paper:** In submission — April 2026
+**📄 Research Paper:** In submission - April 2026
 **👤 Author:** Jaykumar Patel
 
 ---
