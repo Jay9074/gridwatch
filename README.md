@@ -17,7 +17,7 @@
 
 US power outages cost **$121–150 billion annually** (DOE/ORNL 2024). The Northeast US is disproportionately affected by aging infrastructure, coastal storm exposure, and accelerating climate change.
 
-**The gap:** No publicly available AI tool existed to predict, visualize, and explain regional outage risk using open federal data — until GridWatch.
+**The gap:** No publicly available AI tool existed to predict, visualize, and explain regional outage risk using open federal data - until GridWatch.
 
 GridWatch provides:
 - **County-level risk intelligence** across 9 Northeast states using 11 years of federal data
@@ -54,7 +54,7 @@ gridwatch/
 │   └── app.py                        # Streamlit dashboard (14 sections)
 │
 ├── 📓 notebooks/
-│   ├── 01_data_exploration.ipynb     # EDA — 8 publication figures
+│   ├── 01_data_exploration.ipynb     # EDA - 8 publication figures
 │   ├── 02_feature_engineering.ipynb  # 24 features, 6 figures
 │   ├── 03_ml_models_shap.ipynb       # ML + SHAP, 6 figures
 │   ├── 04_lstm_forecasting.ipynb     # Deep learning, 4 figures
@@ -72,7 +72,7 @@ gridwatch/
 │   ├── generate_county_summary.py    # County-level risk scores
 │   ├── generate_projections.py       # 2026–2030 outage projections
 │   ├── get_importances.py            # Extract SHAP feature importances
-│   └── print_metrics.py             # Print trained model metrics
+│   └── print_metrics.py              # Print trained model metrics
 │
 ├── 📈 reports/
 │   └── figures/                      # 29 publication-quality figures
@@ -91,7 +91,7 @@ gridwatch/
 │
 ├── 📋 data/
 │   └── summary/                      # Pre-computed summaries (GitHub-hosted)
-│       ├── state_risk_summary.csv    # State risk scores — feeds dashboard
+│       ├── state_risk_summary.csv    # State risk scores - feeds dashboard
 │       ├── monthly_trend.csv         # Monthly outage trend 2014–2025
 │       └── seasonal_summary.csv      # Seasonal outage breakdown
 │
@@ -158,7 +158,7 @@ streamlit run Dashboard/app.py
 ### Classification Models (Outage Risk Prediction)
 - **Features:** 24 leakage-free features across 5 categories (time, geographic, historical, weather, interaction)
 - **Target:** Major outage (≥1,000 customers affected)
-- **Best model:** Random Forest — ROC-AUC 0.712, Recall 0.603
+- **Best model:** Random Forest - ROC-AUC 0.712, Recall 0.603
 - **Class imbalance:** SMOTE oversampling (7.9% positive rate)
 - **Validation:** 5-fold stratified cross-validation
 
@@ -179,13 +179,13 @@ streamlit run Dashboard/app.py
 
 GridWatch translates research findings into three actionable tiers:
 
-**Tier 1 — County Infrastructure Prioritization**
+**Tier 1 - County Infrastructure Prioritization**
 48 HIGH-risk counties identified for immediate infrastructure investment priority. Philadelphia PA, Cumberland ME, Nassau NY lead the list.
 
-**Tier 2 — Seasonal Early Warning**
-LSTM forecasts enable 3–6 month advance risk bulletins to state emergency managers — enough lead time for crew pre-positioning and equipment procurement.
+**Tier 2 - Seasonal Early Warning**
+LSTM forecasts enable 3–6 month advance risk bulletins to state emergency managers - enough lead time for crew pre-positioning and equipment procurement.
 
-**Tier 3 — Policy & Regulatory Applications**
+**Tier 3 - Policy & Regulatory Applications**
 Data-driven SAIDI/SAIFI target setting, climate resilience investment justification, and open data advocacy for utility infrastructure records.
 
 **Estimated impact:** 10% prevention of major outage events in HIGH-risk counties → $12–15B annual national economic benefit (DOE VoLL methodology).
@@ -196,13 +196,13 @@ Data-driven SAIDI/SAIFI target setting, climate resilience investment justificat
 
 The live dashboard at [gridwatch-dashboard.streamlit.app](https://gridwatch-dashboard.streamlit.app/) includes:
 
-1. KPI Summary — real EAGLE-I data
-2. State Risk Map — interactive, county-colored
-3. State Risk Rankings — color-coded table
-4. Monthly Trend — 2014–2025
+1. KPI Summary - real EAGLE-I data
+2. State Risk Map - interactive, county-colored
+3. State Risk Rankings - color-coded table
+4. Monthly Trend - 2014–2025
 5. Seasonal Analysis
 6. Year-over-Year by State
-7. County Drill-Down — 176 counties, 9 states
+7. County Drill-Down - 176 counties, 9 states
 8. EIA SAIDI/SAIFI Panel
 9. NOAA Weather Correlation
 10. ML Model Performance
@@ -227,8 +227,8 @@ The live dashboard at [gridwatch-dashboard.streamlit.app](https://gridwatch-dash
 - [x] Real-time NOAA weather API
 - [x] 2026–2030 climate-adjusted projections
 - [x] White paper (in submission)
-- [ ] **EconoGrid** — county-level economic cost modeling (Project 2)
-- [ ] **StormSight** — 72-hour deep learning outage warning (Project 3)
+- [ ] **EconoGrid** - county-level economic cost modeling (Project 2)
+- [ ] **StormSight** - 72-hour deep learning outage warning (Project 3)
 - [ ] arXiv publication
 - [ ] Extension to full US coverage
 
