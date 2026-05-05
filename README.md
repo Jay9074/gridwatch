@@ -21,7 +21,7 @@ US power outages cost **$121–150 billion annually** (DOE/ORNL 2024). The North
 
 GridWatch provides:
 - **County-level risk intelligence** across 9 Northeast states using 11 years of federal data
-- **Seasonal early warning** — LSTM forecasts 1, 3, and 6 months ahead
+- **Seasonal early warning** - LSTM forecasts 1, 3, and 6 months ahead
 - **Economic impact estimation** using DOE Value of Lost Load methodology
 - **2026–2030 projections** with climate-adjusted scenarios
 - **Real-time weather integration** from NOAA API
@@ -33,7 +33,7 @@ GridWatch provides:
 | Finding | Value |
 |---|---|
 | Dataset | 89,945 county-days, 2014–2025, 9 Northeast states |
-| Best ML model | Random Forest — ROC-AUC 0.712 |
+| Best ML model | Random Forest - ROC-AUC 0.712 |
 | LSTM 1-month forecast | r = 0.968 |
 | LSTM 6-month forecast | r = 1.000 |
 | Highest risk state | New Jersey (15.0% outage rate) |
