@@ -1,44 +1,41 @@
 county,state,storm_tier,peak_severity,start_time,end_time,duration_hrs,max_wind_mph,max_precip_pct,primary_trigger,hours_ahead
-Allegheny,PA,MODERATE,3,2026-05-16 17:00:00+00:00,2026-05-16 23:00:00+00:00,6.0,15.0,69,Keyword: thunderstorm,-0.1
-Erie,New York,MODERATE,3,2026-05-16 19:00:00+00:00,2026-05-16 21:00:00+00:00,2.0,17.0,68,Keyword: thunderstorm,1.9
-Erie,New York,MODERATE,3,2026-05-17 01:00:00+00:00,2026-05-17 02:00:00+00:00,1.0,8.0,26,Keyword: thunderstorm,7.9
-Allegheny,PA,MODERATE,3,2026-05-17 18:00:00+00:00,2026-05-17 22:00:00+00:00,4.0,7.0,21,Keyword: thunderstorm,24.9
-Chittenden,Vermont,MODERATE,3,2026-05-19 00:00:00+00:00,2026-05-19 05:00:00+00:00,5.0,14.0,16,Keyword: thunderstorm,54.9
-Erie,New York,MODERATE,3,2026-05-19 12:00:00+00:00,2026-05-20 17:00:00+00:00,29.0,12.0,68,Keyword: thunderstorm,66.9
-Allegheny,PA,MODERATE,3,2026-05-19 18:00:00+00:00,2026-05-20 05:00:00+00:00,11.0,15.0,19,Keyword: thunderstorm,72.9
-Chittenden,Vermont,MODERATE,3,2026-05-19 18:00:00+00:00,2026-05-20 05:00:00+00:00,11.0,10.0,46,Keyword: thunderstorm,72.9
-Kennebec,Maine,MODERATE,3,2026-05-19 18:00:00+00:00,2026-05-19 23:00:00+00:00,5.0,10.0,33,Keyword: thunderstorm,72.9
-Penobscot,Maine,MODERATE,3,2026-05-19 18:00:00+00:00,2026-05-19 23:00:00+00:00,5.0,10.0,49,Keyword: thunderstorm,72.9
-Androscoggin,Maine,MODERATE,3,2026-05-19 19:00:00+00:00,2026-05-19 23:00:00+00:00,4.0,10.0,24,Keyword: thunderstorm,73.9
-Worcester,Massachusetts,MODERATE,3,2026-05-19 19:00:00+00:00,2026-05-19 23:00:00+00:00,4.0,12.0,22,Keyword: thunderstorm,73.9
-Hillsborough,NH,MODERATE,3,2026-05-19 20:00:00+00:00,2026-05-19 22:00:00+00:00,2.0,15.0,18,Keyword: thunderstorm,74.9
-Middlesex,Massachusetts,MODERATE,3,2026-05-19 20:00:00+00:00,2026-05-19 22:00:00+00:00,2.0,9.0,18,Keyword: thunderstorm,74.9
-Suffolk,Massachusetts,MODERATE,3,2026-05-19 20:00:00+00:00,2026-05-19 23:00:00+00:00,3.0,12.0,19,Keyword: thunderstorm,74.9
-Hartford,Connecticut,MODERATE,3,2026-05-19 21:00:00+00:00,2026-05-19 22:00:00+00:00,1.0,12.0,17,Keyword: thunderstorm,75.9
-Allegheny,PA,MODERATE,3,2026-05-20 12:00:00+00:00,2026-05-20 23:00:00+00:00,11.0,14.0,92,Keyword: thunderstorm,90.9
-Chittenden,Vermont,MODERATE,3,2026-05-20 12:00:00+00:00,2026-05-20 23:00:00+00:00,11.0,10.0,47,Keyword: thunderstorm,90.9
-Androscoggin,Maine,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-20 23:00:00+00:00,5.0,15.0,40,Keyword: thunderstorm,96.9
-Bergen,New Jersey,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,14.0,46,Keyword: thunderstorm,96.9
-Bucks,PA,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,15.0,51,Keyword: thunderstorm,96.9
-Chester,PA,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,15.0,54,Keyword: thunderstorm,96.9
-Cumberland,Maine,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-20 23:00:00+00:00,5.0,15.0,32,Keyword: thunderstorm,96.9
-Essex,Massachusetts,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-20 23:00:00+00:00,5.0,12.0,40,Keyword: thunderstorm,96.9
-Essex,New Jersey,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,16.0,43,Keyword: thunderstorm,96.9
-Fairfield,Connecticut,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,13.0,50,Keyword: thunderstorm,96.9
-Hartford,Connecticut,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,14.0,54,Keyword: thunderstorm,96.9
-Hillsborough,NH,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-20 23:00:00+00:00,5.0,15.0,43,Keyword: thunderstorm,96.9
-Kennebec,Maine,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-20 23:00:00+00:00,5.0,10.0,51,Keyword: thunderstorm,96.9
-Middlesex,Massachusetts,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-20 23:00:00+00:00,5.0,10.0,46,Keyword: thunderstorm,96.9
-Middlesex,New Jersey,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 11:00:00+00:00,17.0,15.0,50,Keyword: thunderstorm,96.9
-Monmouth,New Jersey,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 11:00:00+00:00,17.0,10.0,56,Keyword: thunderstorm,96.9
-Montgomery,PA,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,15.0,54,Keyword: thunderstorm,96.9
-Penobscot,Maine,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-20 23:00:00+00:00,5.0,12.0,60,Keyword: thunderstorm,96.9
-Philadelphia,PA,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 11:00:00+00:00,17.0,15.0,55,Keyword: thunderstorm,96.9
-Rockingham,NH,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-20 23:00:00+00:00,5.0,10.0,41,Keyword: thunderstorm,96.9
-Westchester,New York,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,14.0,50,Keyword: thunderstorm,96.9
-Worcester,Massachusetts,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,13.0,49,Keyword: thunderstorm,96.9
-York,Maine,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-20 23:00:00+00:00,5.0,10.0,36,Keyword: thunderstorm,96.9
-Nassau,New York,MODERATE,3,2026-05-21 00:00:00+00:00,2026-05-21 11:00:00+00:00,11.0,9.0,51,Keyword: thunderstorm,102.9
-New Haven,Connecticut,MODERATE,3,2026-05-21 00:00:00+00:00,2026-05-21 05:00:00+00:00,5.0,5.0,44,Keyword: thunderstorm,102.9
-Ocean,New Jersey,MODERATE,3,2026-05-21 00:00:00+00:00,2026-05-21 17:00:00+00:00,17.0,5.0,59,Keyword: thunderstorm,102.9
-Suffolk,New York,MODERATE,3,2026-05-21 00:00:00+00:00,2026-05-21 05:00:00+00:00,5.0,7.0,48,Keyword: thunderstorm,102.9
+Allegheny,PA,MODERATE,3,2026-05-16 22:00:00+00:00,2026-05-16 23:00:00+00:00,1.0,14.0,67,Keyword: thunderstorm,-0.9
+Allegheny,PA,MODERATE,3,2026-05-17 18:00:00+00:00,2026-05-17 22:00:00+00:00,4.0,7.0,21,Keyword: thunderstorm,19.1
+Erie,New York,MODERATE,3,2026-05-18 01:00:00+00:00,2026-05-18 05:00:00+00:00,4.0,3.0,19,Keyword: thunderstorm,26.1
+Allegheny,PA,MODERATE,3,2026-05-19 18:00:00+00:00,2026-05-20 05:00:00+00:00,11.0,15.0,19,Keyword: thunderstorm,67.1
+Chittenden,Vermont,MODERATE,3,2026-05-19 18:00:00+00:00,2026-05-20 05:00:00+00:00,11.0,10.0,49,Keyword: thunderstorm,67.1
+Erie,New York,MODERATE,3,2026-05-19 18:00:00+00:00,2026-05-20 17:00:00+00:00,23.0,13.0,64,Keyword: thunderstorm,67.1
+Kennebec,Maine,MODERATE,3,2026-05-19 18:00:00+00:00,2026-05-19 23:00:00+00:00,5.0,10.0,31,Keyword: thunderstorm,67.1
+Androscoggin,Maine,MODERATE,3,2026-05-19 19:00:00+00:00,2026-05-19 23:00:00+00:00,4.0,10.0,24,Keyword: thunderstorm,68.1
+Penobscot,Maine,MODERATE,3,2026-05-19 19:00:00+00:00,2026-05-19 23:00:00+00:00,4.0,10.0,48,Keyword: thunderstorm,68.1
+Hartford,Connecticut,MODERATE,3,2026-05-19 21:00:00+00:00,2026-05-19 21:00:00+00:00,0.0,13.0,16,Keyword: thunderstorm,70.1
+Hillsborough,NH,MODERATE,3,2026-05-19 21:00:00+00:00,2026-05-19 21:00:00+00:00,0.0,10.0,15,Keyword: thunderstorm,70.1
+Worcester,Massachusetts,MODERATE,3,2026-05-19 21:00:00+00:00,2026-05-19 21:00:00+00:00,0.0,12.0,16,Keyword: thunderstorm,70.1
+Allegheny,PA,MODERATE,3,2026-05-20 12:00:00+00:00,2026-05-20 23:00:00+00:00,11.0,14.0,87,Keyword: thunderstorm,85.1
+Chittenden,Vermont,MODERATE,3,2026-05-20 12:00:00+00:00,2026-05-20 23:00:00+00:00,11.0,10.0,57,Keyword: thunderstorm,85.1
+Androscoggin,Maine,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-20 23:00:00+00:00,5.0,15.0,58,Keyword: thunderstorm,91.1
+Bergen,New Jersey,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,14.0,67,Keyword: thunderstorm,91.1
+Bucks,PA,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,15.0,66,Keyword: thunderstorm,91.1
+Chester,PA,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,10.0,68,Keyword: thunderstorm,91.1
+Cumberland,Maine,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-20 23:00:00+00:00,5.0,15.0,54,Keyword: thunderstorm,91.1
+Essex,Massachusetts,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-20 23:00:00+00:00,5.0,12.0,65,Keyword: thunderstorm,91.1
+Essex,New Jersey,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,16.0,64,Keyword: thunderstorm,91.1
+Fairfield,Connecticut,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,13.0,69,Keyword: thunderstorm,91.1
+Hartford,Connecticut,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,14.0,73,Keyword: thunderstorm,91.1
+Hillsborough,NH,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-20 23:00:00+00:00,5.0,15.0,64,Keyword: thunderstorm,91.1
+Kennebec,Maine,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-20 23:00:00+00:00,5.0,10.0,61,Keyword: thunderstorm,91.1
+Middlesex,Massachusetts,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-20 23:00:00+00:00,5.0,10.0,65,Keyword: thunderstorm,91.1
+Middlesex,New Jersey,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,15.0,58,Keyword: thunderstorm,91.1
+Monmouth,New Jersey,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,10.0,52,Keyword: thunderstorm,91.1
+Montgomery,PA,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,15.0,68,Keyword: thunderstorm,91.1
+Nassau,New York,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,15.0,59,Keyword: thunderstorm,91.1
+New Haven,Connecticut,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,12.0,65,Keyword: thunderstorm,91.1
+Ocean,New Jersey,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,10.0,51,Keyword: thunderstorm,91.1
+Penobscot,Maine,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-20 23:00:00+00:00,5.0,14.0,64,Keyword: thunderstorm,91.1
+Philadelphia,PA,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,10.0,58,Keyword: thunderstorm,91.1
+Rockingham,NH,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-20 23:00:00+00:00,5.0,10.0,66,Keyword: thunderstorm,91.1
+Suffolk,Massachusetts,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,13.0,65,Keyword: thunderstorm,91.1
+Suffolk,New York,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,14.0,45,Keyword: thunderstorm,91.1
+Westchester,New York,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,14.0,71,Keyword: thunderstorm,91.1
+Worcester,Massachusetts,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-21 05:00:00+00:00,11.0,13.0,69,Keyword: thunderstorm,91.1
+York,Maine,MODERATE,3,2026-05-20 18:00:00+00:00,2026-05-20 23:00:00+00:00,5.0,10.0,60,Keyword: thunderstorm,91.1
