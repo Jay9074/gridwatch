@@ -1,0 +1,29 @@
+{
+  "horizon_1m": {
+    "rmse": 0.1687,
+    "mae": 0.1294,
+    "r2": -0.1432,
+    "correlation": 0.2494,
+    "epochs": 130,
+    "n_train": 877,
+    "n_test": 220
+  },
+  "horizon_3m": {
+    "rmse": 0.1672,
+    "mae": 0.1303,
+    "r2": -0.125,
+    "correlation": 0.1268,
+    "epochs": 153,
+    "n_train": 863,
+    "n_test": 216
+  },
+  "horizon_6m": {
+    "rmse": 0.1719,
+    "mae": 0.1363,
+    "r2": -0.1684,
+    "correlation": 0.2249,
+    "epochs": 150,
+    "n_train": 841,
+    "n_test": 211
+  }
+}

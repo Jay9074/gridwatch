@@ -1,0 +1,16 @@
+{
+  "best_params": {
+    "max_depth": 8,
+    "max_features": 0.7,
+    "min_samples_leaf": 1,
+    "min_samples_split": 2,
+    "n_estimators": 200
+  },
+  "metrics": {
+    "rmse": 27.0024,
+    "mae": 16.9107,
+    "r2": 0.8386,
+    "correlation": 0.9231,
+    "best_cv_r2": 0.291
+  }
+}

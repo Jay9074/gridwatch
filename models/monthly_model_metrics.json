@@ -1,0 +1,43 @@
+{
+  "Ridge Regression": {
+    "rmse": 29.8399,
+    "mae": 20.9284,
+    "r2": 0.803,
+    "correlation": 0.9266,
+    "cv_r2_mean": 0.2055,
+    "cv_r2_std": 0.5589
+  },
+  "Random Forest": {
+    "rmse": 27.1278,
+    "mae": 16.7179,
+    "r2": 0.8371,
+    "correlation": 0.9223,
+    "cv_r2_mean": 0.2955,
+    "cv_r2_std": 0.2624
+  },
+  "Gradient Boosting": {
+    "rmse": 31.7301,
+    "mae": 19.3053,
+    "r2": 0.7772,
+    "correlation": 0.9043,
+    "cv_r2_mean": 0.1901,
+    "cv_r2_std": 0.2916
+  },
+  "XGBoost": {
+    "rmse": 32.4231,
+    "mae": 19.1851,
+    "r2": 0.7674,
+    "correlation": 0.9106,
+    "cv_r2_mean": 0.1176,
+    "cv_r2_std": 0.2039
+  },
+  "LightGBM": {
+    "rmse": 33.0716,
+    "mae": 19.7106,
+    "r2": 0.758,
+    "correlation": 0.8974,
+    "cv_r2_mean": 0.2061,
+    "cv_r2_std": 0.1891
+  },
+  "best_model": "Random Forest"
+}
