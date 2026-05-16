@@ -1,0 +1,96 @@
+{
+  "approach": "XGBoost regression, 5-fold CV with vegetation + population",
+  "validation": "5-fold cross-validation (NOAA data: 2020-2024 only)",
+  "total_storms_tested": 3074,
+  "major_outage_accuracy_pct": 87.0,
+  "critical_outage_accuracy_pct": 86.4,
+  "within_ci_pct": 61.2,
+  "median_pct_error": 47.3,
+  "mean_pct_error": 387.7,
+  "fold_results": [
+    {
+      "fold": 1,
+      "n_train": 2459,
+      "n_test": 615,
+      "major_acc_pct": 85.5,
+      "median_err_pct": 48.5
+    },
+    {
+      "fold": 2,
+      "n_train": 2459,
+      "n_test": 615,
+      "major_acc_pct": 85.2,
+      "median_err_pct": 47.6
+    },
+    {
+      "fold": 3,
+      "n_train": 2459,
+      "n_test": 615,
+      "major_acc_pct": 86.3,
+      "median_err_pct": 50.8
+    },
+    {
+      "fold": 4,
+      "n_train": 2459,
+      "n_test": 615,
+      "major_acc_pct": 88.0,
+      "median_err_pct": 49.6
+    },
+    {
+      "fold": 5,
+      "n_train": 2460,
+      "n_test": 614,
+      "major_acc_pct": 89.7,
+      "median_err_pct": 40.1
+    }
+  ],
+  "top_features": [
+    {
+      "feature": "population_density",
+      "importance": 0.28319528698921204
+    },
+    {
+      "feature": "is_winter",
+      "importance": 0.1126227930188179
+    },
+    {
+      "feature": "baseline_high",
+      "importance": 0.08868568390607834
+    },
+    {
+      "feature": "infrastructure_vulnerability",
+      "importance": 0.08363339602947235
+    },
+    {
+      "feature": "land_area_sqmi",
+      "importance": 0.0794815868139267
+    },
+    {
+      "feature": "baseline_extreme",
+      "importance": 0.07024232447147369
+    },
+    {
+      "feature": "month",
+      "importance": 0.05646788850426674
+    },
+    {
+      "feature": "tree_canopy_pct",
+      "importance": 0.05478830337524414
+    }
+  ],
+  "generated_at": "2026-05-16T13:23:51.395569Z",
+  "by_tier": {
+    "SEVERE": {
+      "n": 319,
+      "major_accuracy_pct": 95.3,
+      "median_pct_error": 33.2,
+      "within_ci_pct": 76.2
+    },
+    "MODERATE": {
+      "n": 2755,
+      "major_accuracy_pct": 86.0,
+      "median_pct_error": 48.5,
+      "within_ci_pct": 59.5
+    }
+  }
+}

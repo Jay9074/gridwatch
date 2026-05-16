@@ -1,0 +1,102 @@
+{
+  "version": "v3 FIXED: leakage-free, per-fold baselines",
+  "approach": "XGBoost+LightGBM ensemble, sample-weighted, per-fold baseline computation",
+  "total_storms_tested": 3074,
+  "major_outage_accuracy_pct": 87.2,
+  "critical_outage_accuracy_pct": 86.1,
+  "within_ci_pct": 53.1,
+  "median_pct_error": 45.8,
+  "mean_pct_error": 209.5,
+  "fold_results": [
+    {
+      "fold": 1,
+      "major_acc_pct": 85.2,
+      "median_err_pct": 46.7
+    },
+    {
+      "fold": 2,
+      "major_acc_pct": 85.9,
+      "median_err_pct": 47.2
+    },
+    {
+      "fold": 3,
+      "major_acc_pct": 86.7,
+      "median_err_pct": 53.7
+    },
+    {
+      "fold": 4,
+      "major_acc_pct": 88.3,
+      "median_err_pct": 47.1
+    },
+    {
+      "fold": 5,
+      "major_acc_pct": 90.1,
+      "median_err_pct": 38.9
+    }
+  ],
+  "top_features": [
+    {
+      "feature": "is_winter",
+      "importance": 0.14776481688022614
+    },
+    {
+      "feature": "population_2023",
+      "importance": 0.10392181724309921
+    },
+    {
+      "feature": "population_density",
+      "importance": 0.09235866665840149
+    },
+    {
+      "feature": "baseline_extreme",
+      "importance": 0.0815424606204033
+    },
+    {
+      "feature": "baseline_typical",
+      "importance": 0.057872095704078676
+    },
+    {
+      "feature": "land_area_sqmi",
+      "importance": 0.05729033574461937
+    },
+    {
+      "feature": "baseline_high",
+      "importance": 0.05326409712433815
+    },
+    {
+      "feature": "month_cos",
+      "importance": 0.042510607093572614
+    },
+    {
+      "feature": "is_hurricane_season",
+      "importance": 0.04178450368344784
+    },
+    {
+      "feature": "infrastructure_vulnerability",
+      "importance": 0.04060577377676964
+    },
+    {
+      "feature": "month_sin",
+      "importance": 0.036960075795650485
+    },
+    {
+      "feature": "is_summer",
+      "importance": 0.03543062284588814
+    }
+  ],
+  "generated_at": "2026-05-16T16:38:19.764675Z",
+  "by_tier": {
+    "SEVERE": {
+      "n": 319,
+      "major_accuracy_pct": 95.0,
+      "median_pct_error": 26.4,
+      "within_ci_pct": 70.5
+    },
+    "MODERATE": {
+      "n": 2755,
+      "major_accuracy_pct": 86.3,
+      "median_pct_error": 47.3,
+      "within_ci_pct": 51.1
+    }
+  }
+}

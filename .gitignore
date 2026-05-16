@@ -1,53 +1,78 @@
+# Environment variables - NEVER commit these
+.env
+.env.local
+.env.production
+*.env
+!.env.example
+
 # Python
 __pycache__/
-*.py[cod]
+*.pyc
 *.pyo
 *.pyd
 .Python
 *.egg-info/
-dist/
-build/
-.eggs/
-
-# Virtual environments
-venv/
-env/
-.env
-.venv
-
-# Jupyter
+.pytest_cache/
 .ipynb_checkpoints/
-*.ipynb_checkpoints
 
-# Data files (too large for GitHub)
+# Conda environment
+gridwatch/
+env/
+venv/
+
+# Large raw data
 data/raw/
-data/processed/
-*.csv
-*.xlsx
-*.zip
-*.gz
-*.parquet
+data/processed/eaglei_daily_northeast.csv
+data/processed/state_monthly_dataset.csv
 
-# Models (too large for GitHub)
+# Storm Watch - timestamped historical snapshots (one per pipeline run, too many)
+data/stormwatch/forecasts/forecast_*.csv
+data/stormwatch/storms/storms_*.csv
+data/stormwatch/predictions/predictions_*.csv
+data/stormwatch/advanced_weather/advanced_*.csv
+
+# Storm Watch - active state files needed for dashboard + API
+# These are NOT ignored - they MUST go to GitHub for the live site to work
+!data/stormwatch/
+!data/stormwatch/forecasts/
+!data/stormwatch/forecasts/latest.csv
+!data/stormwatch/storms/
+!data/stormwatch/storms/active_storms.csv
+!data/stormwatch/predictions/
+!data/stormwatch/predictions/active_predictions.csv
+!data/stormwatch/predictions/prediction_log.csv
+!data/stormwatch/predictions/restoration_estimates.csv
+!data/stormwatch/validation/
+!data/stormwatch/validation/accuracy_scorecard.json
+!data/stormwatch/validation/validation_results.csv
+!data/stormwatch/advanced_weather/
+!data/stormwatch/advanced_weather/latest_advanced.csv
+!data/stormwatch/heartbeat.log
+
+# Backtest results (committed for paper/dashboard)
+!data/stormwatch/backtest/
+!data/stormwatch/backtest/ml_backtest_v4_results.csv
+!data/stormwatch/backtest/ml_backtest_v4_scorecard.json
+!data/stormwatch/backtest/ml_feature_importance_v4.csv
+
+# Trained models
 models/*.pkl
-models/*.h5
-models/*.joblib
-
-# Environment variables
-.env
-*.env
-secrets.toml
-.streamlit/secrets.toml
+!models/outage_ml_model_v4_final.pkl
 
 # OS files
 .DS_Store
 Thumbs.db
+desktop.ini
 
 # IDE
 .vscode/
 .idea/
 *.swp
+*.swo
 
 # Logs
 *.log
-logs/
+!data/stormwatch/heartbeat.log
+
+# Streamlit secrets
+.streamlit/secrets.toml

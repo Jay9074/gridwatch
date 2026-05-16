@@ -1,0 +1,65 @@
+{
+  "test_period": "2020-01-01 to 2024-12-31",
+  "training_period": "2014-01-01 to 2019-12-31",
+  "total_storms_tested": 3073,
+  "major_outage_accuracy_pct": 86.1,
+  "critical_outage_accuracy_pct": 78.1,
+  "within_ci_pct": 44.1,
+  "median_pct_error": 66.2,
+  "mean_pct_error": 241.0,
+  "by_tier": {
+    "SEVERE": {
+      "n": 319,
+      "major_accuracy_pct": 93.7,
+      "critical_accuracy_pct": 71.8,
+      "median_pct_error": 74.3,
+      "within_ci_pct": 57.7
+    },
+    "MODERATE": {
+      "n": 2754,
+      "major_accuracy_pct": 85.3,
+      "critical_accuracy_pct": 78.8,
+      "median_pct_error": 65.9,
+      "within_ci_pct": 42.5
+    }
+  },
+  "by_state": {
+    "Pennsylvania": {
+      "n": 1196,
+      "major_accuracy_pct": 92.3
+    },
+    "New Hampshire": {
+      "n": 133,
+      "major_accuracy_pct": 51.9
+    },
+    "New Jersey": {
+      "n": 483,
+      "major_accuracy_pct": 89.6
+    },
+    "Connecticut": {
+      "n": 229,
+      "major_accuracy_pct": 83.8
+    },
+    "Maine": {
+      "n": 239,
+      "major_accuracy_pct": 76.2
+    },
+    "New York": {
+      "n": 305,
+      "major_accuracy_pct": 89.5
+    },
+    "Massachusetts": {
+      "n": 397,
+      "major_accuracy_pct": 87.4
+    },
+    "Vermont": {
+      "n": 46,
+      "major_accuracy_pct": 34.8
+    },
+    "Rhode Island": {
+      "n": 45,
+      "major_accuracy_pct": 68.9
+    }
+  },
+  "generated_at": "2026-05-16T12:50:39.632077Z"
+}

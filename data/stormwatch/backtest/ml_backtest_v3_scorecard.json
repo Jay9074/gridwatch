@@ -1,0 +1,112 @@
+{
+  "version": "v3: Tuned ensemble + spatial + seasonal features",
+  "approach": "Stacked ensemble (XGBoost + LightGBM + Ridge), Optuna tuned, sample weighted",
+  "total_storms_tested": 3074,
+  "major_outage_accuracy_pct": 90.7,
+  "critical_outage_accuracy_pct": 94.4,
+  "within_ci_pct": 84.5,
+  "median_pct_error": 19.6,
+  "mean_pct_error": 154.9,
+  "fold_results": [
+    {
+      "fold": 1,
+      "major_acc_pct": 88.5,
+      "median_err_pct": 19.3
+    },
+    {
+      "fold": 2,
+      "major_acc_pct": 88.9,
+      "median_err_pct": 19.8
+    },
+    {
+      "fold": 3,
+      "major_acc_pct": 90.4,
+      "median_err_pct": 20.6
+    },
+    {
+      "fold": 4,
+      "major_acc_pct": 91.7,
+      "median_err_pct": 21.2
+    },
+    {
+      "fold": 5,
+      "major_acc_pct": 93.8,
+      "median_err_pct": 17.6
+    }
+  ],
+  "top_features": [
+    {
+      "feature": "is_winter",
+      "importance": 0.12084423005580902
+    },
+    {
+      "feature": "baseline_n_history",
+      "importance": 0.11220903694629669
+    },
+    {
+      "feature": "population_density",
+      "importance": 0.08120447844266891
+    },
+    {
+      "feature": "population_2023",
+      "importance": 0.06462624594569207
+    },
+    {
+      "feature": "regional_storm_count",
+      "importance": 0.06062449216842651
+    },
+    {
+      "feature": "infrastructure_vulnerability",
+      "importance": 0.04135323688387871
+    },
+    {
+      "feature": "land_area_sqmi",
+      "importance": 0.0373880535364151
+    },
+    {
+      "feature": "baseline_extreme",
+      "importance": 0.036592121422290805
+    },
+    {
+      "feature": "seasonal_vs_typical_ratio",
+      "importance": 0.0357441384345293
+    },
+    {
+      "feature": "regional_mean_magnitude",
+      "importance": 0.03557682856917381
+    },
+    {
+      "feature": "is_hurricane_season",
+      "importance": 0.03550334498286247
+    },
+    {
+      "feature": "log_duration",
+      "importance": 0.034288789331913
+    }
+  ],
+  "best_xgb_params": {
+    "n_estimators": 350,
+    "max_depth": 9,
+    "learning_rate": 0.09744578609310868,
+    "subsample": 0.8795975452591109,
+    "colsample_bytree": 0.7468055921327309,
+    "min_child_weight": 2,
+    "reg_alpha": 0.05808361216819946,
+    "reg_lambda": 1.7323522915498704
+  },
+  "generated_at": "2026-05-16T16:31:33.787019Z",
+  "by_tier": {
+    "SEVERE": {
+      "n": 319,
+      "major_accuracy_pct": 95.9,
+      "median_pct_error": 20.2,
+      "within_ci_pct": 93.1
+    },
+    "MODERATE": {
+      "n": 2755,
+      "major_accuracy_pct": 90.1,
+      "median_pct_error": 19.5,
+      "within_ci_pct": 83.4
+    }
+  }
+}

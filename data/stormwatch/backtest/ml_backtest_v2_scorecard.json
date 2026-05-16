@@ -1,0 +1,93 @@
+{
+  "version": "v2: 24-hour window + better matching + storm duration",
+  "total_storms_tested": 3074,
+  "major_outage_accuracy_pct": 80.9,
+  "critical_outage_accuracy_pct": 87.1,
+  "within_ci_pct": 50.5,
+  "median_pct_error": 54.4,
+  "mean_pct_error": 390.3,
+  "fold_results": [
+    {
+      "fold": 1,
+      "major_acc_pct": 79.3,
+      "median_err_pct": 55.6
+    },
+    {
+      "fold": 2,
+      "major_acc_pct": 80.2,
+      "median_err_pct": 54.4
+    },
+    {
+      "fold": 3,
+      "major_acc_pct": 78.2,
+      "median_err_pct": 58.4
+    },
+    {
+      "fold": 4,
+      "major_acc_pct": 83.1,
+      "median_err_pct": 55.4
+    },
+    {
+      "fold": 5,
+      "major_acc_pct": 83.9,
+      "median_err_pct": 45.4
+    }
+  ],
+  "top_features": [
+    {
+      "feature": "baseline_n_history",
+      "importance": 0.15279465466737746
+    },
+    {
+      "feature": "population_density",
+      "importance": 0.09997497498989105
+    },
+    {
+      "feature": "infrastructure_vulnerability",
+      "importance": 0.07542708963155746
+    },
+    {
+      "feature": "is_winter",
+      "importance": 0.07012713178992272
+    },
+    {
+      "feature": "tree_canopy_pct",
+      "importance": 0.0692108117043972
+    },
+    {
+      "feature": "population_2023",
+      "importance": 0.06737964004278182
+    },
+    {
+      "feature": "baseline_extreme",
+      "importance": 0.06183350160717964
+    },
+    {
+      "feature": "land_area_sqmi",
+      "importance": 0.05966932997107506
+    },
+    {
+      "feature": "baseline_high",
+      "importance": 0.04521713778376579
+    },
+    {
+      "feature": "baseline_p25",
+      "importance": 0.04320787489414215
+    }
+  ],
+  "generated_at": "2026-05-16T14:03:36.740720Z",
+  "by_tier": {
+    "SEVERE": {
+      "n": 319,
+      "major_accuracy_pct": 90.9,
+      "median_pct_error": 34.1,
+      "within_ci_pct": 66.8
+    },
+    "MODERATE": {
+      "n": 2755,
+      "major_accuracy_pct": 79.8,
+      "median_pct_error": 55.9,
+      "within_ci_pct": 48.6
+    }
+  }
+}

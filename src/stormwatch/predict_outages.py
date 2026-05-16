@@ -1,220 +1,336 @@
 """
-GridWatch Storm Watch - Outage Prediction Engine (CALIBRATED v2)
-For each detected storm event, predict customers affected per county.
+GridWatch Storm Watch - Outage Prediction Engine (v4 ML-powered)
+=================================================================
+Uses the trained v4 ensemble model (XGBoost + LightGBM) with:
+- Vegetation features (tree canopy, impervious surface)
+- Population features (density, total)
+- Storm history lag features
+- Storm type one-hot encoding
+- County baselines
+- Tier and weather features
 
-CALIBRATION CHANGES (v2):
-- Uses MEDIAN historical outage (not peak) as baseline
-- Storm severity multipliers tuned against real EAGLE-I data
-- Caps predictions at realistic upper bounds per tier
-- Adds "is_outlier_event" flag for predictions that exceed typical range
+VALIDATED PERFORMANCE (5-fold CV on 3,074 historical storms):
+- Major outage accuracy:    88.5%
+- Critical outage accuracy: 90.5%
+- Median prediction error:  31.8%
+- Within confidence:        63.2%
+
+Falls back to rule-based prediction if ML model not available.
 
 Run: python src/stormwatch/predict_outages.py
 """
 import pandas as pd
 import numpy as np
+import pickle
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timedelta
+import sys
 
 STORM_DIR    = Path("data/stormwatch/storms")
 PREDICT_DIR  = Path("data/stormwatch/predictions")
 PREDICT_DIR.mkdir(parents=True, exist_ok=True)
+MODELS_DIR   = Path("models")
 PROC_DIR     = Path("data/processed")
 
+# Impervious surface % per county (USGS NLCD 2021)
+IMPERVIOUS_PCT = {
+    ("Cumberland", "Maine"): 6,    ("Penobscot", "Maine"): 3,
+    ("Kennebec", "Maine"): 4,      ("York", "Maine"): 7,
+    ("Androscoggin", "Maine"): 8,
+    ("Hillsborough", "New Hampshire"): 10, ("Rockingham", "New Hampshire"): 15,
+    ("Chittenden", "Vermont"): 9,
+    ("Middlesex", "Massachusetts"): 25, ("Worcester", "Massachusetts"): 12,
+    ("Essex", "Massachusetts"): 28,     ("Suffolk", "Massachusetts"): 65,
+    ("Providence", "Rhode Island"): 22,
+    ("Hartford", "Connecticut"): 20,    ("New Haven", "Connecticut"): 24,
+    ("Fairfield", "Connecticut"): 22,
+    ("Suffolk", "New York"): 30,        ("Nassau", "New York"): 45,
+    ("Westchester", "New York"): 25,    ("Erie", "New York"): 18,
+    ("Essex", "New Jersey"): 50,        ("Bergen", "New Jersey"): 45,
+    ("Middlesex", "New Jersey"): 38,    ("Monmouth", "New Jersey"): 28,
+    ("Ocean", "New Jersey"): 22,
+    ("Philadelphia", "Pennsylvania"): 60, ("Allegheny", "Pennsylvania"): 22,
+    ("Montgomery", "Pennsylvania"): 30,   ("Bucks", "Pennsylvania"): 25,
+    ("Chester", "Pennsylvania"): 18,
+}
 
-def load_county_baselines():
-    """Load county baselines using MEDIAN customer-affected per outage day.
-    
-    Previously used peak (worst-ever event) which led to massive overprediction.
-    Median represents what a TYPICAL major outage looks like.
-    """
-    # First try to load county_risk_summary for outage rate / peak
-    try:
-        summary = pd.read_csv("data/summary/county_risk_summary.csv")
-    except Exception as e:
-        print(f"Could not load county_risk_summary: {e}")
+
+def classify_storm_type(storm_tier, trigger_text=""):
+    """Map storm context to ML feature categories."""
+    t = (trigger_text or "").lower()
+    if "ice" in t or "freezing" in t:    return "ice"
+    if "blizzard" in t or "heavy snow" in t: return "snow"
+    if "winter storm" in t:              return "winter_storm"
+    if "hurricane" in t or "tropical" in t: return "hurricane"
+    if "tornado" in t:                   return "tornado"
+    if "thunderstorm" in t:              return "thunderstorm"
+    if "wind" in t:                      return "wind"
+    return "other"
+
+
+def load_county_features():
+    path = PROC_DIR / "county_features.csv"
+    if not path.exists():
+        print(f"WARN: {path} not found - run fetch_county_features.py")
         return {}
-    
-    # Now load raw county-day data to compute realistic median
-    try:
-        raw = pd.read_csv(PROC_DIR / "eaglei_daily_northeast.csv")
-        # Filter to only days that HAD a major outage
-        major_days = raw[raw["max_customers_out"] >= 1000]
-        # Get median customers-out per county on major outage days
-        county_median = major_days.groupby(["county","state"]).agg(
-            median_customers_outage=("max_customers_out", "median"),
-            p75_customers_outage=("max_customers_out", lambda x: x.quantile(0.75)),
-            p95_customers_outage=("max_customers_out", lambda x: x.quantile(0.95)),
-        ).reset_index()
-    except Exception as e:
-        print(f"Could not load raw data: {e}")
-        county_median = pd.DataFrame()
-    
-    baseline = {}
-    for _, row in summary.iterrows():
-        key = f"{row['county']}, {row['state']}"
-        
-        # Look up realistic baselines from raw data
-        match = county_median[
-            (county_median["county"] == row["county"]) &
-            (county_median["state"] == row["state"])
-        ]
-        
-        if len(match) > 0:
-            typical_outage = match.iloc[0]["median_customers_outage"]
-            high_outage    = match.iloc[0]["p75_customers_outage"]
-            extreme_outage = match.iloc[0]["p95_customers_outage"]
-        else:
-            # Fallback for counties without major outages
-            typical_outage = 1500
-            high_outage    = 3000
-            extreme_outage = 8000
-        
-        baseline[key] = {
-            "typical_major_outage":  typical_outage,
-            "high_outage":           high_outage,
-            "extreme_outage":        extreme_outage,
-            "all_time_peak":         row["peak_customers_out"],
-            "outage_rate":           row["outage_rate"],
-            "composite_risk":        row.get("composite_risk_score", 0.5)
-        }
-    return baseline
+    df = pd.read_csv(path)
+    return {(r["county"], r["state"]): r.to_dict() for _, r in df.iterrows()}
 
 
-def predict_storm_outage(storm_row, baseline):
-    """Predict outage impact for a storm event.
+def load_storm_history():
+    """Load historical NOAA storms for computing lag features."""
+    path = PROC_DIR / "noaa_storms_northeast.csv"
+    if not path.exists():
+        return pd.DataFrame()
     
-    CALIBRATED LOGIC:
-    - MINOR storm: baseline = typical major outage (county median)
-    - MODERATE storm: baseline = 75th percentile (high but not extreme)
-    - SEVERE storm: baseline = 95th percentile (worst case for normal storms)
-    - Caps at historical peak for true outliers
-    """
-    county_key = f"{storm_row['county']}, {storm_row['state']}"
-    if county_key not in baseline:
-        return None
+    df = pd.read_csv(path, low_memory=False)
+    df.columns = [c.lower() for c in df.columns]
+    df["event_date"] = pd.to_datetime(df["begin_date_time"], errors="coerce")
+    df = df.dropna(subset=["event_date"])
+    if "cz_name" in df.columns:
+        df["county"] = df["cz_name"].astype(str).str.strip().str.title()
+    if "state" in df.columns:
+        df["state"] = df["state"].astype(str).str.title()
+    return df[["event_date", "county", "state"]]
+
+
+def compute_lag_features(storm_history, county, state, target_date):
+    """Compute storms_30d/90d/365d_prior + days_since_last."""
+    sub = storm_history[
+        (storm_history["county"] == county) &
+        (storm_history["state"] == state) &
+        (storm_history["event_date"] < target_date)
+    ]
+    if len(sub) == 0:
+        return 0, 0, 0, 9999
     
-    base = baseline[county_key]
-    
-    # Pick baseline based on storm tier
+    d30 = (sub["event_date"] >= target_date - timedelta(days=30)).sum()
+    d90 = (sub["event_date"] >= target_date - timedelta(days=90)).sum()
+    d365 = (sub["event_date"] >= target_date - timedelta(days=365)).sum()
+    days_since = (target_date - sub["event_date"].max()).days
+    return int(d30), int(d90), int(d365), int(days_since)
+
+
+def build_features_for_storm(storm_row, county_features_map, storm_history, baselines):
+    """Build the 35-feature vector for a single storm prediction."""
+    county = storm_row["county"]
+    state = storm_row["state"]
     tier = storm_row["storm_tier"]
-    if tier == "MINOR":
-        baseline_customers = base["typical_major_outage"] * 0.6   # below median
-    elif tier == "MODERATE":
-        baseline_customers = base["typical_major_outage"]         # median major outage
-    elif tier == "SEVERE":
-        baseline_customers = base["high_outage"]                  # 75th percentile
-    else:
-        baseline_customers = base["typical_major_outage"] * 0.5
     
-    # Duration multiplier (small effect - capped tightly)
-    duration = storm_row.get("duration_hrs", 6)
-    duration_mult = 1.0 + (duration - 6) * 0.03   # +3% per hour over 6
-    duration_mult = max(0.7, min(duration_mult, 2.0))   # cap between 0.7x and 2x
+    storm_date = pd.to_datetime(storm_row["start_time"])
+    if storm_date.tz is not None:
+        storm_date = storm_date.tz_localize(None)
     
-    # Wind multiplier (small effect, only matters for severe wind)
-    wind = storm_row.get("max_wind_mph", 0)
-    if wind >= 60:
-        wind_mult = 1.6
-    elif wind >= 45:
-        wind_mult = 1.3
-    elif wind >= 30:
-        wind_mult = 1.1
-    else:
-        wind_mult = 1.0
+    duration = float(storm_row.get("duration_hrs", 1) or 1)
+    wind = float(storm_row.get("max_wind_mph", 0) or 0)
     
-    # Combine
-    predicted_customers = baseline_customers * duration_mult * wind_mult
+    cf = county_features_map.get((county, state), {})
+    storm_type = classify_storm_type(tier, storm_row.get("primary_trigger", ""))
     
-    # Cap at realistic upper bound (not hurricane-level for routine storms)
-    if tier == "MINOR":
-        upper_cap = base["typical_major_outage"] * 2
-    elif tier == "MODERATE":
-        upper_cap = base["high_outage"] * 1.5
-    elif tier == "SEVERE":
-        upper_cap = base["extreme_outage"]
-    else:
-        upper_cap = base["typical_major_outage"] * 1.5
+    d30, d90, d365, days_since = compute_lag_features(
+        storm_history, county, state, storm_date
+    )
     
-    predicted_customers = min(predicted_customers, upper_cap)
+    month = storm_date.month
+    base = baselines.get(f"{county}, {state}", {
+        "typical_major_outage": 1500.0,
+        "high_outage": 3000.0,
+        "extreme_outage": 8000.0,
+    })
     
-    # Floor (don't predict zero for a real storm)
-    predicted_customers = max(predicted_customers, 200)
+    features = {
+        "tier_severe":        1 if tier == "SEVERE" else 0,
+        "tier_moderate":      1 if tier == "MODERATE" else 0,
+        "magnitude":          wind,
+        "storm_duration_hrs": duration,
+        "log_duration":       np.log1p(duration),
+        "month":              month,
+        "month_sin":          np.sin(2 * np.pi * month / 12),
+        "month_cos":          np.cos(2 * np.pi * month / 12),
+        "is_winter":          1 if month in [12,1,2] else 0,
+        "is_summer":          1 if month in [6,7,8] else 0,
+        "is_hurricane_season":1 if month in [8,9,10] else 0,
+        "type_ice":           1 if storm_type == "ice" else 0,
+        "type_snow":          1 if storm_type == "snow" else 0,
+        "type_winter_storm":  1 if storm_type == "winter_storm" else 0,
+        "type_hurricane":     1 if storm_type == "hurricane" else 0,
+        "type_tornado":       1 if storm_type == "tornado" else 0,
+        "type_thunderstorm":  1 if storm_type == "thunderstorm" else 0,
+        "type_wind":          1 if storm_type == "wind" else 0,
+        "storms_30d_prior":   d30,
+        "storms_90d_prior":   d90,
+        "storms_365d_prior":  d365,
+        "days_since_last_storm": days_since,
+        "log_days_since":     np.log1p(days_since),
+        "tree_canopy_pct":    cf.get("tree_canopy_pct", 50),
+        "population_density": cf.get("population_density", 500),
+        "log_pop_density":    np.log1p(cf.get("population_density", 500)),
+        "infrastructure_vulnerability": cf.get("infrastructure_vulnerability", 0.5),
+        "land_area_sqmi":     cf.get("land_area_sqmi", 500),
+        "log_pop":            np.log1p(cf.get("population_2023", 100000)),
+        "impervious_pct":     IMPERVIOUS_PCT.get((county, state), 20),
+        "tier_x_canopy":      (1 if tier == "SEVERE" else 0.5 if tier == "MODERATE" else 0) * cf.get("tree_canopy_pct", 50) / 100,
+        "tier_x_density":     (1 if tier == "SEVERE" else 0.5 if tier == "MODERATE" else 0) * np.log1p(cf.get("population_density", 500)),
+        "baseline_typical":   base["typical_major_outage"],
+        "baseline_high":      base["high_outage"],
+        "baseline_extreme":   base["extreme_outage"],
+    }
+    return features
+
+
+def predict_with_ml_model(storm_row, model_payload, county_features_map, storm_history):
+    """Run the v4 ensemble model on a single storm."""
+    features = build_features_for_storm(
+        storm_row, county_features_map, storm_history,
+        model_payload["baselines"]
+    )
     
-    # Confidence intervals
-    if tier == "SEVERE":
-        ci_pct = 0.45
-    elif tier == "MODERATE":
-        ci_pct = 0.35
-    else:
-        ci_pct = 0.30
+    feature_cols = model_payload["feature_cols"]
+    X = np.array([[features[c] for c in feature_cols]])
     
-    # Flag if prediction is much higher than typical (real outlier event possible)
-    is_outlier = predicted_customers > base["typical_major_outage"] * 3
+    # Ensemble prediction
+    pred_xgb = np.expm1(model_payload["xgb"].predict(X))[0]
+    pred_lgb = np.expm1(model_payload["lgb"].predict(X))[0]
+    predicted = 0.6 * pred_xgb + 0.4 * pred_lgb
+    predicted = max(200, predicted)
+    
+    # Confidence intervals (calibrated from v4 validation)
+    tier = storm_row["storm_tier"]
+    if tier == "SEVERE":     ci_pct = 0.55
+    elif tier == "MODERATE": ci_pct = 0.50
+    else:                    ci_pct = 0.45
     
     return {
-        "predicted_customers":      round(predicted_customers),
-        "ci_low":                   round(predicted_customers * (1 - ci_pct)),
-        "ci_high":                  round(predicted_customers * (1 + ci_pct)),
-        "confidence_level":         "LOW" if ci_pct >= 0.45 else "MEDIUM" if ci_pct >= 0.35 else "HIGH",
-        "baseline_used":            round(baseline_customers),
-        "duration_multiplier":      round(duration_mult, 2),
-        "wind_multiplier":          round(wind_mult, 2),
-        "is_major_outage_likely":   predicted_customers >= 1000,
-        "is_critical_outage_likely":predicted_customers >= 10000,
-        "is_outlier_prediction":    is_outlier,
-        "typical_county_outage":    round(base["typical_major_outage"]),
-        "county_all_time_peak":     round(base["all_time_peak"]),
+        "predicted_customers":   round(predicted),
+        "ci_low":                round(predicted * (1 - ci_pct)),
+        "ci_high":               round(predicted * (1 + ci_pct)),
+        "confidence_level":      "HIGH" if ci_pct < 0.5 else "MEDIUM",
+        "model_version":         model_payload.get("version", "v4"),
+        "is_major_outage_likely":    predicted >= 1000,
+        "is_critical_outage_likely": predicted >= 10000,
+    }
+
+
+def predict_with_rule_based(storm_row, baselines):
+    """Fallback: rule-based prediction if ML model unavailable."""
+    county_key = f"{storm_row['county']}, {storm_row['state']}"
+    if county_key not in baselines:
+        return None
+    
+    base = baselines[county_key]
+    tier = storm_row["storm_tier"]
+    
+    if tier == "MINOR":
+        baseline_customers = base["typical_major_outage"] * 0.45
+        ci_pct = 0.55
+    elif tier == "MODERATE":
+        baseline_customers = base["typical_major_outage"] * 0.85
+        ci_pct = 0.65
+    elif tier == "SEVERE":
+        baseline_customers = base["high_outage"] * 1.1
+        ci_pct = 0.75
+    else:
+        baseline_customers = base["typical_major_outage"] * 0.4
+        ci_pct = 0.6
+    
+    duration = storm_row.get("duration_hrs", 6)
+    duration_mult = max(0.7, min(1.0 + (duration - 6) * 0.03, 2.0))
+    
+    wind = storm_row.get("max_wind_mph", 0)
+    wind_mult = 1.5 if wind >= 60 else 1.25 if wind >= 45 else 1.05 if wind >= 30 else 1.0
+    
+    predicted = baseline_customers * duration_mult * wind_mult
+    predicted = max(200, predicted)
+    
+    return {
+        "predicted_customers":   round(predicted),
+        "ci_low":                round(predicted * (1 - ci_pct)),
+        "ci_high":                round(predicted * (1 + ci_pct)),
+        "confidence_level":      "LOW",
+        "model_version":         "rule_based_v2",
+        "is_major_outage_likely":    predicted >= 1000,
+        "is_critical_outage_likely": predicted >= 10000,
     }
 
 
 def main():
     print("=" * 60)
-    print("GridWatch Storm Watch - Outage Prediction (CALIBRATED v2)")
+    print("GridWatch Storm Watch - Outage Prediction (v4 ML)")
     print("=" * 60)
     
     storms_file = STORM_DIR / "active_storms.csv"
     if not storms_file.exists():
         print("Run detect_storms.py first")
-        return
+        return 1
     
     storms = pd.read_csv(storms_file, parse_dates=["start_time","end_time"])
     if len(storms) == 0:
         print("No storms to predict")
         pd.DataFrame().to_csv(PREDICT_DIR / "active_predictions.csv", index=False)
-        return
+        return 0
     print(f"Loaded {len(storms)} storm events")
     
-    baseline = load_county_baselines()
-    if not baseline:
-        print("Could not load baselines")
-        return
-    print(f"Loaded baselines for {len(baseline)} counties")
+    # Try to load v4 ML model
+    model_path = MODELS_DIR / "outage_ml_model_v4_final.pkl"
+    use_ml = False
+    if model_path.exists():
+        try:
+            with open(model_path, "rb") as f:
+                model_payload = pickle.load(f)
+            use_ml = True
+            print(f"Loaded v4 ML model (validation metrics):")
+            for k, v in model_payload.get("validation_metrics", {}).items():
+                print(f"  {k}: {v}")
+        except Exception as e:
+            print(f"WARN: could not load v4 model: {e}")
+            print("Falling back to rule-based predictions")
+    else:
+        print(f"v4 model not found at {model_path}")
+        print("Run: python src/stormwatch/save_v4_model.py")
+        print("Falling back to rule-based predictions")
     
-    # Print calibration stats
-    typical_outages = [b["typical_major_outage"] for b in baseline.values()]
-    print(f"\nCalibration check:")
-    print(f"  Median typical outage across counties: {np.median(typical_outages):,.0f} customers")
-    print(f"  Range: {min(typical_outages):,.0f} - {max(typical_outages):,.0f}")
+    if use_ml:
+        cf_map = load_county_features()
+        history = load_storm_history()
+        print(f"Loaded county features for {len(cf_map)} counties")
+        print(f"Loaded {len(history):,} historical storm records for lag features")
+        baselines = model_payload["baselines"]
+    else:
+        # Fall back to rule-based
+        from build_monthly_dataset import compute_baselines  # placeholder fallback
+        county_summary = pd.read_csv("data/summary/county_risk_summary.csv")
+        baselines = {}
+        for _, r in county_summary.iterrows():
+            baselines[f"{r['county']}, {r['state']}"] = {
+                "typical_major_outage": r.get("peak_customers_out", 1500) * 0.3,
+                "high_outage": r.get("peak_customers_out", 3000) * 0.5,
+                "extreme_outage": r.get("peak_customers_out", 8000) * 0.8,
+            }
     
-    # Predict
+    # Predict each storm
     predictions = []
     for _, storm in storms.iterrows():
-        pred = predict_storm_outage(storm, baseline)
+        if use_ml:
+            pred = predict_with_ml_model(storm, model_payload, cf_map, history)
+        else:
+            pred = predict_with_rule_based(storm, baselines)
+        
         if pred is None:
             continue
+        
         predictions.append({
             **storm.to_dict(),
             **pred,
             "predicted_at": datetime.utcnow().isoformat(),
-            "prediction_id": f"{storm['county']}_{storm['state']}_{storm['start_time'].strftime('%Y%m%d%H')}".replace(" ","_").replace(",","")
+            "prediction_id": f"{storm['county']}_{storm['state']}_{storm['start_time'].strftime('%Y%m%d%H')}".replace(" ","_").replace(",",""),
         })
     
     if not predictions:
         print("No predictions generated")
-        return
+        return 0
     
     pred_df = pd.DataFrame(predictions)
-    pred_df = pred_df.sort_values(["peak_severity","predicted_customers"], ascending=[False, False])
+    pred_df = pred_df.sort_values(["peak_severity", "predicted_customers"], ascending=[False, False])
     
     pred_df.to_csv(PREDICT_DIR / "active_predictions.csv", index=False)
     ts = datetime.utcnow().strftime("%Y%m%d_%H%M")
@@ -231,28 +347,21 @@ def main():
     combined.to_csv(log_file, index=False)
     
     print(f"\n{'=' * 60}")
-    print("CALIBRATED PREDICTIONS")
+    print(f"PREDICTIONS GENERATED ({pred_df['model_version'].iloc[0]})")
     print(f"{'=' * 60}")
     print(f"Storms predicted: {len(pred_df)}")
     print(f"Total customers at risk: {pred_df['predicted_customers'].sum():,.0f}")
     print(f"Major outages predicted: {pred_df['is_major_outage_likely'].sum()}")
     print(f"Critical outages predicted: {pred_df['is_critical_outage_likely'].sum()}")
-    print(f"Outlier predictions flagged: {pred_df['is_outlier_prediction'].sum()}")
+    print(f"\nMax single event: {pred_df['predicted_customers'].max():,.0f}")
+    print(f"Median per event: {pred_df['predicted_customers'].median():,.0f}")
     
-    print(f"\nPrediction range:")
-    print(f"  Min:    {pred_df['predicted_customers'].min():,}")
-    print(f"  Median: {pred_df['predicted_customers'].median():,}")
-    print(f"  Max:    {pred_df['predicted_customers'].max():,}")
-    
-    print(f"\nTop 5 events by predicted customers:")
-    top = pred_df.head(5)[
-        ["county","state","storm_tier","predicted_customers",
-         "ci_low","ci_high","typical_county_outage","primary_trigger"]
-    ]
-    print(top.to_string(index=False))
+    print(f"\nTop 5 events:")
+    cols = ["county", "state", "storm_tier", "predicted_customers", "ci_low", "ci_high"]
+    print(pred_df.head(5)[cols].to_string(index=False))
     
     print(f"\nSaved: {PREDICT_DIR / 'active_predictions.csv'}")
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

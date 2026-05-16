@@ -1,0 +1,113 @@
+{
+  "version": "v4: lag features + storm types + impervious surface",
+  "total_storms_tested": 3074,
+  "major_outage_accuracy_pct": 88.5,
+  "critical_outage_accuracy_pct": 90.5,
+  "within_ci_pct": 63.2,
+  "median_pct_error": 31.8,
+  "mean_pct_error": 578.4,
+  "fold_results": [
+    {
+      "fold": 1,
+      "major_acc_pct": 87.2,
+      "median_err_pct": 32.3
+    },
+    {
+      "fold": 2,
+      "major_acc_pct": 89.9,
+      "median_err_pct": 28.8
+    },
+    {
+      "fold": 3,
+      "major_acc_pct": 89.3,
+      "median_err_pct": 32.8
+    },
+    {
+      "fold": 4,
+      "major_acc_pct": 87.5,
+      "median_err_pct": 33.0
+    },
+    {
+      "fold": 5,
+      "major_acc_pct": 88.4,
+      "median_err_pct": 32.4
+    }
+  ],
+  "top_features": [
+    {
+      "feature": "is_winter",
+      "importance": 0.14743094742298127
+    },
+    {
+      "feature": "population_density",
+      "importance": 0.07821964398026467
+    },
+    {
+      "feature": "log_pop_density",
+      "importance": 0.05181556195020676
+    },
+    {
+      "feature": "log_pop",
+      "importance": 0.047418246418237685
+    },
+    {
+      "feature": "log_duration",
+      "importance": 0.04508969597518444
+    },
+    {
+      "feature": "baseline_extreme",
+      "importance": 0.04445262253284454
+    },
+    {
+      "feature": "is_hurricane_season",
+      "importance": 0.044065649062395094
+    },
+    {
+      "feature": "tier_x_density",
+      "importance": 0.03693333715200424
+    },
+    {
+      "feature": "month_cos",
+      "importance": 0.03236918225884437
+    },
+    {
+      "feature": "storm_duration_hrs",
+      "importance": 0.030513622984290122
+    },
+    {
+      "feature": "baseline_typical",
+      "importance": 0.029845362529158592
+    },
+    {
+      "feature": "land_area_sqmi",
+      "importance": 0.02939140871167183
+    },
+    {
+      "feature": "impervious_pct",
+      "importance": 0.028962388262152673
+    },
+    {
+      "feature": "type_tornado",
+      "importance": 0.028199542406946422
+    },
+    {
+      "feature": "month_sin",
+      "importance": 0.0279170211404562
+    }
+  ],
+  "generated_at": "2026-05-16T16:54:43.604731Z",
+  "by_tier": {
+    "SEVERE": {
+      "n": 319,
+      "major_accuracy_pct": 95.0,
+      "median_pct_error": 27.9,
+      "within_ci_pct": 68.0
+    },
+    "MODERATE": {
+      "n": 2755,
+      "major_accuracy_pct": 87.7,
+      "median_pct_error": 32.2,
+      "within_ci_pct": 62.6
+    }
+  }
+}

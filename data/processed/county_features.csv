@@ -1,0 +1,31 @@
+county,state,population_2023,land_area_sqmi,population_density,tree_canopy_pct,infrastructure_vulnerability
+Cumberland,Maine,303069,836,362.5,62,0.445
+Penobscot,Maine,152915,3398,45.0,78,0.477
+Kennebec,Maine,124446,868,143.4,71,0.455
+York,Maine,218770,991,220.8,60,0.404
+Androscoggin,Maine,112072,468,239.5,66,0.444
+Hillsborough,New Hampshire,423396,877,482.8,65,0.487
+Rockingham,New Hampshire,319861,695,460.2,55,0.422
+Chittenden,Vermont,171005,539,317.3,60,0.423
+Middlesex,Massachusetts,1632002,818,1995.1,48,0.687
+Worcester,Massachusetts,866866,1513,572.9,65,0.505
+Essex,Massachusetts,809829,492,1646.0,42,0.581
+Suffolk,Massachusetts,771237,58,13297.2,18,0.508
+Providence,Rhode Island,660741,410,1611.6,38,0.55
+Hartford,Connecticut,899498,735,1223.8,50,0.545
+New Haven,Connecticut,862127,605,1425.0,48,0.573
+Fairfield,Connecticut,957419,626,1529.4,52,0.618
+Suffolk,New York,1525920,912,1673.2,35,0.545
+Nassau,New York,1395774,287,4863.3,28,0.568
+Westchester,New York,990817,432,2293.6,55,0.73
+Erie,New York,950257,1043,911.1,38,0.41
+Essex,New Jersey,853190,126,6771.3,30,0.58
+Bergen,New Jersey,957736,233,4110.5,32,0.592
+Middlesex,New Jersey,861149,309,2786.9,28,0.568
+Monmouth,New Jersey,645354,472,1367.3,38,0.501
+Ocean,New Jersey,668132,628,1063.9,45,0.483
+Philadelphia,Pennsylvania,1550542,134,11571.2,20,0.52
+Allegheny,Pennsylvania,1233253,730,1689.4,50,0.638
+Montgomery,Pennsylvania,861332,483,1783.3,42,0.609
+Bucks,Pennsylvania,648778,604,1074.1,50,0.515
+Chester,Pennsylvania,556280,750,741.7,48,0.436

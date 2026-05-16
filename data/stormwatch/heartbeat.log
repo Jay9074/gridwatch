@@ -1,0 +1,6 @@
+2026-05-13T23:23:41.512586 | PARTIAL | forecasts=4524 storms=48 predictions=36 | failed: fetch_advanced_weather.py
+2026-05-13T23:30:37.187048 | OK | forecasts=4680 storms=50 predictions=38 | all_steps_ok
+2026-05-16T08:06:02.304817 | OK | forecasts=4524 storms=40 predictions=30 | all_steps_ok
+2026-05-16T08:06:30.375469 | OK | forecasts=4680 storms=41 predictions=30 | all_steps_ok
+2026-05-16T08:06:31.124347 | OK | forecasts=4680 storms=41 predictions=30 | all_steps_ok
+2026-05-16T13:07:48.514502 | OK | forecasts=4680 storms=43 predictions=43 | all_steps_ok

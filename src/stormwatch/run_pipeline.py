@@ -1,10 +1,9 @@
 """
 GridWatch Storm Watch - Full Pipeline Runner
-Runs all 6 steps in order, then logs a heartbeat.
+Runs all 6 steps, logs a heartbeat, and pushes results to GitHub.
 
 Run: python src/stormwatch/run_pipeline.py
 Schedule: Windows Task Scheduler every 6 hours
-Verify schedule: python src/stormwatch/heartbeat.py show
 """
 import subprocess
 import sys
@@ -53,6 +52,16 @@ def main():
     except Exception as e:
         print(f"Heartbeat log failed: {e}")
     
+    # Auto-push to GitHub so dashboard and API see fresh data
+    print(f"\n{'=' * 70}")
+    print("Pushing to GitHub")
+    print(f"{'=' * 70}")
+    result = subprocess.run(
+        [sys.executable, str(script_dir / "push_to_github.py")],
+        capture_output=False
+    )
+    
+    print(f"\n{'=' * 70}")
     print(f"Pipeline complete: {datetime.now().isoformat()}")
     if failed:
         print(f"Failed steps: {failed}")
