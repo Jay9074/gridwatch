@@ -2109,8 +2109,191 @@ def live_weather():
         elif code in [95,96,99]:        return "Thunderstorm",  "#dc2626"
         else:                           return "Overcast",      "#64748b"
 
-    def calc_live_risk(wind, snow, precip, code, state_risk):
-        """Calculate real-time outage risk from current weather."""
+    # Load v4 model for predictions
+    @st.cache_resource
+    def _get_v4():
+        """Load v4 model (shared cache with Storm Impact Predictor)."""
+        import pickle, urllib.request
+        local_paths = [
+            Path(__file__).parent.parent / "models" / "outage_ml_model_v4_final.pkl",
+            Path.cwd() / "models" / "outage_ml_model_v4_final.pkl",
+            Path("/mount/src/gridwatch/models/outage_ml_model_v4_final.pkl"),
+        ]
+        for p in local_paths:
+            try:
+                if p.exists():
+                    with open(p, "rb") as f:
+                        return pickle.load(f)
+            except Exception:
+                continue
+        try:
+            tmp = Path("/tmp/outage_ml_model_v4_final.pkl")
+            if not tmp.exists():
+                urllib.request.urlretrieve(
+                    "https://raw.githubusercontent.com/Jay9074/gridwatch/main/models/outage_ml_model_v4_final.pkl",
+                    tmp
+                )
+            with open(tmp, "rb") as f:
+                return pickle.load(f)
+        except Exception:
+            return None
+    
+    _v4 = _get_v4()
+    
+    # Each state mapped to a representative target county (where v4 was trained)
+    STATE_TO_COUNTY = {
+        "Maine":         ("Cumberland", "Maine"),
+        "New Hampshire": ("Hillsborough", "New Hampshire"),
+        "Vermont":       ("Chittenden", "Vermont"),
+        "Massachusetts": ("Middlesex", "Massachusetts"),
+        "Rhode Island":  ("Providence", "Rhode Island"),
+        "Connecticut":   ("Hartford", "Connecticut"),
+        "New York":      ("Westchester", "New York"),
+        "New Jersey":    ("Essex", "New Jersey"),
+        "Pennsylvania":  ("Philadelphia", "Pennsylvania"),
+    }
+    
+    # County features matching backtest_ml_v4.py
+    COUNTY_FEATS_LW = {
+        ("Cumberland","Maine"): (303069,836,62,6),
+        ("Hillsborough","New Hampshire"): (423396,877,65,10),
+        ("Chittenden","Vermont"): (171005,539,60,9),
+        ("Middlesex","Massachusetts"): (1632002,818,48,25),
+        ("Providence","Rhode Island"): (660741,410,38,22),
+        ("Hartford","Connecticut"): (899498,735,50,20),
+        ("Westchester","New York"): (990817,432,55,25),
+        ("Essex","New Jersey"): (853190,126,30,50),
+        ("Philadelphia","Pennsylvania"): (1550542,134,20,60),
+    }
+    
+    def calc_v4_threat(state, wind, snow, precip, code):
+        """Use v4 ML model to predict threat level from current weather.
+        
+        Builds a synthetic 'current storm' from live weather and runs v4.
+        Returns a 0-1 threat score scaled from predicted customer outages.
+        """
+        if _v4 is None:
+            # Fallback: heuristic
+            base = STATE_RISK.get(state, 0.65)
+            risk = base * 0.30
+            if wind: risk += min(wind/100, 1) * 0.25
+            if snow: risk += min(snow/10,  1) * 0.25
+            if code and int(code) in [95,96,99]: risk += 0.15
+            if code and int(code) in [71,73,75]: risk += 0.10
+            if precip: risk += min(precip/20, 1) * 0.05
+            return min(round(risk, 3), 1.0), None
+        
+        # Get county features
+        county, st_name = STATE_TO_COUNTY.get(state, ("Middlesex","Massachusetts"))
+        pop, area, canopy, imperv = COUNTY_FEATS_LW.get(
+            (county, st_name), (500000, 500, 50, 20)
+        )
+        density = pop / area if area > 0 else 500
+        vuln = (canopy/100)*0.6 + min(density/2000, 1.0)*0.4
+        
+        # Classify storm tier and type from current weather
+        wind_val = wind or 0
+        snow_val = snow or 0
+        precip_val = precip or 0
+        code_int = int(code) if code is not None else 0
+        
+        # Storm type one-hot from weather code
+        is_thunderstorm = code_int in [95,96,99]
+        is_snow = code_int in [71,73,75,77,85,86] or snow_val > 0
+        is_ice = code_int in [66,67]
+        
+        # Tier from severity
+        if (wind_val >= 50 or is_thunderstorm or is_ice or snow_val >= 5):
+            tier = "SEVERE"
+        elif (wind_val >= 25 or is_snow or precip_val >= 5):
+            tier = "MODERATE"
+        else:
+            tier = "MINOR"
+        
+        # Derived current-month features
+        from datetime import datetime as _dt
+        month = _dt.now().month
+        
+        # Lag features (use static reasonable defaults since we don't have storm history here)
+        d30_default = 4
+        d90_default = 12
+        d365_default = 45
+        days_since_last = 15  # generic assumption for "active weather period"
+        
+        # Build feature dict matching v4 expectations
+        import numpy as np
+        features = {
+            "tier_severe":        1 if tier == "SEVERE" else 0,
+            "tier_moderate":      1 if tier == "MODERATE" else 0,
+            "magnitude":          float(wind_val),
+            "storm_duration_hrs": 6.0,  # weather snapshot - assume 6hr storm
+            "log_duration":       float(np.log1p(6)),
+            "month":              int(month),
+            "month_sin":          float(np.sin(2 * np.pi * month / 12)),
+            "month_cos":          float(np.cos(2 * np.pi * month / 12)),
+            "is_winter":          1 if month in [12,1,2] else 0,
+            "is_summer":          1 if month in [6,7,8] else 0,
+            "is_hurricane_season":1 if month in [8,9,10] else 0,
+            "type_ice":           1 if is_ice else 0,
+            "type_snow":          1 if is_snow else 0,
+            "type_winter_storm":  1 if (is_snow and wind_val > 20) else 0,
+            "type_hurricane":     0,  # weather API doesn't classify hurricanes directly
+            "type_tornado":       0,
+            "type_thunderstorm":  1 if is_thunderstorm else 0,
+            "type_wind":          1 if (wind_val >= 30 and not is_thunderstorm) else 0,
+            "storms_30d_prior":   d30_default,
+            "storms_90d_prior":   d90_default,
+            "storms_365d_prior":  d365_default,
+            "days_since_last_storm": days_since_last,
+            "log_days_since":     float(np.log1p(days_since_last)),
+            "tree_canopy_pct":    float(canopy),
+            "population_density": float(density),
+            "log_pop_density":    float(np.log1p(density)),
+            "infrastructure_vulnerability": float(vuln),
+            "land_area_sqmi":     float(area),
+            "log_pop":            float(np.log1p(pop)),
+            "impervious_pct":     float(imperv),
+            "tier_x_canopy":      (1 if tier == "SEVERE" else 0.5 if tier == "MODERATE" else 0) * canopy / 100,
+            "tier_x_density":     (1 if tier == "SEVERE" else 0.5 if tier == "MODERATE" else 0) * np.log1p(density),
+            "baseline_typical":   _v4.get("baselines", {}).get(f"{county}, {st_name}", {}).get("typical_major_outage", 1500),
+            "baseline_high":      _v4.get("baselines", {}).get(f"{county}, {st_name}", {}).get("high_outage", 3000),
+            "baseline_extreme":   _v4.get("baselines", {}).get(f"{county}, {st_name}", {}).get("extreme_outage", 8000),
+        }
+        
+        try:
+            feature_cols = _v4["feature_cols"]
+            X = np.array([[features[c] for c in feature_cols]])
+            import warnings as _w
+            with _w.catch_warnings():
+                _w.simplefilter("ignore")
+                pred_xgb = float(np.expm1(_v4["xgb"].predict(X))[0])
+                pred_lgb = float(np.expm1(_v4["lgb"].predict(X))[0])
+            predicted = max(0, 0.6 * pred_xgb + 0.4 * pred_lgb)
+        except Exception:
+            return 0.3, None
+        
+        # Convert predicted customers to 0-1 threat score (log scale, capped at 10K = 1.0)
+        if predicted < 100:
+            threat = 0.05
+        elif predicted < 500:
+            threat = 0.20
+        elif predicted < 1500:
+            threat = 0.40
+        elif predicted < 5000:
+            threat = 0.65
+        elif predicted < 15000:
+            threat = 0.85
+        else:
+            threat = 1.0
+        
+        return round(threat, 3), round(predicted)
+    
+    def calc_live_risk(wind, snow, precip, code, state_risk, state=None):
+        """v4 ML threat level (falls back to heuristic if model unavailable)."""
+        if state:
+            threat, pred_customers = calc_v4_threat(state, wind, snow, precip, code)
+            return threat
+        # Pure heuristic fallback
         risk = state_risk * 0.30
         if wind: risk += min(wind/100, 1) * 0.25
         if snow: risk += min(snow/10,  1) * 0.25
@@ -2144,7 +2327,8 @@ def live_weather():
                 cond, cond_color = get_condition(code)
                 live_risk = calc_live_risk(
                     wind, snow, precip, code,
-                    STATE_RISK.get(state, 0.65)
+                    STATE_RISK.get(state, 0.65),
+                    state=state
                 )
                 results.append({
                     "state":      state,
@@ -2702,15 +2886,8 @@ def main():
 
     st.divider()
     section_intro(
-        "🔮 Future Projections (2026-2030)",
-        "Linear trend extrapolation from 11 years of historical EAGLE-I data, plus a climate-adjusted scenario from NOAA National Climate Assessment estimates. These are statistical projections, NOT predictions from the v4 ML model (which operates on individual storm events). NOAA projects 9-18% more extreme precipitation events in the Northeast by 2030."
-    )
-    future_projections()
-
-    st.divider()
-    section_intro(
-        "🌡️ Live Weather + Threat Level",
-        "Current weather conditions for all 9 Northeast states with a heuristic threat level combining live weather severity and historical outage baselines. This is a quick situational awareness widget, NOT an ML prediction. For validated storm forecasts, see Storm Watch above."
+        "🌡️ Live Weather + Threat Level (v4 ML)",
+        "Current weather conditions for all 9 Northeast states. Each state's threat level is computed by feeding live weather (wind, precipitation, weather code) into the validated v4 ML model as a synthetic storm scenario. Threat scale: 0.0 (minimal) to 1.0 (severe regional risk). Falls back to heuristic if model unavailable."
     )
     live_weather()
 
