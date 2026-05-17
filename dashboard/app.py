@@ -2167,21 +2167,139 @@ def live_weather():
     }
     
     def calc_v4_threat(state, wind, snow, precip, code):
-        """Use v4 ML model to predict threat level from current weather.
+        """Honest threat level from current weather conditions.
         
-        Builds a synthetic 'current storm' from live weather and runs v4.
-        Returns a 0-1 threat score scaled from predicted customer outages.
+        Approach: threat scales primarily with ACTUAL severe conditions
+        (high wind, snow, ice, thunderstorm). Clear weather = low threat
+        regardless of state baseline. State baseline only matters when
+        storm conditions exist.
         """
-        if _v4 is None:
-            # Fallback: heuristic
+        wind_val = wind or 0
+        snow_val = snow or 0
+        precip_val = precip or 0
+        code_int = int(code) if code is not None else 0
+        
+        # Detect storm conditions
+        is_thunderstorm = code_int in [95, 96, 99]
+        is_snow_event = code_int in [71,73,75,77,85,86] or snow_val > 0
+        is_ice = code_int in [66, 67]
+        is_drizzle = code_int in [51, 53, 55]
+        is_rain = code_int in [61, 63, 65] or precip_val > 1
+        has_active_weather = (
+            is_thunderstorm or is_snow_event or is_ice or
+            wind_val >= 25 or precip_val >= 2 or snow_val >= 1
+        )
+        
+        # CASE 1: Clear/calm weather - threat is LOW regardless of state
+        if not has_active_weather and wind_val < 20:
+            # Very low threat for clear weather. Slight variation by state baseline
+            # for "underlying grid vulnerability awareness" but capped low.
             base = STATE_RISK.get(state, 0.65)
-            risk = base * 0.30
-            if wind: risk += min(wind/100, 1) * 0.25
-            if snow: risk += min(snow/10,  1) * 0.25
-            if code and int(code) in [95,96,99]: risk += 0.15
-            if code and int(code) in [71,73,75]: risk += 0.10
-            if precip: risk += min(precip/20, 1) * 0.05
-            return min(round(risk, 3), 1.0), None
+            # Range: 5%-15% for clear weather, scaled by state baseline
+            threat = 0.05 + (base * 0.10)
+            return round(threat, 3), None
+        
+        # CASE 2: Mild weather (light rain, breezy)
+        if wind_val < 30 and not is_thunderstorm and not is_snow_event and not is_ice:
+            # Moderate threat scaling with conditions
+            threat = 0.10
+            if wind_val >= 20: threat += (wind_val - 20) / 100   # +0 to +0.10
+            if is_rain or is_drizzle: threat += 0.05
+            if precip_val >= 5: threat += 0.05
+            # State baseline adds slight modifier
+            threat += STATE_RISK.get(state, 0.65) * 0.05
+            return round(min(threat, 0.35), 3), None
+        
+        # CASE 3: Real storm conditions - use v4 ML for prediction-based threat
+        if _v4 is not None:
+            try:
+                county, st_name = STATE_TO_COUNTY.get(state, ("Middlesex","Massachusetts"))
+                pop, area, canopy, imperv = COUNTY_FEATS_LW.get(
+                    (county, st_name), (500000, 500, 50, 20)
+                )
+                density = pop / area if area > 0 else 500
+                vuln = (canopy/100)*0.6 + min(density/2000, 1.0)*0.4
+                
+                # Tier from actual severity
+                if (wind_val >= 50 or is_thunderstorm or is_ice or snow_val >= 5):
+                    tier = "SEVERE"
+                elif (wind_val >= 30 or is_snow_event or precip_val >= 5):
+                    tier = "MODERATE"
+                else:
+                    tier = "MINOR"
+                
+                from datetime import datetime as _dt
+                month = _dt.now().month
+                
+                import numpy as np
+                features = {
+                    "tier_severe":        1 if tier == "SEVERE" else 0,
+                    "tier_moderate":      1 if tier == "MODERATE" else 0,
+                    "magnitude":          float(wind_val),
+                    "storm_duration_hrs": 6.0,
+                    "log_duration":       float(np.log1p(6)),
+                    "month":              int(month),
+                    "month_sin":          float(np.sin(2 * np.pi * month / 12)),
+                    "month_cos":          float(np.cos(2 * np.pi * month / 12)),
+                    "is_winter":          1 if month in [12,1,2] else 0,
+                    "is_summer":          1 if month in [6,7,8] else 0,
+                    "is_hurricane_season":1 if month in [8,9,10] else 0,
+                    "type_ice":           1 if is_ice else 0,
+                    "type_snow":          1 if is_snow_event else 0,
+                    "type_winter_storm":  1 if (is_snow_event and wind_val > 20) else 0,
+                    "type_hurricane":     0,
+                    "type_tornado":       0,
+                    "type_thunderstorm":  1 if is_thunderstorm else 0,
+                    "type_wind":          1 if (wind_val >= 30 and not is_thunderstorm) else 0,
+                    "storms_30d_prior":   3,
+                    "storms_90d_prior":   10,
+                    "storms_365d_prior":  35,
+                    "days_since_last_storm": 20,
+                    "log_days_since":     float(np.log1p(20)),
+                    "tree_canopy_pct":    float(canopy),
+                    "population_density": float(density),
+                    "log_pop_density":    float(np.log1p(density)),
+                    "infrastructure_vulnerability": float(vuln),
+                    "land_area_sqmi":     float(area),
+                    "log_pop":            float(np.log1p(pop)),
+                    "impervious_pct":     float(imperv),
+                    "tier_x_canopy":      (1 if tier == "SEVERE" else 0.5 if tier == "MODERATE" else 0) * canopy / 100,
+                    "tier_x_density":     (1 if tier == "SEVERE" else 0.5 if tier == "MODERATE" else 0) * np.log1p(density),
+                    "baseline_typical":   _v4.get("baselines", {}).get(f"{county}, {st_name}", {}).get("typical_major_outage", 1500),
+                    "baseline_high":      _v4.get("baselines", {}).get(f"{county}, {st_name}", {}).get("high_outage", 3000),
+                    "baseline_extreme":   _v4.get("baselines", {}).get(f"{county}, {st_name}", {}).get("extreme_outage", 8000),
+                }
+                
+                feature_cols = _v4["feature_cols"]
+                X = np.array([[features[c] for c in feature_cols]])
+                import warnings as _w
+                with _w.catch_warnings():
+                    _w.simplefilter("ignore")
+                    pred_xgb = float(np.expm1(_v4["xgb"].predict(X))[0])
+                    pred_lgb = float(np.expm1(_v4["lgb"].predict(X))[0])
+                predicted = max(0, 0.6 * pred_xgb + 0.4 * pred_lgb)
+                
+                # Storm-conditions threat: scaled by v4 prediction
+                if predicted < 500:    threat = 0.30
+                elif predicted < 1500: threat = 0.50
+                elif predicted < 5000: threat = 0.70
+                elif predicted < 15000: threat = 0.85
+                else:                  threat = 1.0
+                
+                return round(threat, 3), round(predicted)
+            except Exception:
+                pass
+        
+        # Fallback for storm conditions without v4: heuristic
+        threat = 0.30
+        if wind_val >= 50: threat += 0.30
+        elif wind_val >= 30: threat += 0.15
+        if is_thunderstorm: threat += 0.20
+        if is_ice: threat += 0.25
+        if is_snow_event: threat += 0.15
+        if snow_val >= 5: threat += 0.10
+        if precip_val >= 10: threat += 0.05
+        return round(min(threat, 1.0), 3), None
         
         # Get county features
         county, st_name = STATE_TO_COUNTY.get(state, ("Middlesex","Massachusetts"))
@@ -2421,7 +2539,7 @@ def live_weather():
                 </div>
                 <div style='display:flex;justify-content:space-between;
                             align-items:center;'>
-                    <span style='font-size:0.75rem;color:#64748b;'>Live risk score</span>
+                    <span style='font-size:0.75rem;color:#64748b;'>Threat level</span>
                     <span style='font-family:JetBrains Mono,monospace;
                                  font-size:1rem;font-weight:600;color:{risk_col};'>
                         {r["live_risk"]:.0%}
