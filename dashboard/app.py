@@ -2061,8 +2061,10 @@ def live_weather():
     st.markdown("#### Live weather conditions — Northeast US")
     st.markdown("""
     <div style='font-size:0.82rem;color:#374151;line-height:1.7;margin-bottom:16px;'>
-        Real-time weather data from NOAA Weather API and Open-Meteo.
-        Current conditions are used to estimate live outage risk for each state.
+        Real-time weather data from Open-Meteo. The <strong>threat level</strong> combines
+        current weather severity with each state's <em>historical baseline outage rate</em>
+        (from EAGLE-I 2014-2025) for quick situational awareness. For specific storm forecasts
+        with validated v4 ML predictions, see the <strong>Storm Watch</strong> section above.
     </div>
     """, unsafe_allow_html=True)
 
@@ -2079,10 +2081,17 @@ def live_weather():
         "Pennsylvania":  {"lat":40.27,"lon":-76.88,"city":"Harrisburg"},
     }
 
+    # State baseline risk from real EAGLE-I data (matches REAL_STATE_DATA above)
     STATE_RISK = {
-        "Maine":0.87,"Vermont":0.78,"New Hampshire":0.75,
-        "New York":0.72,"Pennsylvania":0.68,"Massachusetts":0.65,
-        "Connecticut":0.61,"New Jersey":0.60,"Rhode Island":0.58
+        "New Jersey":   0.840,  # Highest risk - 19.4% outage rate
+        "Massachusetts":0.770,
+        "Connecticut":  0.700,
+        "Maine":        0.690,
+        "Pennsylvania": 0.640,
+        "New York":     0.640,
+        "Rhode Island": 0.620,
+        "New Hampshire":0.580,
+        "Vermont":      0.480,  # Lowest risk - 4.4% outage rate
     }
 
     # WMO weather code interpreter
@@ -2319,16 +2328,35 @@ def risk_calculator():
     # Load v4 model (with cache via session_state)
     @st.cache_resource
     def load_v4_model():
-        for path in [
+        """Load v4 model from local file or GitHub fallback."""
+        import os
+        # Try local paths first (fast)
+        local_paths = [
             Path(__file__).parent.parent / "models" / "outage_ml_model_v4_final.pkl",
             Path.cwd() / "models" / "outage_ml_model_v4_final.pkl",
-        ]:
+            Path("/mount/src/gridwatch/models/outage_ml_model_v4_final.pkl"),
+            Path("/app/models/outage_ml_model_v4_final.pkl"),
+        ]
+        for path in local_paths:
             try:
-                with open(path, "rb") as f:
-                    return pickle.load(f)
+                if path.exists():
+                    with open(path, "rb") as f:
+                        return pickle.load(f)
             except Exception:
                 continue
-        return None
+        
+        # GitHub fallback - download to /tmp and cache
+        try:
+            import urllib.request
+            tmp_path = Path("/tmp/outage_ml_model_v4_final.pkl")
+            if not tmp_path.exists():
+                url = "https://raw.githubusercontent.com/Jay9074/gridwatch/main/models/outage_ml_model_v4_final.pkl"
+                urllib.request.urlretrieve(url, tmp_path)
+            with open(tmp_path, "rb") as f:
+                return pickle.load(f)
+        except Exception as e:
+            st.error(f"Could not load v4 model: {e}")
+            return None
     
     model_payload = load_v4_model()
     if model_payload is None:
@@ -2681,8 +2709,8 @@ def main():
 
     st.divider()
     section_intro(
-        "🌡️ Live Weather + Real-Time Risk",
-        "Current NOAA conditions for all 9 Northeast states with a live computed risk score. Updates from the NOAA API. Useful for situational awareness and short-term operational decisions."
+        "🌡️ Live Weather + Threat Level",
+        "Current weather conditions for all 9 Northeast states with a heuristic threat level combining live weather severity and historical outage baselines. This is a quick situational awareness widget, NOT an ML prediction. For validated storm forecasts, see Storm Watch above."
     )
     live_weather()
 
