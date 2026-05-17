@@ -6,7 +6,7 @@ Free, open API for power grid outage risk intelligence in the Northeast US.
 Built on FastAPI. Deployed to Render.com free tier.
 Live URL: https://gridwatch-api.onrender.com
 
-This is the GridWatch differentiator vs commercial providers like DTN:
+This is what makes GridWatch different from commercial outage prediction tools:
 - Their API costs $50K+/year per customer
 - Ours is free and publicly auditable
 

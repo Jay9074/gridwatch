@@ -1,9 +1,9 @@
 """
 GridWatch Storm Watch - Advanced Weather Features
 Fetches ice accretion, lightning, and convective outlook from NOAA.
-These are the weather variables DTN highlights in their marketing.
+These are advanced weather variables relevant to outage prediction.
 
-This adds the variables DTN uses: high wind, ice accretion, lightning,
+This adds advanced variables: high wind, ice accretion, lightning,
 and convective severity to our forecast pipeline.
 
 Run: python src/stormwatch/fetch_advanced_weather.py
@@ -205,7 +205,7 @@ def main():
         ), axis=1
     )
     
-    # Composite weather risk score (the DTN-equivalent metric)
+    # Composite weather risk score (industry-standard metric)
     df["composite_weather_risk"] = (
         (df["wind_mph"] / 60).clip(0, 1) * 0.35 +
         (df["ice_accretion_risk"] / 5) * 0.30 +

@@ -5,7 +5,7 @@ For each predicted storm event, estimate:
 - Number of crews needed
 - Total restoration cost (rough)
 
-This matches what DTN provides under "impact statistics, damage and 
+This provides industry-standard "impact statistics, damage and 
 restoration effort estimates."
 
 Run: python src/stormwatch/restoration_estimator.py

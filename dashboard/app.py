@@ -1357,7 +1357,7 @@ def backtest_scorecard():
         Each storm gets exactly one prediction (when it's in the held-out fold). Results are then aggregated.
         
         **Why this matters for GridWatch:**
-        - DTN (commercial competitor) does not publish their accuracy metrics
+        - Commercial outage prediction tools typically keep accuracy metrics private
         - GridWatch publishes the full scorecard openly
         - Every prediction made today is logged for future validation as EAGLE-I data becomes available (60-day lag)
         
@@ -1421,7 +1421,7 @@ def load_accuracy_scorecard():
 
 # ── Storm Watch Dashboard Section ────────────────────────────────
 def storm_watch():
-    """Live storm prediction section — the headline differentiator vs. DTN."""
+    """Live storm prediction section — the public, validated outage forecast."""
     
     # Header with live indicator
     st.markdown("""
@@ -1633,7 +1633,7 @@ def storm_watch():
         published 60 days after the first batch of predictions accumulates.
         <br><br>
         <b>This is the GridWatch differentiator:</b> Every prediction we make is publicly 
-        auditable. Commercial competitors like DTN keep their accuracy private. 
+        auditable. Commercial outage prediction tools typically keep their accuracy metrics private. 
         We publish ours openly.
         </div>
         </div>

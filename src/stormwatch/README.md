@@ -12,7 +12,7 @@ Real-time storm detection and outage prediction system. Built on top of the exis
 
 ## Why It Matters
 
-This is the differentiator vs DTN. DTN says "trust our predictions." GridWatch says "verify our predictions" - every prediction is logged publicly and accuracy is tracked in real time.
+Every prediction is logged publicly and accuracy is tracked in real time against actual EAGLE-I outcomes. This open validation is the GridWatch approach: "verify our predictions" instead of "trust our predictions."
 
 ## Setup (One-Time)
 
