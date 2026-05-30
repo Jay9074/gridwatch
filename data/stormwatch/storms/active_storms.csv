@@ -1,30 +1,30 @@
 county,state,storm_tier,peak_severity,start_time,end_time,duration_hrs,max_wind_mph,max_precip_pct,primary_trigger,hours_ahead
-Allegheny,PA,MODERATE,3,2026-05-27 20:00:00+00:00,2026-05-27 21:00:00+00:00,1.0,6.0,19,Keyword: thunderstorm,-48.3
-Bergen,New Jersey,MODERATE,3,2026-05-27 20:00:00+00:00,2026-05-27 23:00:00+00:00,3.0,9.0,23,Keyword: thunderstorm,-48.3
-Fairfield,Connecticut,MODERATE,3,2026-05-27 20:00:00+00:00,2026-05-27 21:00:00+00:00,1.0,12.0,15,Keyword: thunderstorm,-48.3
-New Haven,Connecticut,MODERATE,3,2026-05-27 20:00:00+00:00,2026-05-27 23:00:00+00:00,3.0,9.0,27,Keyword: thunderstorm,-48.3
-Westchester,New York,MODERATE,3,2026-05-27 20:00:00+00:00,2026-05-27 21:00:00+00:00,1.0,10.0,15,Keyword: thunderstorm,-48.3
-Hartford,Connecticut,MODERATE,3,2026-05-27 21:00:00+00:00,2026-05-27 21:00:00+00:00,0.0,9.0,16,Keyword: thunderstorm,-47.3
-Providence,Rhode Island,MODERATE,3,2026-05-27 21:00:00+00:00,2026-05-27 22:00:00+00:00,1.0,9.0,25,Keyword: thunderstorm,-47.3
-Essex,New Jersey,MODERATE,3,2026-05-27 22:00:00+00:00,2026-05-27 23:00:00+00:00,1.0,12.0,23,Keyword: thunderstorm,-46.3
-Nassau,New York,MODERATE,3,2026-05-27 22:00:00+00:00,2026-05-27 23:00:00+00:00,1.0,12.0,15,Keyword: thunderstorm,-46.3
-Suffolk,New York,MODERATE,3,2026-05-27 22:00:00+00:00,2026-05-27 23:00:00+00:00,1.0,9.0,23,Keyword: thunderstorm,-46.3
-York,Maine,MODERATE,3,2026-05-28 16:00:00+00:00,2026-05-28 20:00:00+00:00,4.0,5.0,67,Precip 61%,-28.3
-Essex,Massachusetts,MODERATE,3,2026-05-28 18:00:00+00:00,2026-05-28 20:00:00+00:00,2.0,6.0,55,Keyword: thunderstorm,-26.3
-Middlesex,Massachusetts,MODERATE,3,2026-05-28 18:00:00+00:00,2026-05-28 20:00:00+00:00,2.0,9.0,45,Keyword: thunderstorm,-26.3
-Rockingham,NH,MODERATE,3,2026-05-28 18:00:00+00:00,2026-05-28 20:00:00+00:00,2.0,5.0,59,Keyword: thunderstorm,-26.3
-Suffolk,Massachusetts,MODERATE,3,2026-05-28 18:00:00+00:00,2026-05-28 20:00:00+00:00,2.0,7.0,54,Keyword: thunderstorm,-26.3
-Androscoggin,Maine,MINOR,3,2026-05-29 23:00:00+00:00,2026-05-30 17:00:00+00:00,18.0,20.0,91,Precip 65%,2.7
-Cumberland,Maine,MINOR,3,2026-05-29 23:00:00+00:00,2026-05-30 17:00:00+00:00,18.0,20.0,90,Precip 60%,2.7
-Chittenden,Vermont,MODERATE,3,2026-05-31 18:00:00+00:00,2026-05-31 23:00:00+00:00,5.0,7.0,24,Keyword: thunderstorm,45.7
-Cumberland,Maine,MINOR,2,2026-05-28 18:00:00+00:00,2026-05-28 19:00:00+00:00,1.0,5.0,64,Precip 60%,-26.3
-Chittenden,Vermont,MINOR,2,2026-05-29 21:00:00+00:00,2026-05-30 11:00:00+00:00,14.0,12.0,88,Precip 60%,0.7
-Kennebec,Maine,MINOR,2,2026-05-29 23:00:00+00:00,2026-05-30 20:00:00+00:00,21.0,15.0,89,Precip 67%,2.7
-Rockingham,NH,MINOR,2,2026-05-30 00:00:00+00:00,2026-05-30 15:00:00+00:00,15.0,15.0,85,Precip 61%,3.7
-York,Maine,MINOR,2,2026-05-30 00:00:00+00:00,2026-05-30 17:00:00+00:00,17.0,15.0,87,Precip 68%,3.7
-Hillsborough,NH,MINOR,2,2026-05-30 01:00:00+00:00,2026-05-30 12:00:00+00:00,11.0,10.0,85,Precip 68%,4.7
-Essex,Massachusetts,MINOR,2,2026-05-30 02:00:00+00:00,2026-05-30 15:00:00+00:00,13.0,14.0,80,Precip 62%,5.7
-Middlesex,Massachusetts,MINOR,2,2026-05-30 02:00:00+00:00,2026-05-30 11:00:00+00:00,9.0,8.0,73,Precip 64%,5.7
-Worcester,Massachusetts,MINOR,2,2026-05-30 03:00:00+00:00,2026-05-30 03:00:00+00:00,0.0,5.0,60,Precip 60%,6.7
-Suffolk,Massachusetts,MINOR,2,2026-05-30 04:00:00+00:00,2026-05-30 12:00:00+00:00,8.0,10.0,70,Precip 60%,7.7
-Penobscot,Maine,MINOR,2,2026-05-30 06:00:00+00:00,2026-05-30 22:00:00+00:00,16.0,18.0,68,Precip 60%,9.7
+Allegheny,PA,MODERATE,3,2026-05-27 20:00:00+00:00,2026-05-27 21:00:00+00:00,1.0,6.0,19,Keyword: thunderstorm,-65.2
+Bergen,New Jersey,MODERATE,3,2026-05-27 20:00:00+00:00,2026-05-27 23:00:00+00:00,3.0,9.0,23,Keyword: thunderstorm,-65.2
+Fairfield,Connecticut,MODERATE,3,2026-05-27 20:00:00+00:00,2026-05-27 21:00:00+00:00,1.0,12.0,15,Keyword: thunderstorm,-65.2
+New Haven,Connecticut,MODERATE,3,2026-05-27 20:00:00+00:00,2026-05-27 23:00:00+00:00,3.0,9.0,27,Keyword: thunderstorm,-65.2
+Westchester,New York,MODERATE,3,2026-05-27 20:00:00+00:00,2026-05-27 21:00:00+00:00,1.0,10.0,15,Keyword: thunderstorm,-65.2
+Hartford,Connecticut,MODERATE,3,2026-05-27 21:00:00+00:00,2026-05-27 21:00:00+00:00,0.0,9.0,16,Keyword: thunderstorm,-64.2
+Providence,Rhode Island,MODERATE,3,2026-05-27 21:00:00+00:00,2026-05-27 22:00:00+00:00,1.0,9.0,25,Keyword: thunderstorm,-64.2
+Essex,New Jersey,MODERATE,3,2026-05-27 22:00:00+00:00,2026-05-27 23:00:00+00:00,1.0,12.0,23,Keyword: thunderstorm,-63.2
+Nassau,New York,MODERATE,3,2026-05-27 22:00:00+00:00,2026-05-27 23:00:00+00:00,1.0,12.0,15,Keyword: thunderstorm,-63.2
+Suffolk,New York,MODERATE,3,2026-05-27 22:00:00+00:00,2026-05-27 23:00:00+00:00,1.0,9.0,23,Keyword: thunderstorm,-63.2
+York,Maine,MODERATE,3,2026-05-28 16:00:00+00:00,2026-05-28 20:00:00+00:00,4.0,5.0,67,Precip 61%,-45.2
+Essex,Massachusetts,MODERATE,3,2026-05-28 18:00:00+00:00,2026-05-28 20:00:00+00:00,2.0,6.0,55,Keyword: thunderstorm,-43.2
+Middlesex,Massachusetts,MODERATE,3,2026-05-28 18:00:00+00:00,2026-05-28 20:00:00+00:00,2.0,9.0,45,Keyword: thunderstorm,-43.2
+Rockingham,NH,MODERATE,3,2026-05-28 18:00:00+00:00,2026-05-28 20:00:00+00:00,2.0,5.0,59,Keyword: thunderstorm,-43.2
+Suffolk,Massachusetts,MODERATE,3,2026-05-28 18:00:00+00:00,2026-05-28 20:00:00+00:00,2.0,7.0,54,Keyword: thunderstorm,-43.2
+Androscoggin,Maine,MINOR,3,2026-05-29 23:00:00+00:00,2026-05-30 17:00:00+00:00,18.0,20.0,91,Precip 65%,-14.2
+Cumberland,Maine,MINOR,3,2026-05-29 23:00:00+00:00,2026-05-30 17:00:00+00:00,18.0,20.0,90,Precip 60%,-14.2
+Chittenden,Vermont,MODERATE,3,2026-05-31 18:00:00+00:00,2026-05-31 23:00:00+00:00,5.0,7.0,24,Keyword: thunderstorm,28.8
+Cumberland,Maine,MINOR,2,2026-05-28 18:00:00+00:00,2026-05-28 19:00:00+00:00,1.0,5.0,64,Precip 60%,-43.2
+Chittenden,Vermont,MINOR,2,2026-05-29 21:00:00+00:00,2026-05-30 11:00:00+00:00,14.0,12.0,88,Precip 60%,-16.2
+Kennebec,Maine,MINOR,2,2026-05-29 23:00:00+00:00,2026-05-30 20:00:00+00:00,21.0,15.0,89,Precip 67%,-14.2
+Rockingham,NH,MINOR,2,2026-05-30 00:00:00+00:00,2026-05-30 15:00:00+00:00,15.0,15.0,85,Precip 61%,-13.2
+York,Maine,MINOR,2,2026-05-30 00:00:00+00:00,2026-05-30 17:00:00+00:00,17.0,15.0,87,Precip 68%,-13.2
+Hillsborough,NH,MINOR,2,2026-05-30 01:00:00+00:00,2026-05-30 12:00:00+00:00,11.0,10.0,85,Precip 68%,-12.2
+Essex,Massachusetts,MINOR,2,2026-05-30 02:00:00+00:00,2026-05-30 15:00:00+00:00,13.0,14.0,80,Precip 62%,-11.2
+Middlesex,Massachusetts,MINOR,2,2026-05-30 02:00:00+00:00,2026-05-30 11:00:00+00:00,9.0,8.0,73,Precip 64%,-11.2
+Worcester,Massachusetts,MINOR,2,2026-05-30 03:00:00+00:00,2026-05-30 03:00:00+00:00,0.0,5.0,60,Precip 60%,-10.2
+Suffolk,Massachusetts,MINOR,2,2026-05-30 04:00:00+00:00,2026-05-30 12:00:00+00:00,8.0,10.0,70,Precip 60%,-9.2
+Penobscot,Maine,MINOR,2,2026-05-30 06:00:00+00:00,2026-05-30 22:00:00+00:00,16.0,18.0,68,Precip 60%,-7.2
