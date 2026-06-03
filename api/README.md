@@ -64,24 +64,5 @@ pip install -r api/requirements.txt
 uvicorn api.main:app --reload --port 8000
 # Open http://localhost:8000/docs
 ```
-
-## Deploy to Render
-
-1. Push this repo to GitHub
-2. Sign in at render.com (free tier)
-3. New → Web Service → connect GitHub repo
-4. Render detects `render.yaml` and deploys automatically
-5. First deploy takes ~3 minutes
-6. After deploy, your API is live at `https://gridwatch-api.onrender.com`
-
-## Free Tier Limits
-
-Render free tier:
-- Spins down after 15 minutes of inactivity
-- First request after spin-down takes 30-60 seconds
-- 750 hours/month free (enough for 24/7 single service)
-
-For zero spin-down, upgrade to Starter ($7/month) when you're ready.
-
 ## License
 MIT - free for any use including commercial.
