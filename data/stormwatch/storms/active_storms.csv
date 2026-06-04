@@ -1,44 +1,48 @@
 county,state,storm_tier,peak_severity,start_time,end_time,duration_hrs,max_wind_mph,max_precip_pct,primary_trigger,hours_ahead
-Chittenden,Vermont,MODERATE,3,2026-06-06 12:00:00+00:00,2026-06-07 17:00:00+00:00,29.0,12.0,85,Precip 69%,61.1
-Allegheny,PA,MODERATE,3,2026-06-06 18:00:00+00:00,2026-06-07 23:00:00+00:00,29.0,16.0,85,Keyword: thunderstorm,67.1
-Androscoggin,Maine,MODERATE,3,2026-06-06 18:00:00+00:00,2026-06-07 16:00:00+00:00,22.0,10.0,67,Keyword: thunderstorm,67.1
-Cumberland,Maine,MODERATE,3,2026-06-06 18:00:00+00:00,2026-06-07 18:00:00+00:00,24.0,10.0,67,Keyword: thunderstorm,67.1
-Erie,New York,MODERATE,3,2026-06-06 18:00:00+00:00,2026-06-07 11:00:00+00:00,17.0,12.0,81,Keyword: thunderstorm,67.1
-Hillsborough,NH,MODERATE,3,2026-06-06 18:00:00+00:00,2026-06-06 23:00:00+00:00,5.0,10.0,31,Keyword: thunderstorm,67.1
-Kennebec,Maine,MODERATE,3,2026-06-06 18:00:00+00:00,2026-06-07 05:00:00+00:00,11.0,5.0,68,Keyword: thunderstorm,67.1
-Penobscot,Maine,MODERATE,3,2026-06-06 18:00:00+00:00,2026-06-07 05:00:00+00:00,11.0,8.0,67,Keyword: thunderstorm,67.1
-York,Maine,MODERATE,3,2026-06-06 18:00:00+00:00,2026-06-07 05:00:00+00:00,11.0,5.0,41,Keyword: thunderstorm,67.1
-Hartford,Connecticut,MODERATE,3,2026-06-06 20:00:00+00:00,2026-06-07 05:00:00+00:00,9.0,14.0,37,Keyword: thunderstorm,69.1
-Worcester,Massachusetts,MODERATE,3,2026-06-06 20:00:00+00:00,2026-06-07 05:00:00+00:00,9.0,12.0,38,Keyword: thunderstorm,69.1
-Bergen,New Jersey,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-08 05:00:00+00:00,29.0,9.0,70,Keyword: thunderstorm,73.1
-Bucks,PA,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-08 05:00:00+00:00,29.0,10.0,59,Keyword: thunderstorm,73.1
-Chester,PA,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-07 23:00:00+00:00,23.0,10.0,44,Keyword: thunderstorm,73.1
-Essex,Massachusetts,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-07 05:00:00+00:00,5.0,5.0,38,Keyword: thunderstorm,73.1
-Essex,New Jersey,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-08 05:00:00+00:00,29.0,10.0,68,Keyword: thunderstorm,73.1
-Fairfield,Connecticut,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-07 05:00:00+00:00,5.0,5.0,34,Keyword: thunderstorm,73.1
-Middlesex,Massachusetts,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-07 05:00:00+00:00,5.0,3.0,39,Keyword: thunderstorm,73.1
-Middlesex,New Jersey,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-08 05:00:00+00:00,29.0,10.0,66,Keyword: thunderstorm,73.1
-Montgomery,PA,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-08 05:00:00+00:00,29.0,10.0,51,Keyword: thunderstorm,73.1
-Nassau,New York,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-08 05:00:00+00:00,29.0,10.0,71,Keyword: thunderstorm,73.1
-New Haven,Connecticut,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-07 05:00:00+00:00,5.0,5.0,27,Keyword: thunderstorm,73.1
-Providence,Rhode Island,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-07 05:00:00+00:00,5.0,6.0,31,Keyword: thunderstorm,73.1
-Rockingham,NH,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-07 05:00:00+00:00,5.0,5.0,43,Keyword: thunderstorm,73.1
-Suffolk,Massachusetts,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-07 05:00:00+00:00,5.0,8.0,36,Keyword: thunderstorm,73.1
-Suffolk,New York,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-07 11:00:00+00:00,11.0,9.0,35,Keyword: thunderstorm,73.1
-Westchester,New York,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-08 05:00:00+00:00,29.0,10.0,72,Keyword: thunderstorm,73.1
-Monmouth,New Jersey,MODERATE,3,2026-06-07 06:00:00+00:00,2026-06-08 05:00:00+00:00,23.0,10.0,68,Keyword: thunderstorm,79.1
-Ocean,New Jersey,MODERATE,3,2026-06-07 06:00:00+00:00,2026-06-08 11:00:00+00:00,29.0,10.0,66,Keyword: thunderstorm,79.1
-Philadelphia,PA,MODERATE,3,2026-06-07 06:00:00+00:00,2026-06-08 05:00:00+00:00,23.0,10.0,51,Keyword: thunderstorm,79.1
-Essex,Massachusetts,MODERATE,3,2026-06-07 12:00:00+00:00,2026-06-07 23:00:00+00:00,11.0,10.0,78,Keyword: thunderstorm,85.1
-Fairfield,Connecticut,MODERATE,3,2026-06-07 12:00:00+00:00,2026-06-08 05:00:00+00:00,17.0,9.0,72,Keyword: thunderstorm,85.1
-Hartford,Connecticut,MODERATE,3,2026-06-07 12:00:00+00:00,2026-06-07 23:00:00+00:00,11.0,10.0,77,Keyword: thunderstorm,85.1
-Hillsborough,NH,MODERATE,3,2026-06-07 12:00:00+00:00,2026-06-07 23:00:00+00:00,11.0,10.0,83,Keyword: thunderstorm,85.1
-Middlesex,Massachusetts,MODERATE,3,2026-06-07 12:00:00+00:00,2026-06-07 23:00:00+00:00,11.0,8.0,79,Keyword: thunderstorm,85.1
-New Haven,Connecticut,MODERATE,3,2026-06-07 12:00:00+00:00,2026-06-08 05:00:00+00:00,17.0,8.0,72,Keyword: thunderstorm,85.1
-Providence,Rhode Island,MODERATE,3,2026-06-07 12:00:00+00:00,2026-06-08 05:00:00+00:00,17.0,10.0,77,Keyword: thunderstorm,85.1
-Rockingham,NH,MODERATE,3,2026-06-07 12:00:00+00:00,2026-06-07 23:00:00+00:00,11.0,10.0,79,Keyword: thunderstorm,85.1
-Suffolk,Massachusetts,MODERATE,3,2026-06-07 12:00:00+00:00,2026-06-07 23:00:00+00:00,11.0,13.0,78,Keyword: thunderstorm,85.1
-Worcester,Massachusetts,MODERATE,3,2026-06-07 12:00:00+00:00,2026-06-07 23:00:00+00:00,11.0,10.0,80,Keyword: thunderstorm,85.1
-York,Maine,MODERATE,3,2026-06-07 12:00:00+00:00,2026-06-07 23:00:00+00:00,11.0,10.0,74,Keyword: thunderstorm,85.1
-Erie,New York,MODERATE,3,2026-06-07 18:00:00+00:00,2026-06-07 23:00:00+00:00,5.0,6.0,19,Keyword: thunderstorm,91.1
-Suffolk,New York,MODERATE,3,2026-06-07 18:00:00+00:00,2026-06-08 05:00:00+00:00,11.0,10.0,65,Keyword: thunderstorm,91.1
+Erie,New York,MODERATE,3,2026-06-06 09:00:00+00:00,2026-06-07 02:00:00+00:00,17.0,13.0,85,Keyword: thunderstorm,50.9
+Chittenden,Vermont,MODERATE,3,2026-06-06 12:00:00+00:00,2026-06-07 17:00:00+00:00,29.0,12.0,85,Precip 69%,53.9
+Allegheny,PA,MODERATE,3,2026-06-06 18:00:00+00:00,2026-06-07 11:00:00+00:00,17.0,16.0,88,Keyword: thunderstorm,59.9
+Androscoggin,Maine,MODERATE,3,2026-06-06 18:00:00+00:00,2026-06-07 16:00:00+00:00,22.0,10.0,67,Keyword: thunderstorm,59.9
+Cumberland,Maine,MODERATE,3,2026-06-06 18:00:00+00:00,2026-06-07 18:00:00+00:00,24.0,10.0,67,Keyword: thunderstorm,59.9
+Hillsborough,NH,MODERATE,3,2026-06-06 18:00:00+00:00,2026-06-06 23:00:00+00:00,5.0,10.0,31,Keyword: thunderstorm,59.9
+Kennebec,Maine,MODERATE,3,2026-06-06 18:00:00+00:00,2026-06-07 05:00:00+00:00,11.0,5.0,68,Keyword: thunderstorm,59.9
+Penobscot,Maine,MODERATE,3,2026-06-06 18:00:00+00:00,2026-06-07 05:00:00+00:00,11.0,8.0,67,Keyword: thunderstorm,59.9
+York,Maine,MODERATE,3,2026-06-06 18:00:00+00:00,2026-06-07 05:00:00+00:00,11.0,5.0,41,Keyword: thunderstorm,59.9
+Essex,Massachusetts,MODERATE,3,2026-06-06 21:00:00+00:00,2026-06-07 02:00:00+00:00,5.0,9.0,45,Keyword: thunderstorm,62.9
+Fairfield,Connecticut,MODERATE,3,2026-06-06 21:00:00+00:00,2026-06-07 02:00:00+00:00,5.0,13.0,58,Keyword: thunderstorm,62.9
+Hartford,Connecticut,MODERATE,3,2026-06-06 21:00:00+00:00,2026-06-07 02:00:00+00:00,5.0,13.0,38,Keyword: thunderstorm,62.9
+Middlesex,Massachusetts,MODERATE,3,2026-06-06 21:00:00+00:00,2026-06-07 02:00:00+00:00,5.0,10.0,40,Keyword: thunderstorm,62.9
+Westchester,New York,MODERATE,3,2026-06-06 21:00:00+00:00,2026-06-07 02:00:00+00:00,5.0,14.0,49,Keyword: thunderstorm,62.9
+Worcester,Massachusetts,MODERATE,3,2026-06-06 21:00:00+00:00,2026-06-07 02:00:00+00:00,5.0,12.0,36,Keyword: thunderstorm,62.9
+Bergen,New Jersey,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-07 05:00:00+00:00,5.0,10.0,40,Keyword: thunderstorm,65.9
+Bucks,PA,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-08 05:00:00+00:00,29.0,10.0,59,Keyword: thunderstorm,65.9
+Chester,PA,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-07 23:00:00+00:00,23.0,10.0,44,Keyword: thunderstorm,65.9
+Essex,New Jersey,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-07 05:00:00+00:00,5.0,12.0,41,Keyword: thunderstorm,65.9
+Middlesex,New Jersey,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-08 05:00:00+00:00,29.0,10.0,66,Keyword: thunderstorm,65.9
+Montgomery,PA,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-08 05:00:00+00:00,29.0,10.0,51,Keyword: thunderstorm,65.9
+Nassau,New York,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-07 05:00:00+00:00,5.0,10.0,45,Keyword: thunderstorm,65.9
+New Haven,Connecticut,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-07 05:00:00+00:00,5.0,5.0,27,Keyword: thunderstorm,65.9
+Rockingham,NH,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-07 05:00:00+00:00,5.0,5.0,43,Keyword: thunderstorm,65.9
+Suffolk,Massachusetts,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-07 02:00:00+00:00,2.0,8.0,39,Keyword: thunderstorm,65.9
+Suffolk,New York,MODERATE,3,2026-06-07 00:00:00+00:00,2026-06-07 02:00:00+00:00,2.0,8.0,56,Keyword: thunderstorm,65.9
+Monmouth,New Jersey,MODERATE,3,2026-06-07 06:00:00+00:00,2026-06-08 05:00:00+00:00,23.0,10.0,68,Keyword: thunderstorm,71.9
+Ocean,New Jersey,MODERATE,3,2026-06-07 06:00:00+00:00,2026-06-08 11:00:00+00:00,29.0,10.0,66,Keyword: thunderstorm,71.9
+Philadelphia,PA,MODERATE,3,2026-06-07 06:00:00+00:00,2026-06-08 05:00:00+00:00,23.0,10.0,51,Keyword: thunderstorm,71.9
+Essex,Massachusetts,MODERATE,3,2026-06-07 12:00:00+00:00,2026-06-07 23:00:00+00:00,11.0,9.0,82,Keyword: thunderstorm,77.9
+Hillsborough,NH,MODERATE,3,2026-06-07 12:00:00+00:00,2026-06-07 23:00:00+00:00,11.0,10.0,83,Keyword: thunderstorm,77.9
+Middlesex,Massachusetts,MODERATE,3,2026-06-07 12:00:00+00:00,2026-06-07 23:00:00+00:00,11.0,8.0,84,Keyword: thunderstorm,77.9
+New Haven,Connecticut,MODERATE,3,2026-06-07 12:00:00+00:00,2026-06-08 05:00:00+00:00,17.0,8.0,72,Keyword: thunderstorm,77.9
+Rockingham,NH,MODERATE,3,2026-06-07 12:00:00+00:00,2026-06-07 23:00:00+00:00,11.0,10.0,79,Keyword: thunderstorm,77.9
+Suffolk,Massachusetts,MODERATE,3,2026-06-07 12:00:00+00:00,2026-06-07 23:00:00+00:00,11.0,10.0,82,Keyword: thunderstorm,77.9
+Worcester,Massachusetts,MODERATE,3,2026-06-07 12:00:00+00:00,2026-06-07 23:00:00+00:00,11.0,9.0,83,Keyword: thunderstorm,77.9
+York,Maine,MODERATE,3,2026-06-07 12:00:00+00:00,2026-06-07 23:00:00+00:00,11.0,10.0,74,Keyword: thunderstorm,77.9
+Providence,Rhode Island,MODERATE,3,2026-06-07 15:00:00+00:00,2026-06-07 23:00:00+00:00,8.0,9.0,81,Precip 60%,80.9
+Allegheny,PA,MODERATE,3,2026-06-07 18:00:00+00:00,2026-06-07 23:00:00+00:00,5.0,8.0,26,Keyword: thunderstorm,83.9
+Bergen,New Jersey,MODERATE,3,2026-06-07 18:00:00+00:00,2026-06-07 23:00:00+00:00,5.0,12.0,55,Keyword: thunderstorm,83.9
+Essex,New Jersey,MODERATE,3,2026-06-07 18:00:00+00:00,2026-06-07 23:00:00+00:00,5.0,12.0,51,Keyword: thunderstorm,83.9
+Fairfield,Connecticut,MODERATE,3,2026-06-07 18:00:00+00:00,2026-06-07 23:00:00+00:00,5.0,9.0,66,Keyword: thunderstorm,83.9
+Hartford,Connecticut,MODERATE,3,2026-06-07 18:00:00+00:00,2026-06-07 23:00:00+00:00,5.0,12.0,73,Keyword: thunderstorm,83.9
+Nassau,New York,MODERATE,3,2026-06-07 18:00:00+00:00,2026-06-07 23:00:00+00:00,5.0,10.0,61,Keyword: thunderstorm,83.9
+Suffolk,New York,MODERATE,3,2026-06-07 18:00:00+00:00,2026-06-07 23:00:00+00:00,5.0,9.0,59,Keyword: thunderstorm,83.9
+Westchester,New York,MODERATE,3,2026-06-07 18:00:00+00:00,2026-06-07 23:00:00+00:00,5.0,10.0,62,Keyword: thunderstorm,83.9
+Suffolk,New York,MINOR,2,2026-06-07 06:00:00+00:00,2026-06-07 11:00:00+00:00,5.0,5.0,62,Precip 62%,71.9
