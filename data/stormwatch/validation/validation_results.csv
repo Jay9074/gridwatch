@@ -1,0 +1,75 @@
+prediction_id,county,state,storm_tier,start_time,predicted_customers,actual_customers,in_confidence_interval,predicted_major,actual_major,major_correct,predicted_critical,actual_critical,critical_correct,pct_error
+Providence_Rhode_Island_2026051412,Providence,Rhode Island,MODERATE,2026-05-14 12:00:00+00:00,3172,0,False,True,False,False,False,False,True,100
+Middlesex_Massachusetts_2026051412,Middlesex,Massachusetts,MINOR,2026-05-14 12:00:00+00:00,2119,0,False,True,False,False,False,False,True,100
+Nassau_New_York_2026051515,Nassau,New York,MODERATE,2026-05-15 15:00:00+00:00,2091,0,False,True,False,False,False,False,True,100
+Worcester_Massachusetts_2026051411,Worcester,Massachusetts,MINOR,2026-05-14 11:00:00+00:00,2077,0,False,True,False,False,False,False,True,100
+Fairfield_Connecticut_2026051515,Fairfield,Connecticut,MODERATE,2026-05-15 15:00:00+00:00,2029,0,False,True,False,False,False,False,True,100
+Suffolk_New_York_2026051515,Suffolk,New York,MODERATE,2026-05-15 15:00:00+00:00,2014,0,False,True,False,False,False,False,True,100
+New_Haven_Connecticut_2026051515,New Haven,Connecticut,MODERATE,2026-05-15 15:00:00+00:00,2006,0,False,True,False,False,False,False,True,100
+Bergen_New_Jersey_2026051515,Bergen,New Jersey,MODERATE,2026-05-15 15:00:00+00:00,1910,0,False,True,False,False,False,False,True,100
+Nassau_New_York_2026051403,Nassau,New York,MINOR,2026-05-14 03:00:00+00:00,1788,0,False,True,False,False,False,False,True,100
+Fairfield_Connecticut_2026051403,Fairfield,Connecticut,MINOR,2026-05-14 03:00:00+00:00,1734,0,False,True,False,False,False,False,True,100
+New_Haven_Connecticut_2026051406,New Haven,Connecticut,MINOR,2026-05-14 06:00:00+00:00,1714,0,False,True,False,False,False,False,True,100
+Chittenden_Vermont_2026051618,Chittenden,Vermont,MODERATE,2026-05-16 18:00:00+00:00,1704,0,False,True,False,False,False,False,True,100
+Westchester_New_York_2026051515,Westchester,New York,MODERATE,2026-05-15 15:00:00+00:00,1690,0,False,True,False,False,False,False,True,100
+Essex_New_Jersey_2026051515,Essex,New Jersey,MODERATE,2026-05-15 15:00:00+00:00,1679,0,False,True,False,False,False,False,True,100
+Hartford_Connecticut_2026051409,Hartford,Connecticut,MINOR,2026-05-14 09:00:00+00:00,1665,0,False,True,False,False,False,False,True,100
+Middlesex_New_Jersey_2026051404,Middlesex,New Jersey,MINOR,2026-05-14 04:00:00+00:00,1487,0,False,True,False,False,False,False,True,100
+Westchester_New_York_2026051403,Westchester,New York,MINOR,2026-05-14 03:00:00+00:00,1445,0,False,True,False,False,False,False,True,100
+Erie_New_York_2026051307,Erie,New York,MINOR,2026-05-13 07:00:00+00:00,1378,0,False,True,False,False,False,False,True,100
+York_Maine_2026051413,York,Maine,MINOR,2026-05-14 13:00:00+00:00,2255,0,False,True,False,False,False,False,True,100
+Essex_Massachusetts_2026051415,Essex,Massachusetts,MINOR,2026-05-14 15:00:00+00:00,2166,0,False,True,False,False,False,False,True,100
+Kennebec_Maine_2026051416,Kennebec,Maine,MINOR,2026-05-14 16:00:00+00:00,2152,0,False,True,False,False,False,False,True,100
+Cumberland_Maine_2026051415,Cumberland,Maine,MINOR,2026-05-14 15:00:00+00:00,2069,0,False,True,False,False,False,False,True,100
+Penobscot_Maine_2026051422,Penobscot,Maine,MINOR,2026-05-14 22:00:00+00:00,1934,0,False,True,False,False,False,False,True,100
+Androscoggin_Maine_2026051415,Androscoggin,Maine,MINOR,2026-05-14 15:00:00+00:00,1784,0,False,True,False,False,False,False,True,100
+Ocean_New_Jersey_2026051405,Ocean,New Jersey,MINOR,2026-05-14 05:00:00+00:00,1777,0,False,True,False,False,False,False,True,100
+Suffolk_Massachusetts_2026051414,Suffolk,Massachusetts,MINOR,2026-05-14 14:00:00+00:00,1689,0,False,True,False,False,False,False,True,100
+Chittenden_Vermont_2026051409,Chittenden,Vermont,MINOR,2026-05-14 09:00:00+00:00,1497,0,False,True,False,False,False,False,True,100
+Monmouth_New_Jersey_2026051405,Monmouth,New Jersey,MINOR,2026-05-14 05:00:00+00:00,1452,0,False,True,False,False,False,False,True,100
+Providence_Rhode_Island_2026051512,Providence,Rhode Island,MINOR,2026-05-15 12:00:00+00:00,1260,0,False,True,False,False,False,False,True,100
+Chittenden_Vermont_2026051314,Chittenden,Vermont,MINOR,2026-05-13 14:00:00+00:00,1149,0,False,True,False,False,False,False,True,100
+Nassau_New_York_2026051318,Nassau,New York,MINOR,2026-05-13 18:00:00+00:00,1042,0,False,True,False,False,False,False,True,100
+Ocean_New_Jersey_2026051403,Ocean,New Jersey,MODERATE,2026-05-14 03:00:00+00:00,2886,0,False,True,False,False,False,False,True,100
+Nassau_New_York_2026051404,Nassau,New York,MODERATE,2026-05-14 04:00:00+00:00,2742,0,False,True,False,False,False,False,True,100
+Fairfield_Connecticut_2026051404,Fairfield,Connecticut,MODERATE,2026-05-14 04:00:00+00:00,2660,0,False,True,False,False,False,False,True,100
+New_Haven_Connecticut_2026051405,New Haven,Connecticut,MODERATE,2026-05-14 05:00:00+00:00,2573,0,False,True,False,False,False,False,True,100
+Nassau_New_York_2026051712,Nassau,New York,MODERATE,2026-05-17 12:00:00+00:00,2269,0,False,True,False,False,False,False,True,100
+Westchester_New_York_2026051404,Westchester,New York,MODERATE,2026-05-14 04:00:00+00:00,2216,0,False,True,False,False,False,False,True,100
+Monmouth_New_Jersey_2026051403,Monmouth,New Jersey,MODERATE,2026-05-14 03:00:00+00:00,2174,0,False,True,False,False,False,False,True,100
+Bergen_New_Jersey_2026051712,Bergen,New Jersey,MODERATE,2026-05-17 12:00:00+00:00,2072,0,False,True,False,False,False,False,True,100
+Suffolk_New_York_2026051412,Suffolk,New York,MODERATE,2026-05-14 12:00:00+00:00,2014,0,False,True,False,False,False,False,True,100
+Erie_New_York_2026051700,Erie,New York,MODERATE,2026-05-17 00:00:00+00:00,1989,0,False,True,False,False,False,False,True,100
+Essex_New_Jersey_2026051403,Essex,New Jersey,MODERATE,2026-05-14 03:00:00+00:00,1850,0,False,True,False,False,False,False,True,100
+Middlesex_New_Jersey_2026051403,Middlesex,New Jersey,MODERATE,2026-05-14 03:00:00+00:00,1850,0,False,True,False,False,False,False,True,100
+Essex_New_Jersey_2026051718,Essex,New Jersey,MODERATE,2026-05-17 18:00:00+00:00,1850,0,False,True,False,False,False,False,True,100
+Westchester_New_York_2026051712,Westchester,New York,MODERATE,2026-05-17 12:00:00+00:00,1834,0,False,True,False,False,False,False,True,100
+Essex_Massachusetts_2026051416,Essex,Massachusetts,MINOR,2026-05-14 16:00:00+00:00,1760,0,False,True,False,False,False,False,True,100
+Bergen_New_Jersey_2026051403,Bergen,New Jersey,MODERATE,2026-05-14 03:00:00+00:00,1748,0,False,True,False,False,False,False,True,100
+Chittenden_Vermont_2026051405,Chittenden,Vermont,MINOR,2026-05-14 05:00:00+00:00,1655,0,False,True,False,False,False,False,True,100
+Providence_Rhode_Island_2026051415,Providence,Rhode Island,MINOR,2026-05-14 15:00:00+00:00,1541,0,False,True,False,False,False,False,True,100
+Worcester_Massachusetts_2026051415,Worcester,Massachusetts,MINOR,2026-05-14 15:00:00+00:00,1413,0,False,True,False,False,False,False,True,100
+Middlesex_Massachusetts_2026051416,Middlesex,Massachusetts,MINOR,2026-05-14 16:00:00+00:00,1404,0,False,True,False,False,False,False,True,100
+Hartford_Connecticut_2026051412,Hartford,Connecticut,MINOR,2026-05-14 12:00:00+00:00,1383,0,False,True,False,False,False,False,True,100
+Suffolk_Massachusetts_2026051416,Suffolk,Massachusetts,MINOR,2026-05-14 16:00:00+00:00,1192,0,False,True,False,False,False,False,True,100
+Bergen_New_Jersey_2026051412,Bergen,New Jersey,MINOR,2026-05-14 12:00:00+00:00,1146,0,False,True,False,False,False,False,True,100
+York_Maine_2026051418,York,Maine,MINOR,2026-05-14 18:00:00+00:00,2092,0,False,True,False,False,False,False,True,100
+Cumberland_Maine_2026051418,Cumberland,Maine,MINOR,2026-05-14 18:00:00+00:00,1991,0,False,True,False,False,False,False,True,100
+Kennebec_Maine_2026051419,Kennebec,Maine,MINOR,2026-05-14 19:00:00+00:00,1919,0,False,True,False,False,False,False,True,100
+Androscoggin_Maine_2026051418,Androscoggin,Maine,MINOR,2026-05-14 18:00:00+00:00,1683,0,False,True,False,False,False,False,True,100
+Essex_Massachusetts_2026051512,Essex,Massachusetts,MINOR,2026-05-15 12:00:00+00:00,1313,0,False,True,False,False,False,False,True,100
+Providence_Rhode_Island_2026051515,Providence,Rhode Island,MINOR,2026-05-15 15:00:00+00:00,1139,0,False,True,False,False,False,False,True,100
+Penobscot_Maine_2026051500,Penobscot,Maine,MINOR,2026-05-15 00:00:00+00:00,1089,0,False,True,False,False,False,False,True,100
+Middlesex_Massachusetts_2026051515,Middlesex,Massachusetts,MINOR,2026-05-15 15:00:00+00:00,1066,0,False,True,False,False,False,False,True,100
+Monmouth_New_Jersey_2026051415,Monmouth,New Jersey,MINOR,2026-05-14 15:00:00+00:00,1009,0,False,True,False,False,False,False,True,100
+Worcester_Massachusetts_2026051515,Worcester,Massachusetts,MINOR,2026-05-15 15:00:00+00:00,1008,0,False,True,False,False,False,False,True,100
+Essex_New_Jersey_2026051412,Essex,New Jersey,MINOR,2026-05-14 12:00:00+00:00,1007,0,False,True,False,False,False,False,True,100
+Middlesex_New_Jersey_2026051414,Middlesex,New Jersey,MINOR,2026-05-14 14:00:00+00:00,973,0,False,False,False,True,False,False,True,100
+Suffolk_Massachusetts_2026051514,Suffolk,Massachusetts,MINOR,2026-05-15 14:00:00+00:00,943,0,False,False,False,True,False,False,True,100
+Erie_New_York_2026051618,Erie,New York,MODERATE,2026-05-16 18:00:00+00:00,2174,0,False,True,False,False,False,False,True,100
+Erie_New_York_2026051701,Erie,New York,MODERATE,2026-05-17 01:00:00+00:00,1081,0,False,True,False,False,False,False,True,100
+Erie_New_York_2026051619,Erie,New York,MODERATE,2026-05-16 19:00:00+00:00,959,0,False,False,False,True,False,False,True,100
+Allegheny_PA_2026051617,Allegheny,Pennsylvania,MODERATE,2026-05-16 17:00:00+00:00,334,0,False,False,False,True,False,False,True,100
+Allegheny_PA_2026051622,Allegheny,PA,MODERATE,2026-05-16 22:00:00+00:00,391,0,False,False,False,True,False,False,True,100
+Allegheny_PA_2026051718,Allegheny,PA,MODERATE,2026-05-17 18:00:00+00:00,355,0,False,False,False,True,False,False,True,100
+Allegheny_PA_2026051717,Allegheny,PA,MODERATE,2026-05-17 17:00:00+00:00,355,0,False,False,False,True,False,False,True,100

@@ -1,0 +1,27 @@
+{
+  "total_predictions_validated": 74,
+  "ci_hit_rate": 0.0,
+  "major_accuracy": 9.5,
+  "critical_accuracy": 100.0,
+  "median_pct_error": 100.0,
+  "mean_pct_error": 100.0,
+  "by_tier": {
+    "SEVERE": {
+      "n": 0,
+      "major_accuracy": null,
+      "median_error": null
+    },
+    "MODERATE": {
+      "n": 31,
+      "major_accuracy": 16.1,
+      "median_error": 100.0
+    },
+    "MINOR": {
+      "n": 43,
+      "major_accuracy": 4.7,
+      "median_error": 100.0
+    }
+  },
+  "validated_through": "2026-05-17",
+  "last_updated": "2026-07-16T18:28:35.662637"
+}
