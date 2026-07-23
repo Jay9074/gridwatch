@@ -133,6 +133,7 @@ Allegheny_PA_2026052220,Allegheny,PA,MINOR,2026-05-22 20:00:00+00:00,3415,0,Fals
 Philadelphia_PA_2026052308,Philadelphia,PA,MINOR,2026-05-23 08:00:00+00:00,3431,0,False,True,False,False,False,False,True,100
 Ocean_New_Jersey_2026052314,Ocean,New Jersey,MINOR,2026-05-23 14:00:00+00:00,2563,0,False,True,False,False,False,False,True,100
 Monmouth_New_Jersey_2026052312,Monmouth,New Jersey,MINOR,2026-05-23 12:00:00+00:00,2061,0,False,True,False,False,False,False,True,100
+Allegheny_PA_2026052400,Allegheny,PA,MODERATE,2026-05-24 00:00:00+00:00,1819,0,False,True,False,False,False,False,True,100
 Erie_New_York_2026052311,Erie,New York,MINOR,2026-05-23 11:00:00+00:00,1609,0,False,True,False,False,False,False,True,100
 Nassau_New_York_2026052315,Nassau,New York,MINOR,2026-05-23 15:00:00+00:00,1465,0,False,True,False,False,False,False,True,100
 Chester_PA_2026052308,Chester,PA,MINOR,2026-05-23 08:00:00+00:00,3415,0,False,True,False,False,False,False,True,100
