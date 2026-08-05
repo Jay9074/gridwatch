@@ -268,8 +268,10 @@ Androscoggin_Maine_2026060109,Androscoggin,Maine,MINOR,2026-06-01 09:00:00+00:00
 Worcester_Massachusetts_2026053121,Worcester,Massachusetts,MODERATE,2026-05-31 21:00:00+00:00,7607,0,False,True,False,False,False,False,True,100
 Middlesex_Massachusetts_2026053118,Middlesex,Massachusetts,MODERATE,2026-05-31 18:00:00+00:00,3072,0,False,True,False,False,False,False,True,100
 York_Maine_2026053118,York,Maine,MODERATE,2026-05-31 18:00:00+00:00,2766,0,False,True,False,False,False,False,True,100
+Fairfield_Connecticut_2026060618,Fairfield,Connecticut,MODERATE,2026-06-06 18:00:00+00:00,2092,0,False,True,False,False,False,False,True,100
 Cumberland_Maine_2026053118,Cumberland,Maine,MODERATE,2026-05-31 18:00:00+00:00,2012,0,False,True,False,False,False,False,True,100
 Providence_Rhode_Island_2026053122,Providence,Rhode Island,MODERATE,2026-05-31 22:00:00+00:00,1668,0,False,True,False,False,False,False,True,100
+Westchester_New_York_2026060618,Westchester,New York,MODERATE,2026-06-06 18:00:00+00:00,927,0,False,False,False,True,False,False,True,100
 Kennebec_Maine_2026053118,Kennebec,Maine,MODERATE,2026-05-31 18:00:00+00:00,887,0,False,False,False,True,False,False,True,100
 Essex_Massachusetts_2026053118,Essex,Massachusetts,MODERATE,2026-05-31 18:00:00+00:00,675,0,False,False,False,True,False,False,True,100
 Suffolk_Massachusetts_2026053118,Suffolk,Massachusetts,MODERATE,2026-05-31 18:00:00+00:00,432,0,False,False,False,True,False,False,True,100
@@ -277,11 +279,45 @@ Chittenden_Vermont_2026053118,Chittenden,Vermont,MODERATE,2026-05-31 18:00:00+00
 Hillsborough_NH_2026053118,Hillsborough,NH,MODERATE,2026-05-31 18:00:00+00:00,360,0,False,False,False,True,False,False,True,100
 Rockingham_NH_2026053118,Rockingham,NH,MODERATE,2026-05-31 18:00:00+00:00,360,0,False,False,False,True,False,False,True,100
 Androscoggin_Maine_2026053118,Androscoggin,Maine,MODERATE,2026-05-31 18:00:00+00:00,308,0,False,False,False,True,False,False,True,100
+Montgomery_PA_2026060618,Montgomery,PA,MODERATE,2026-06-06 18:00:00+00:00,280,0,False,False,False,True,False,False,True,100
 York_Maine_2026060111,York,Maine,MINOR,2026-06-01 11:00:00+00:00,1316,0,False,True,False,False,False,False,True,100
 Cumberland_Maine_2026060106,Cumberland,Maine,MINOR,2026-06-01 06:00:00+00:00,694,0,False,False,False,True,False,False,True,100
 Androscoggin_Maine_2026060107,Androscoggin,Maine,MINOR,2026-06-01 07:00:00+00:00,292,0,False,False,False,True,False,False,True,100
+Worcester_Massachusetts_2026060620,Worcester,Massachusetts,MODERATE,2026-06-06 20:00:00+00:00,2381,0,False,True,False,False,False,False,True,100
+Hartford_Connecticut_2026060620,Hartford,Connecticut,MODERATE,2026-06-06 20:00:00+00:00,1777,0,False,True,False,False,False,False,True,100
+Worcester_Massachusetts_2026060621,Worcester,Massachusetts,MODERATE,2026-06-06 21:00:00+00:00,3059,0,False,True,False,False,False,False,True,100
+York_Maine_2026060618,York,Maine,MODERATE,2026-06-06 18:00:00+00:00,2722,0,False,True,False,False,False,False,True,100
 Chittenden_Vermont_2026060612,Chittenden,Vermont,MODERATE,2026-06-06 12:00:00+00:00,2588,0,False,True,False,False,False,False,True,100
+Middlesex_Massachusetts_2026060621,Middlesex,Massachusetts,MODERATE,2026-06-06 21:00:00+00:00,2482,0,False,True,False,False,False,False,True,100
 Erie_New_York_2026060609,Erie,New York,MODERATE,2026-06-06 09:00:00+00:00,2425,0,False,True,False,False,False,False,True,100
+Hartford_Connecticut_2026060621,Hartford,Connecticut,MODERATE,2026-06-06 21:00:00+00:00,2354,0,False,True,False,False,False,False,True,100
+Cumberland_Maine_2026060618,Cumberland,Maine,MODERATE,2026-06-06 18:00:00+00:00,2045,0,False,True,False,False,False,False,True,100
+Penobscot_Maine_2026060618,Penobscot,Maine,MODERATE,2026-06-06 18:00:00+00:00,1808,0,False,True,False,False,False,False,True,100
+Kennebec_Maine_2026060618,Kennebec,Maine,MODERATE,2026-06-06 18:00:00+00:00,1718,0,False,True,False,False,False,False,True,100
+Essex_Massachusetts_2026060621,Essex,Massachusetts,MODERATE,2026-06-06 21:00:00+00:00,727,0,False,False,False,True,False,False,True,100
 Penobscot_Maine_2026060521,Penobscot,Maine,MODERATE,2026-06-05 21:00:00+00:00,802,0,False,False,False,True,False,False,True,100
+Hartford_Connecticut_2026060622,Hartford,Connecticut,MODERATE,2026-06-06 22:00:00+00:00,3055,0,False,True,False,False,False,False,True,100
+Worcester_Massachusetts_2026060622,Worcester,Massachusetts,MODERATE,2026-06-06 22:00:00+00:00,2381,0,False,True,False,False,False,False,True,100
+Middlesex_Massachusetts_2026060622,Middlesex,Massachusetts,MODERATE,2026-06-06 22:00:00+00:00,1854,0,False,True,False,False,False,False,True,100
+Essex_Massachusetts_2026060622,Essex,Massachusetts,MODERATE,2026-06-06 22:00:00+00:00,1151,0,False,True,False,False,False,False,True,100
+Suffolk_Massachusetts_2026060622,Suffolk,Massachusetts,MODERATE,2026-06-06 22:00:00+00:00,1051,0,False,True,False,False,False,False,True,100
+Hillsborough_NH_2026060619,Hillsborough,NH,MODERATE,2026-06-06 19:00:00+00:00,275,0,False,False,False,True,False,False,True,100
+Chittenden_Vermont_2026060618,Chittenden,Vermont,MINOR,2026-06-06 18:00:00+00:00,1728,0,False,True,False,False,False,False,True,100
+Worcester_Massachusetts_2026060618,Worcester,Massachusetts,MODERATE,2026-06-06 18:00:00+00:00,2894,0,False,True,False,False,False,False,True,100
+Providence_Rhode_Island_2026060622,Providence,Rhode Island,MODERATE,2026-06-06 22:00:00+00:00,2401,0,False,True,False,False,False,False,True,100
+Middlesex_Massachusetts_2026060618,Middlesex,Massachusetts,MODERATE,2026-06-06 18:00:00+00:00,2332,0,False,True,False,False,False,False,True,100
 Chittenden_Vermont_2026060617,Chittenden,Vermont,MINOR,2026-06-06 17:00:00+00:00,2323,0,False,True,False,False,False,False,True,100
+Hartford_Connecticut_2026060618,Hartford,Connecticut,MODERATE,2026-06-06 18:00:00+00:00,2195,0,False,True,False,False,False,False,True,100
+Fairfield_Connecticut_2026060621,Fairfield,Connecticut,MODERATE,2026-06-06 21:00:00+00:00,2025,0,False,True,False,False,False,False,True,100
+York_Maine_2026060621,York,Maine,MODERATE,2026-06-06 21:00:00+00:00,1428,0,False,True,False,False,False,False,True,100
+Allegheny_PA_2026060618,Allegheny,PA,MODERATE,2026-06-06 18:00:00+00:00,1342,0,False,True,False,False,False,False,True,100
 Erie_New_York_2026060606,Erie,New York,MODERATE,2026-06-06 06:00:00+00:00,848,0,False,False,False,True,False,False,True,100
+Westchester_New_York_2026060621,Westchester,New York,MODERATE,2026-06-06 21:00:00+00:00,832,0,False,False,False,True,False,False,True,100
+Erie_New_York_2026060618,Erie,New York,MODERATE,2026-06-06 18:00:00+00:00,801,0,False,False,False,True,False,False,True,100
+Suffolk_Massachusetts_2026060618,Suffolk,Massachusetts,MODERATE,2026-06-06 18:00:00+00:00,758,0,False,False,False,True,False,False,True,100
+Cumberland_Maine_2026060621,Cumberland,Maine,MODERATE,2026-06-06 21:00:00+00:00,758,0,False,False,False,True,False,False,True,100
+Essex_Massachusetts_2026060618,Essex,Massachusetts,MODERATE,2026-06-06 18:00:00+00:00,712,0,False,False,False,True,False,False,True,100
+Kennebec_Maine_2026060621,Kennebec,Maine,MODERATE,2026-06-06 21:00:00+00:00,702,0,False,False,False,True,False,False,True,100
+Androscoggin_Maine_2026060618,Androscoggin,Maine,MODERATE,2026-06-06 18:00:00+00:00,296,0,False,False,False,True,False,False,True,100
+Rockingham_NH_2026060621,Rockingham,NH,MODERATE,2026-06-06 21:00:00+00:00,280,0,False,False,False,True,False,False,True,100
+Hillsborough_NH_2026060618,Hillsborough,NH,MODERATE,2026-06-06 18:00:00+00:00,276,0,False,False,False,True,False,False,True,100
