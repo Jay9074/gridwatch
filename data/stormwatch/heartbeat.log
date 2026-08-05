@@ -57,3 +57,4 @@
 2026-07-24T20:46:57.813505 | OK | forecasts=4680 storms=79 predictions=79 | all_steps_ok
 2026-07-31T14:10:49.263024 | OK | forecasts=4680 storms=101 predictions=101 | all_steps_ok
 2026-08-05T11:31:42.795122 | OK | forecasts=4680 storms=101 predictions=101 | all_steps_ok
+2026-08-05T13:04:25.488618 | OK | forecasts=4680 storms=151 predictions=151 | all_steps_ok
