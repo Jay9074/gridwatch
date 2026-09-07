@@ -1194,11 +1194,13 @@ Chester_PA_2026070406,Chester,PA,MODERATE,2026-07-04 06:00:00+00:00,469,0,False,
 Hillsborough_NH_2026070418,Hillsborough,NH,MODERATE,2026-07-04 18:00:00+00:00,402,0,False,False,False,True,False,False,True,100
 Rockingham_NH_2026070418,Rockingham,NH,MODERATE,2026-07-04 18:00:00+00:00,402,0,False,False,False,True,False,False,True,100
 Chester_PA_2026070419,Chester,PA,MODERATE,2026-07-04 19:00:00+00:00,296,0,False,False,False,True,False,False,True,100
+Chittenden_Vermont_2026070912,Chittenden,Vermont,MODERATE,2026-07-09 12:00:00+00:00,4411,0,False,True,False,False,False,False,True,100
 Bucks_PA_2026070518,Bucks,PA,MODERATE,2026-07-05 18:00:00+00:00,3573,0,False,True,False,False,False,False,True,100
 Chester_PA_2026070518,Chester,PA,MODERATE,2026-07-05 18:00:00+00:00,3573,0,False,True,False,False,False,False,True,100
 Montgomery_PA_2026070518,Montgomery,PA,MODERATE,2026-07-05 18:00:00+00:00,3573,0,False,True,False,False,False,False,True,100
 Philadelphia_PA_2026070612,Philadelphia,PA,MODERATE,2026-07-06 12:00:00+00:00,3572,0,False,True,False,False,False,False,True,100
 Worcester_Massachusetts_2026070623,Worcester,Massachusetts,MINOR,2026-07-06 23:00:00+00:00,2974,0,False,True,False,False,False,False,True,100
+Allegheny_PA_2026070912,Allegheny,PA,MODERATE,2026-07-09 12:00:00+00:00,2887,0,False,True,False,False,False,False,True,100
 Monmouth_New_Jersey_2026070519,Monmouth,New Jersey,MODERATE,2026-07-05 19:00:00+00:00,2769,0,False,True,False,False,False,False,True,100
 Suffolk_New_York_2026070518,Suffolk,New York,MODERATE,2026-07-05 18:00:00+00:00,2693,0,False,True,False,False,False,False,True,100
 Fairfield_Connecticut_2026070518,Fairfield,Connecticut,MODERATE,2026-07-05 18:00:00+00:00,2533,0,False,True,False,False,False,False,True,100
@@ -1218,6 +1220,8 @@ Middlesex_New_Jersey_2026070518,Middlesex,New Jersey,MODERATE,2026-07-05 18:00:0
 Westchester_New_York_2026070518,Westchester,New York,MODERATE,2026-07-05 18:00:00+00:00,1741,0,False,True,False,False,False,False,True,100
 Essex_New_Jersey_2026070517,Essex,New Jersey,MODERATE,2026-07-05 17:00:00+00:00,1236,0,False,True,False,False,False,False,True,100
 Erie_New_York_2026070618,Erie,New York,MODERATE,2026-07-06 18:00:00+00:00,638,0,False,False,False,True,False,False,True,100
+Allegheny_PA_2026070818,Allegheny,PA,MODERATE,2026-07-08 18:00:00+00:00,402,0,False,False,False,True,False,False,True,100
+Chester_PA_2026070818,Chester,PA,MODERATE,2026-07-08 18:00:00+00:00,402,0,False,False,False,True,False,False,True,100
 Allegheny_PA_2026070715,Allegheny,PA,MODERATE,2026-07-07 15:00:00+00:00,390,0,False,False,False,True,False,False,True,100
 Bucks_PA_2026070718,Bucks,PA,MODERATE,2026-07-07 18:00:00+00:00,390,0,False,False,False,True,False,False,True,100
 Montgomery_PA_2026070718,Montgomery,PA,MODERATE,2026-07-07 18:00:00+00:00,390,0,False,False,False,True,False,False,True,100
