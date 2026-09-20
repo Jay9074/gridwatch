@@ -1335,6 +1335,7 @@ Philadelphia_PA_2026071812,Philadelphia,PA,MODERATE,2026-07-18 12:00:00+00:00,25
 Chester_PA_2026072106,Chester,PA,MODERATE,2026-07-21 06:00:00+00:00,2524,0,False,True,False,False,False,False,True,100
 Montgomery_PA_2026072106,Montgomery,PA,MODERATE,2026-07-21 06:00:00+00:00,2524,0,False,True,False,False,False,False,True,100
 Philadelphia_PA_2026072106,Philadelphia,PA,MODERATE,2026-07-21 06:00:00+00:00,2524,0,False,True,False,False,False,False,True,100
+Ocean_New_Jersey_2026072212,Ocean,New Jersey,MODERATE,2026-07-22 12:00:00+00:00,2522,0,False,True,False,False,False,False,True,100
 Middlesex_Massachusetts_2026071819,Middlesex,Massachusetts,MODERATE,2026-07-18 19:00:00+00:00,2519,0,False,True,False,False,False,False,True,100
 Kennebec_Maine_2026071821,Kennebec,Maine,MODERATE,2026-07-18 21:00:00+00:00,2449,0,False,True,False,False,False,False,True,100
 Cumberland_Maine_2026071818,Cumberland,Maine,MODERATE,2026-07-18 18:00:00+00:00,2446,0,False,True,False,False,False,False,True,100
@@ -1376,6 +1377,7 @@ Ocean_New_Jersey_2026072118,Ocean,New Jersey,MODERATE,2026-07-21 18:00:00+00:00,
 Worcester_Massachusetts_2026071820,Worcester,Massachusetts,MODERATE,2026-07-18 20:00:00+00:00,3351,0,False,True,False,False,False,False,True,100
 New_Haven_Connecticut_2026072118,New Haven,Connecticut,MODERATE,2026-07-21 18:00:00+00:00,3223,0,False,True,False,False,False,False,True,100
 Cumberland_Maine_2026072118,Cumberland,Maine,MODERATE,2026-07-21 18:00:00+00:00,3070,0,False,True,False,False,False,False,True,100
+Kennebec_Maine_2026072200,Kennebec,Maine,MODERATE,2026-07-22 00:00:00+00:00,3037,0,False,True,False,False,False,False,True,100
 York_Maine_2026072118,York,Maine,MODERATE,2026-07-21 18:00:00+00:00,3012,0,False,True,False,False,False,False,True,100
 Nassau_New_York_2026072118,Nassau,New York,MODERATE,2026-07-21 18:00:00+00:00,2947,0,False,True,False,False,False,False,True,100
 Monmouth_New_Jersey_2026071815,Monmouth,New Jersey,MODERATE,2026-07-18 15:00:00+00:00,2914,0,False,True,False,False,False,False,True,100
@@ -1392,6 +1394,7 @@ Hartford_Connecticut_2026071818,Hartford,Connecticut,MODERATE,2026-07-18 18:00:0
 Allegheny_PA_2026071811,Allegheny,PA,MODERATE,2026-07-18 11:00:00+00:00,2410,0,False,True,False,False,False,False,True,100
 Hillsborough_NH_2026072118,Hillsborough,NH,MODERATE,2026-07-21 18:00:00+00:00,2410,0,False,True,False,False,False,False,True,100
 Fairfield_Connecticut_2026071818,Fairfield,Connecticut,MODERATE,2026-07-18 18:00:00+00:00,2251,0,False,True,False,False,False,False,True,100
+Penobscot_Maine_2026072200,Penobscot,Maine,MINOR,2026-07-22 00:00:00+00:00,2219,0,False,True,False,False,False,False,True,100
 Rockingham_NH_2026072118,Rockingham,NH,MODERATE,2026-07-21 18:00:00+00:00,2204,0,False,True,False,False,False,False,True,100
 Providence_Rhode_Island_2026072118,Providence,Rhode Island,MODERATE,2026-07-21 18:00:00+00:00,2159,0,False,True,False,False,False,False,True,100
 Erie_New_York_2026072112,Erie,New York,MODERATE,2026-07-21 12:00:00+00:00,2028,0,False,True,False,False,False,False,True,100
