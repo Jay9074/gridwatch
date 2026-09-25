@@ -1451,3 +1451,18 @@ Hillsborough_NH_2026072218,Hillsborough,NH,MODERATE,2026-07-22 18:00:00+00:00,40
 Montgomery_PA_2026072218,Montgomery,PA,MODERATE,2026-07-22 18:00:00+00:00,402,0,False,False,False,True,False,False,True,100
 Rockingham_NH_2026072218,Rockingham,NH,MODERATE,2026-07-22 18:00:00+00:00,402,0,False,False,False,True,False,False,True,100
 Hillsborough_NH_2026071820,Hillsborough,NH,MINOR,2026-07-18 20:00:00+00:00,438,0,False,False,False,True,False,False,True,100
+Fairfield_Connecticut_2026072700,Fairfield,Connecticut,MODERATE,2026-07-27 00:00:00+00:00,1649,0,False,True,False,False,False,False,True,100
+Bergen_New_Jersey_2026072700,Bergen,New Jersey,MODERATE,2026-07-27 00:00:00+00:00,1223,0,False,True,False,False,False,False,True,100
+Westchester_New_York_2026072700,Westchester,New York,MODERATE,2026-07-27 00:00:00+00:00,1096,0,False,True,False,False,False,False,True,100
+Chittenden_Vermont_2026072618,Chittenden,Vermont,MODERATE,2026-07-26 18:00:00+00:00,830,0,False,False,False,True,False,False,True,100
+Essex_New_Jersey_2026072700,Essex,New Jersey,MODERATE,2026-07-27 00:00:00+00:00,549,0,False,False,False,True,False,False,True,100
+Bucks_PA_2026072700,Bucks,PA,MODERATE,2026-07-27 00:00:00+00:00,402,0,False,False,False,True,False,False,True,100
+Chester_PA_2026072700,Chester,PA,MODERATE,2026-07-27 00:00:00+00:00,402,0,False,False,False,True,False,False,True,100
+Montgomery_PA_2026072700,Montgomery,PA,MODERATE,2026-07-27 00:00:00+00:00,402,0,False,False,False,True,False,False,True,100
+Philadelphia_PA_2026072700,Philadelphia,PA,MODERATE,2026-07-27 00:00:00+00:00,402,0,False,False,False,True,False,False,True,100
+Allegheny_PA_2026072521,Allegheny,PA,MODERATE,2026-07-25 21:00:00+00:00,409,0,False,False,False,True,False,False,True,100
+Allegheny_PA_2026072712,Allegheny,PA,MODERATE,2026-07-27 12:00:00+00:00,3573,0,False,True,False,False,False,False,True,100
+Allegheny_PA_2026072618,Allegheny,PA,MODERATE,2026-07-26 18:00:00+00:00,1887,0,False,True,False,False,False,False,True,100
+Erie_New_York_2026072618,Erie,New York,MODERATE,2026-07-26 18:00:00+00:00,1234,0,False,True,False,False,False,False,True,100
+Erie_New_York_2026072712,Erie,New York,MODERATE,2026-07-27 12:00:00+00:00,1176,0,False,True,False,False,False,False,True,100
+Allegheny_PA_2026072518,Allegheny,PA,MODERATE,2026-07-25 18:00:00+00:00,402,0,False,False,False,True,False,False,True,100
