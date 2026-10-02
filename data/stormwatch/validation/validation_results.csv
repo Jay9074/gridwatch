@@ -1606,6 +1606,10 @@ Middlesex_Massachusetts_2026073118,Middlesex,Massachusetts,MODERATE,2026-07-31 1
 Hartford_Connecticut_2026073118,Hartford,Connecticut,MODERATE,2026-07-31 18:00:00+00:00,1772,0,False,True,False,False,False,False,True,100
 Erie_New_York_2026080201,Erie,New York,MODERATE,2026-08-02 01:00:00+00:00,1468,0,False,True,False,False,False,False,True,100
 Allegheny_PA_2026080200,Allegheny,PA,MODERATE,2026-08-02 00:00:00+00:00,1405,0,False,True,False,False,False,False,True,100
+Bucks_PA_2026080300,Bucks,PA,MODERATE,2026-08-03 00:00:00+00:00,1405,0,False,True,False,False,False,False,True,100
+Chester_PA_2026080300,Chester,PA,MODERATE,2026-08-03 00:00:00+00:00,1405,0,False,True,False,False,False,False,True,100
+Montgomery_PA_2026080300,Montgomery,PA,MODERATE,2026-08-03 00:00:00+00:00,1405,0,False,True,False,False,False,False,True,100
 Providence_Rhode_Island_2026073118,Providence,Rhode Island,MODERATE,2026-07-31 18:00:00+00:00,1380,0,False,True,False,False,False,False,True,100
+Chittenden_Vermont_2026080218,Chittenden,Vermont,MODERATE,2026-08-02 18:00:00+00:00,933,0,False,False,False,True,False,False,True,100
 Suffolk_Massachusetts_2026073118,Suffolk,Massachusetts,MODERATE,2026-07-31 18:00:00+00:00,808,0,False,False,False,True,False,False,True,100
 Hillsborough_NH_2026073118,Hillsborough,NH,MODERATE,2026-07-31 18:00:00+00:00,409,0,False,False,False,True,False,False,True,100
