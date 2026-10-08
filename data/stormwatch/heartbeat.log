@@ -90,3 +90,4 @@
 2026-10-02T07:32:50.464621 | OK | forecasts=2808 storms=5 predictions=5 | all_steps_ok
 2026-10-04T12:45:06.116618 | OK | forecasts=4680 storms=6 predictions=6 | all_steps_ok
 2026-10-07T22:00:35.481579 | OK | forecasts=4680 storms=33 predictions=33 | all_steps_ok
+2026-10-08T02:29:31.142176 | OK | forecasts=4680 storms=30 predictions=30 | all_steps_ok
