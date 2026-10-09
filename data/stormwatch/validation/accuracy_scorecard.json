@@ -1,7 +1,7 @@
 {
-  "total_predictions_validated": 1853,
+  "total_predictions_validated": 1881,
   "ci_hit_rate": 0.0,
-  "major_accuracy": 30.9,
+  "major_accuracy": 31.2,
   "critical_accuracy": 100.0,
   "median_pct_error": 100.0,
   "mean_pct_error": 100.0,
@@ -12,8 +12,8 @@
       "median_error": null
     },
     "MODERATE": {
-      "n": 1657,
-      "major_accuracy": 31.6,
+      "n": 1685,
+      "major_accuracy": 31.9,
       "median_error": 100.0
     },
     "MINOR": {
@@ -22,6 +22,6 @@
       "median_error": 100.0
     }
   },
-  "validated_through": "2026-08-09",
-  "last_updated": "2026-10-08T12:37:29.351257"
+  "validated_through": "2026-08-10",
+  "last_updated": "2026-10-09T18:12:28.095434"
 }
