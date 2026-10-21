@@ -102,3 +102,4 @@
 2026-10-15T03:45:35.518375 | OK | forecasts=4680 storms=54 predictions=54 | all_steps_ok
 2026-10-16T12:06:16.134158 | OK | forecasts=4680 storms=41 predictions=41 | all_steps_ok
 2026-10-21T17:15:00.778914 | PARTIAL | forecasts=4680 storms=0 predictions=0 | failed: restoration_estimator.py
+2026-10-21T18:55:20.299544 | PARTIAL | forecasts=4680 storms=0 predictions=0 | failed: restoration_estimator.py
