@@ -1,1 +1,2 @@
-
+county,state,storm_tier,peak_severity,start_time,end_time,duration_hrs,max_wind_mph,max_precip_pct,primary_trigger,hours_ahead,predicted_customers,ci_low,ci_high,confidence_level,model_version,is_major_outage_likely,is_critical_outage_likely,predicted_at,prediction_id
+Erie,New York,MINOR,2,2026-10-29 23:00:00+00:00,2026-10-30 02:00:00+00:00,3.0,17.0,61,Precip 60%,24.1,1936,1065,2808,HIGH,v4,True,False,2026-10-28T22:55:19.276604,Erie_New_York_2026102923
