@@ -1,4 +1,4 @@
 county,state,storm_tier,peak_severity,start_time,end_time,duration_hrs,max_wind_mph,max_precip_pct,primary_trigger,hours_ahead,predicted_customers,ci_low,ci_high,confidence_level,model_version,is_major_outage_likely,is_critical_outage_likely,predicted_at,prediction_id
-Ocean,New Jersey,MINOR,2,2026-11-23 06:00:00+00:00,2026-11-23 11:00:00+00:00,5.0,5.0,62,Precip 62%,104.7,3749,2062,5436,HIGH,v4,True,False,2026-11-18T21:17:46.585042,Ocean_New_Jersey_2026112306
-Suffolk,New York,MINOR,2,2026-11-23 06:00:00+00:00,2026-11-23 11:00:00+00:00,5.0,8.0,62,Precip 62%,104.7,2652,1458,3845,HIGH,v4,True,False,2026-11-18T21:17:46.604596,Suffolk_New_York_2026112306
-Providence,Rhode Island,MINOR,2,2026-11-23 09:00:00+00:00,2026-11-23 09:00:00+00:00,0.0,5.0,60,Precip 60%,107.7,1411,776,2046,HIGH,v4,True,False,2026-11-18T21:17:46.626194,Providence_Rhode_Island_2026112309
+Ocean,New Jersey,MINOR,2,2026-11-23 06:00:00+00:00,2026-11-23 11:00:00+00:00,5.0,5.0,62,Precip 62%,102.1,3749,2062,5436,HIGH,v4,True,False,2026-11-18T23:54:05.388352,Ocean_New_Jersey_2026112306
+Suffolk,New York,MINOR,2,2026-11-23 06:00:00+00:00,2026-11-23 11:00:00+00:00,5.0,8.0,62,Precip 62%,102.1,2652,1458,3845,HIGH,v4,True,False,2026-11-18T23:54:05.397352,Suffolk_New_York_2026112306
+Providence,Rhode Island,MINOR,2,2026-11-23 09:00:00+00:00,2026-11-23 09:00:00+00:00,0.0,5.0,60,Precip 60%,105.1,1411,776,2046,HIGH,v4,True,False,2026-11-18T23:54:05.403352,Providence_Rhode_Island_2026112309
