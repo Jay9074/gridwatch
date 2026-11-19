@@ -2372,6 +2372,8 @@ Penobscot_Maine_2026091316,Penobscot,Maine,MINOR,2026-09-13 16:00:00+00:00,1164,
 Cumberland_Maine_2026091314,Cumberland,Maine,MINOR,2026-09-13 14:00:00+00:00,1011,0,False,True,False,False,False,False,True,100
 Chittenden_Vermont_2026091306,Chittenden,Vermont,MINOR,2026-09-13 06:00:00+00:00,200,0,False,False,False,True,False,False,True,100
 Androscoggin_Maine_2026091312,Androscoggin,Maine,MINOR,2026-09-13 12:00:00+00:00,200,0,False,False,False,True,False,False,True,100
+Erie_New_York_2026092000,Erie,New York,MINOR,2026-09-20 00:00:00+00:00,2662,0,False,True,False,False,False,False,True,100
+Allegheny_PA_2026092000,Allegheny,PA,MODERATE,2026-09-20 00:00:00+00:00,1310,0,False,True,False,False,False,False,True,100
 Allegheny_PA_2026091713,Allegheny,PA,MODERATE,2026-09-17 13:00:00+00:00,1043,0,False,True,False,False,False,False,True,100
 Hillsborough_NH_2026091721,Hillsborough,NH,MODERATE,2026-09-17 21:00:00+00:00,200,0,False,False,False,True,False,False,True,100
 Chester_PA_2026091800,Chester,PA,MODERATE,2026-09-18 00:00:00+00:00,200,0,False,False,False,True,False,False,True,100
@@ -2384,3 +2386,5 @@ Kennebec_Maine_2026091801,Kennebec,Maine,MINOR,2026-09-18 01:00:00+00:00,1052,0,
 Cumberland_Maine_2026091800,Cumberland,Maine,MINOR,2026-09-18 00:00:00+00:00,1012,0,False,True,False,False,False,False,True,100
 Penobscot_Maine_2026091802,Penobscot,Maine,MINOR,2026-09-18 02:00:00+00:00,983,0,False,False,False,True,False,False,True,100
 Androscoggin_Maine_2026091800,Androscoggin,Maine,MINOR,2026-09-18 00:00:00+00:00,200,0,False,False,False,True,False,False,True,100
+Erie_New_York_2026092006,Erie,New York,MINOR,2026-09-20 06:00:00+00:00,2661,0,False,True,False,False,False,False,True,100
+Allegheny_PA_2026092006,Allegheny,PA,MODERATE,2026-09-20 06:00:00+00:00,1388,0,False,True,False,False,False,False,True,100

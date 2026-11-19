@@ -1,4 +1,10 @@
 county,state,storm_tier,peak_severity,start_time,end_time,duration_hrs,max_wind_mph,max_precip_pct,primary_trigger,hours_ahead
-Ocean,New Jersey,MINOR,2,2026-11-23 06:00:00+00:00,2026-11-23 11:00:00+00:00,5.0,5.0,62,Precip 62%,102.1
-Suffolk,New York,MINOR,2,2026-11-23 06:00:00+00:00,2026-11-23 11:00:00+00:00,5.0,8.0,62,Precip 62%,102.1
-Providence,Rhode Island,MINOR,2,2026-11-23 09:00:00+00:00,2026-11-23 09:00:00+00:00,0.0,5.0,60,Precip 60%,105.1
+Ocean,New Jersey,MINOR,2,2026-11-23 06:00:00+00:00,2026-11-23 11:00:00+00:00,5.0,5.0,62,Precip 62%,95.8
+Suffolk,New York,MINOR,2,2026-11-23 06:00:00+00:00,2026-11-23 11:00:00+00:00,5.0,8.0,62,Precip 62%,95.8
+Rockingham,NH,MINOR,2,2026-11-23 07:00:00+00:00,2026-11-23 13:00:00+00:00,6.0,5.0,71,Precip 60%,96.8
+Cumberland,Maine,MINOR,2,2026-11-23 08:00:00+00:00,2026-11-23 16:00:00+00:00,8.0,10.0,66,Precip 60%,97.8
+Hillsborough,NH,MINOR,2,2026-11-23 08:00:00+00:00,2026-11-23 11:00:00+00:00,3.0,0.0,67,Precip 62%,97.8
+York,Maine,MINOR,2,2026-11-23 08:00:00+00:00,2026-11-23 15:00:00+00:00,7.0,5.0,68,Precip 62%,97.8
+Providence,Rhode Island,MINOR,2,2026-11-23 09:00:00+00:00,2026-11-23 09:00:00+00:00,0.0,5.0,60,Precip 60%,98.8
+Kennebec,Maine,MINOR,2,2026-11-23 13:00:00+00:00,2026-11-23 16:00:00+00:00,3.0,10.0,64,Precip 60%,102.8
+Androscoggin,Maine,MINOR,2,2026-11-23 14:00:00+00:00,2026-11-23 15:00:00+00:00,1.0,5.0,62,Precip 61%,103.8
