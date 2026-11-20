@@ -2411,6 +2411,7 @@ Hartford_Connecticut_2026092017,Hartford,Connecticut,MINOR,2026-09-20 17:00:00+0
 Kennebec_Maine_2026092020,Kennebec,Maine,MINOR,2026-09-20 20:00:00+00:00,1048,0,False,True,False,False,False,False,True,100
 Rockingham_NH_2026092018,Rockingham,NH,MINOR,2026-09-20 18:00:00+00:00,1012,0,False,True,False,False,False,False,True,100
 Androscoggin_Maine_2026092019,Androscoggin,Maine,MINOR,2026-09-20 19:00:00+00:00,200,0,False,False,False,True,False,False,True,100
+Ocean_New_Jersey_2026092100,Ocean,New Jersey,MINOR,2026-09-21 00:00:00+00:00,7060,0,False,True,False,False,False,False,True,100
 Monmouth_New_Jersey_2026092019,Monmouth,New Jersey,MODERATE,2026-09-20 19:00:00+00:00,5058,0,False,True,False,False,False,False,True,100
 Middlesex_New_Jersey_2026092018,Middlesex,New Jersey,MINOR,2026-09-20 18:00:00+00:00,3869,0,False,True,False,False,False,False,True,100
 Erie_New_York_2026092006,Erie,New York,MINOR,2026-09-20 06:00:00+00:00,2661,0,False,True,False,False,False,False,True,100
@@ -2418,6 +2419,7 @@ Allegheny_PA_2026092006,Allegheny,PA,MODERATE,2026-09-20 06:00:00+00:00,1388,0,F
 Bucks_PA_2026092018,Bucks,PA,MINOR,2026-09-20 18:00:00+00:00,1072,0,False,True,False,False,False,False,True,100
 Chester_PA_2026092022,Chester,PA,MODERATE,2026-09-20 22:00:00+00:00,200,0,False,False,False,True,False,False,True,100
 Montgomery_PA_2026092022,Montgomery,PA,MINOR,2026-09-20 22:00:00+00:00,200,0,False,False,False,True,False,False,True,100
+Philadelphia_PA_2026092023,Philadelphia,PA,MODERATE,2026-09-20 23:00:00+00:00,200,0,False,False,False,True,False,False,True,100
 Worcester_Massachusetts_2026092017,Worcester,Massachusetts,MINOR,2026-09-20 17:00:00+00:00,9196,0,False,True,False,False,False,False,True,100
 Essex_Massachusetts_2026092017,Essex,Massachusetts,MINOR,2026-09-20 17:00:00+00:00,8172,0,False,True,False,False,False,False,True,100
 Middlesex_Massachusetts_2026092018,Middlesex,Massachusetts,MINOR,2026-09-20 18:00:00+00:00,7176,0,False,True,False,False,False,False,True,100
