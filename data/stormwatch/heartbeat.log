@@ -122,3 +122,4 @@
 2026-11-19T17:09:28.034413 | OK | forecasts=4680 storms=27 predictions=27 | all_steps_ok
 2026-11-19T20:57:40.485393 | OK | forecasts=4680 storms=34 predictions=34 | all_steps_ok
 2026-11-20T10:37:52.343953 | OK | forecasts=4680 storms=37 predictions=37 | all_steps_ok
+2026-11-21T13:15:35.996738 | OK | forecasts=4680 storms=37 predictions=37 | all_steps_ok

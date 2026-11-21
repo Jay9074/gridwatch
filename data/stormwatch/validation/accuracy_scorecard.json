@@ -1,5 +1,5 @@
 {
-  "total_predictions_validated": 2444,
+  "total_predictions_validated": 2445,
   "ci_hit_rate": 0.0,
   "major_accuracy": 32.2,
   "critical_accuracy": 100.0,
@@ -17,11 +17,11 @@
       "median_error": 100.0
     },
     "MINOR": {
-      "n": 325,
-      "major_accuracy": 27.7,
+      "n": 326,
+      "major_accuracy": 27.6,
       "median_error": 100.0
     }
   },
-  "validated_through": "2026-09-21",
-  "last_updated": "2026-11-20T15:37:49.126274"
+  "validated_through": "2026-09-22",
+  "last_updated": "2026-11-21T18:15:31.504222"
 }
