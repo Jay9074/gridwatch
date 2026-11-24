@@ -2405,12 +2405,14 @@ Androscoggin_Maine_2026092021,Androscoggin,Maine,MINOR,2026-09-20 21:00:00+00:00
 Androscoggin_Maine_2026091800,Androscoggin,Maine,MINOR,2026-09-18 00:00:00+00:00,200,0,False,False,False,True,False,False,True,100
 Chittenden_Vermont_2026092012,Chittenden,Vermont,MINOR,2026-09-20 12:00:00+00:00,200,0,False,False,False,True,False,False,True,100
 Hillsborough_NH_2026092015,Hillsborough,NH,MINOR,2026-09-20 15:00:00+00:00,200,0,False,False,False,True,False,False,True,100
+Allegheny_PA_2026092400,Allegheny,PA,MODERATE,2026-09-24 00:00:00+00:00,200,0,False,False,False,True,False,False,True,100
 Essex_Massachusetts_2026092018,Essex,Massachusetts,MINOR,2026-09-20 18:00:00+00:00,7613,0,False,True,False,False,False,False,True,100
 Worcester_Massachusetts_2026092018,Worcester,Massachusetts,MINOR,2026-09-20 18:00:00+00:00,5781,0,False,True,False,False,False,False,True,100
 Hartford_Connecticut_2026092017,Hartford,Connecticut,MINOR,2026-09-20 17:00:00+00:00,4663,0,False,True,False,False,False,False,True,100
 Kennebec_Maine_2026092020,Kennebec,Maine,MINOR,2026-09-20 20:00:00+00:00,1048,0,False,True,False,False,False,False,True,100
 Rockingham_NH_2026092018,Rockingham,NH,MINOR,2026-09-20 18:00:00+00:00,1012,0,False,True,False,False,False,False,True,100
 Androscoggin_Maine_2026092019,Androscoggin,Maine,MINOR,2026-09-20 19:00:00+00:00,200,0,False,False,False,True,False,False,True,100
+Allegheny_PA_2026092306,Allegheny,PA,MINOR,2026-09-23 06:00:00+00:00,200,0,False,False,False,True,False,False,True,100
 Ocean_New_Jersey_2026092100,Ocean,New Jersey,MINOR,2026-09-21 00:00:00+00:00,7060,0,False,True,False,False,False,False,True,100
 Monmouth_New_Jersey_2026092019,Monmouth,New Jersey,MODERATE,2026-09-20 19:00:00+00:00,5058,0,False,True,False,False,False,False,True,100
 Middlesex_New_Jersey_2026092018,Middlesex,New Jersey,MINOR,2026-09-20 18:00:00+00:00,3869,0,False,True,False,False,False,False,True,100
@@ -2423,6 +2425,7 @@ Philadelphia_PA_2026092023,Philadelphia,PA,MODERATE,2026-09-20 23:00:00+00:00,20
 Worcester_Massachusetts_2026092017,Worcester,Massachusetts,MINOR,2026-09-20 17:00:00+00:00,9196,0,False,True,False,False,False,False,True,100
 Essex_Massachusetts_2026092017,Essex,Massachusetts,MINOR,2026-09-20 17:00:00+00:00,8172,0,False,True,False,False,False,False,True,100
 Middlesex_Massachusetts_2026092018,Middlesex,Massachusetts,MINOR,2026-09-20 18:00:00+00:00,7176,0,False,True,False,False,False,False,True,100
+Ocean_New_Jersey_2026092317,Ocean,New Jersey,MINOR,2026-09-23 17:00:00+00:00,5025,0,False,True,False,False,False,False,True,100
 Hartford_Connecticut_2026092016,Hartford,Connecticut,MINOR,2026-09-20 16:00:00+00:00,4663,0,False,True,False,False,False,False,True,100
 Bergen_New_Jersey_2026092012,Bergen,New Jersey,MINOR,2026-09-20 12:00:00+00:00,4165,0,False,True,False,False,False,False,True,100
 Suffolk_New_York_2026092018,Suffolk,New York,MINOR,2026-09-20 18:00:00+00:00,3869,0,False,True,False,False,False,False,True,100
@@ -2431,6 +2434,7 @@ New_Haven_Connecticut_2026092018,New Haven,Connecticut,MINOR,2026-09-20 18:00:00
 Providence_Rhode_Island_2026092018,Providence,Rhode Island,MINOR,2026-09-20 18:00:00+00:00,3157,0,False,True,False,False,False,False,True,100
 Essex_New_Jersey_2026092015,Essex,New Jersey,MINOR,2026-09-20 15:00:00+00:00,2976,0,False,True,False,False,False,False,True,100
 Nassau_New_York_2026092018,Nassau,New York,MINOR,2026-09-20 18:00:00+00:00,2855,0,False,True,False,False,False,False,True,100
+Suffolk_New_York_2026092411,Suffolk,New York,MINOR,2026-09-24 11:00:00+00:00,2777,0,False,True,False,False,False,False,True,100
 Fairfield_Connecticut_2026092015,Fairfield,Connecticut,MINOR,2026-09-20 15:00:00+00:00,2715,0,False,True,False,False,False,False,True,100
 Allegheny_PA_2026092206,Allegheny,PA,MINOR,2026-09-22 06:00:00+00:00,1726,0,False,True,False,False,False,False,True,100
 Suffolk_Massachusetts_2026092018,Suffolk,Massachusetts,MINOR,2026-09-20 18:00:00+00:00,1511,0,False,True,False,False,False,False,True,100
@@ -2444,3 +2448,6 @@ Androscoggin_Maine_2026092018,Androscoggin,Maine,MINOR,2026-09-20 18:00:00+00:00
 Hillsborough_NH_2026092018,Hillsborough,NH,MINOR,2026-09-20 18:00:00+00:00,200,0,False,False,False,True,False,False,True,100
 Montgomery_PA_2026092018,Montgomery,PA,MINOR,2026-09-20 18:00:00+00:00,200,0,False,False,False,True,False,False,True,100
 Philadelphia_PA_2026092018,Philadelphia,PA,MINOR,2026-09-20 18:00:00+00:00,200,0,False,False,False,True,False,False,True,100
+Ocean_New_Jersey_2026092313,Ocean,New Jersey,MINOR,2026-09-23 13:00:00+00:00,9422,0,False,True,False,False,False,False,True,100
+Monmouth_New_Jersey_2026092316,Monmouth,New Jersey,MINOR,2026-09-23 16:00:00+00:00,4510,0,False,True,False,False,False,False,True,100
+Ocean_New_Jersey_2026092410,Ocean,New Jersey,MINOR,2026-09-24 10:00:00+00:00,4076,0,False,True,False,False,False,False,True,100
