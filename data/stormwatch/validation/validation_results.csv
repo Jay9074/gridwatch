@@ -2451,3 +2451,8 @@ Philadelphia_PA_2026092018,Philadelphia,PA,MINOR,2026-09-20 18:00:00+00:00,200,0
 Ocean_New_Jersey_2026092313,Ocean,New Jersey,MINOR,2026-09-23 13:00:00+00:00,9422,0,False,True,False,False,False,False,True,100
 Monmouth_New_Jersey_2026092316,Monmouth,New Jersey,MINOR,2026-09-23 16:00:00+00:00,4510,0,False,True,False,False,False,False,True,100
 Ocean_New_Jersey_2026092410,Ocean,New Jersey,MINOR,2026-09-24 10:00:00+00:00,4076,0,False,True,False,False,False,False,True,100
+Ocean_New_Jersey_2026092516,Ocean,New Jersey,MODERATE,2026-09-25 16:00:00+00:00,7681,0,False,True,False,False,False,False,True,100
+Monmouth_New_Jersey_2026092600,Monmouth,New Jersey,MODERATE,2026-09-26 00:00:00+00:00,6040,0,False,True,False,False,False,False,True,100
+Suffolk_New_York_2026092521,Suffolk,New York,MODERATE,2026-09-25 21:00:00+00:00,4361,0,False,True,False,False,False,False,True,100
+Providence_Rhode_Island_2026092600,Providence,Rhode Island,MINOR,2026-09-26 00:00:00+00:00,4283,0,False,True,False,False,False,False,True,100
+Suffolk_Massachusetts_2026092517,Suffolk,Massachusetts,MODERATE,2026-09-25 17:00:00+00:00,2304,0,False,True,False,False,False,False,True,100
